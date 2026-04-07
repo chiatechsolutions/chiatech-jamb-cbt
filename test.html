@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1a1a2e" />
+  <title>ChiaTech JAMB CBT — Exam</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!--
+    CRITICAL: MathJax config BEFORE script.
+    Copy this exact block to every HTML page that renders questions.
+  -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath:  [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: { '[+]': ['ams', 'boldsymbol'] }
+      },
+      chtml: {
+        scale: 1.1,           /* Slightly larger for exam readability */
+        minScale: 0.5,
+        matchFontHeight: true,
+        mtextInheritFont: true
+      },
+      options: {
+        skipHtmlTags: ['script','noscript','style','textarea','pre','code'],
+        processHtmlClass: 'math-render'
+      },
+      startup: {
+        typeset: false
+      }
+    };
+  </script>
+  <script src="mathjax/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#184d28">
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header class="exam-header">
+    <div class="exam-info">
+      <span id="subjectLabel">Subject</span>
+      <span id="questionCounter">Question 1 of 40</span>
+    </div>
+    <div class="exam-controls">
+      <button id="calcBtn" title="Calculator">🖩</button>
+      <div id="timerDisplay" class="timer">00:00</div>
+    </div>
+  </header>
+
+  <!-- Main exam area -->
+  <main class="exam-main">
+
+    <!-- Question panel -->
+    <section class="question-panel" id="questionPanel">
+      <!-- Populated by app.js renderQuestion() -->
+    </section>
+
+    <!-- Navigation -->
+    <nav class="question-nav">
+      <button id="prevBtn" onclick="navigateQuestion(-1)">◀ Previous</button>
+      <div id="questionPalette" class="question-palette">
+        <!-- Number buttons populated by app.js -->
+      </div>
+      <button id="nextBtn" onclick="navigateQuestion(1)">Next ▶</button>
+    </nav>
+
+    <!-- Submit -->
+    <div class="submit-area">
+      <button id="submitBtn" onclick="submitExam()">SUBMIT EXAM</button>
+    </div>
+
+  </main>
+
+  <!-- Calculator overlay (populated by calculator.js) -->
+  <div id="calculatorOverlay" class="calculator-overlay" style="display:none;"></div>
+
+  <script src="js/timer.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

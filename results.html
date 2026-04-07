@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results — ChiaTech CBT 2026</title>
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#184d28">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: linear-gradient(135deg, #0a2e0a, #0d2d6b); min-height: 100vh; padding: 20px; }
+        .wrapper { max-width: 800px; margin: auto; }
+        .result-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
+        }
+        .result-header {
+            background: linear-gradient(135deg, #0a2e0a, #0d2d6b);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .score-circle {
+            width: 130px; height: 130px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 15px auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .score-circle .score-num { font-size: 2.5rem; font-weight: 900; color: #0a2e0a; }
+        .score-circle .score-out { font-size: 0.8rem; color: #666; }
+        .result-header h2 { font-size: 1.4rem; letter-spacing: 2px; }
+        .result-body { padding: 25px; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .stat {
+            text-align: center;
+            padding: 16px 10px;
+            border-radius: 10px;
+            background: #f5f5f5;
+        }
+        .stat .num { font-size: 1.5rem; font-weight: 900; color: #0a2e0a; }
+        .stat .label { font-size: 0.72rem; color: #888; margin-top: 3px; font-weight: 700; }
+        .grade-box {
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .grade-box .grade { font-size: 3rem; font-weight: 900; }
+        .grade-box .remark { font-size: 1rem; margin-top: 5px; font-weight: 700; }
+        .review-title {
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #555;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #eee;
+        }
+        .review-item {
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid;
+        }
+        .review-item.correct { background: #e8f5e9; border-color: #2e7d32; }
+        .review-item.wrong   { background: #ffebee; border-color: #c62828; }
+        .review-item .qtext  { font-size: 0.88rem; font-weight: 700; color: #333; margin-bottom: 6px; }
+        .review-item .your-ans { font-size: 0.82rem; color: #555; }
+        .review-item .correct-ans { font-size: 0.82rem; color: #2e7d32; font-weight: 700; }
+        .action-btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+        .action-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 14px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.88rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .btn-select { background: #0a2e0a; color: white; }
+        .btn-select:hover { background: #1a5c1a; }
+        .btn-home { background: #eee; color: #555; }
+        .btn-home:hover { background: #ddd; }
+        @media (max-width: 500px) { .stats-grid { grid-template-columns: 1fr 1fr; } }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="result-card">
+        <div class="result-header">
+            <h2>📊 TEST RESULT</h2>
+            <p id="subjectLabel" style="opacity:0.75;margin-top:5px;font-size:0.88rem"></p>
+            <div class="score-circle">
+                <span class="score-num" id="scoreNum">0</span>
+                <span class="score-out" id="scoreOut">of 40</span>
+            </div>
+            <p id="percentLabel" style="font-size:1.1rem;font-weight:800"></p>
+        </div>
+
+        <div class="result-body">
+            <div class="stats-grid">
+                <div class="stat">
+                    <div class="num" id="correctCount" style="color:#2e7d32">0</div>
+                    <div class="label">✅ CORRECT</div>
+                </div>
+                <div class="stat">
+                    <div class="num" id="wrongCount" style="color:#c62828">0</div>
+                    <div class="label">❌ WRONG</div>
+                </div>
+                <div class="stat">
+                    <div class="num" id="skippedCount" style="color:#f57c00">0</div>
+                    <div class="label">⏭️ SKIPPED</div>
+                </div>
+            </div>
+
+            <div class="grade-box" id="gradeBox">
+                <div class="grade" id="gradeText"></div>
+                <div class="remark" id="gradeRemark"></div>
+            </div>
+
+            <div class="review-title">📝 QUESTION REVIEW</div>
+            <div id="reviewContainer"></div>
+
+            <div class="action-btns">
+                <button class="action-btn btn-select" onclick="window.location.href='test-selection.html'">
+                    📋 Practice Another Subject
+                </button>
+                <button class="action-btn btn-home" onclick="window.location.href='index.html'">
+                    🏠 Back to Home
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var score    = parseInt(localStorage.getItem("ct_score")       || "0");
+    var total    = parseInt(localStorage.getItem("ct_total")       || "40");
+    var subject  = localStorage.getItem("ct_subject_done")          || "Unknown";
+    var time     = localStorage.getItem("ct_time_taken")            || "N/A";
+    var answers  = JSON.parse(localStorage.getItem("ct_answers")    || "[]");
+    var qs       = JSON.parse(localStorage.getItem("ct_questions")  || "[]");
+    var name     = localStorage.getItem("ct_name")                  || "Student";
+    var percent  = Math.round((score / total) * 100);
+    var correct  = score;
+    var wrong    = answers.filter(function(a) { return a !== -1; }).length - correct;
+    var skipped  = answers.filter(function(a) { return a === -1; }).length;
+
+    document.getElementById("subjectLabel").textContent   = subject.toUpperCase() + " | " + name + " | Time: " + time;
+    document.getElementById("scoreNum").textContent        = score;
+    document.getElementById("scoreOut").textContent        = "of " + total;
+    document.getElementById("percentLabel").textContent    = percent + "%";
+    document.getElementById("correctCount").textContent    = correct;
+    document.getElementById("wrongCount").textContent      = wrong;
+    document.getElementById("skippedCount").textContent    = skipped;
+
+    var grade, remark, color;
+    if (percent >= 70) { grade = "A"; remark = "🏆 Excellent! JAMB Ready!"; color = "#e8f5e9"; }
+    else if (percent >= 60) { grade = "B"; remark = "👍 Good Performance!"; color = "#e3f2fd"; }
+    else if (percent >= 50) { grade = "C"; remark = "📚 Average - Keep Studying!"; color = "#fff8e1"; }
+    else if (percent >= 40) { grade = "D"; remark = "⚠️ Below Average - More Practice Needed!"; color = "#fff3e0"; }
+    else { grade = "F"; remark = "❌ Poor - Intensive Study Required!"; color = "#ffebee"; }
+
+    var gradeBox = document.getElementById("gradeBox");
+    gradeBox.style.background = color;
+    document.getElementById("gradeText").textContent  = "Grade " + grade + " (" + percent + "%)";
+    document.getElementById("gradeRemark").textContent = remark;
+
+    var reviewContainer = document.getElementById("reviewContainer");
+    for (var i = 0; i < qs.length; i++) {
+        var q        = qs[i];
+        var userAns  = answers[i];
+        var isCorrect = (userAns === q.ans);
+        var div = document.createElement("div");
+        div.className = "review-item " + (isCorrect ? "correct" : "wrong");
+        var userAnsText    = userAns === -1 ? "Not answered" : q.opts[userAns];
+        var correctAnsText = q.opts[q.ans];
+        div.innerHTML =
+            '<div class="qtext">' + (i+1) + '. ' + q.q + '</div>' +
+            '<div class="your-ans">Your answer: ' + userAnsText + '</div>' +
+            (isCorrect ? '' : '<div class="correct-ans">✅ Correct answer: ' + correctAnsText + '</div>');
+        reviewContainer.appendChild(div);
+    }
+</script>
+</body>
+</html>

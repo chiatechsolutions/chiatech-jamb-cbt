@@ -1,681 +1,1052 @@
-/* ═══════════════════════════════════════════════════
-   CHIATECH JAMB CBT 2026 — Core Application Logic
-   ═══════════════════════════════════════════════════ */
+/* ================================================================
+   CHIATECH JAMB CBT PRACTICE 2026 — app.js
+   Final production version
+   - Backend-only PIN verification
+   - Form-encoded POST to Google Apps Script
+   - Fixes MathJax crash
+   - Supports side diagrams
+   - 20 tests, 120 minutes, English 60 / others 40
+   - Scores each subject over 100, total over 400
+================================================================ */
+// ✅ Listen for Service Worker updates and reload the page
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    window.location.reload();
+  });
+}
+"use strict";
 
-// ─────────────────────────────────────────────────────
-//  CONFIG
-// ─────────────────────────────────────────────────────
-const CONFIG = {
-  ACCESS_PIN: "CHIATECH2026",           // Change this PIN
-  APPS_SCRIPT_URL: "Yhttps://script.google.com/macros/s/AKfycby-mBrCG5N8_qA8FkloEenTiSgSNiWSgSfrJpy1bH_7ATr3RrKR3tdSzWJCRQ0nKBmyRg/exec",
-  EXAM_DURATION: 7200,                   // 120 minutes in seconds
+/* ═══════════════════════════════════════════════════════════════
+   1. CONFIG
+═══════════════════════════════════════════════════════════════ */
+const CFG = {
+  GAS_URL:"https://script.google.com/macros/s/AKfycbwbTYOTuysoKrNRxA98cqiWp-u37DzEg1ior3hLsJTrXRHlZytz0ozLSBVOZavWC9MhoA/exec",
+  EXAM_SECS: 7200,
   TOTAL_TESTS: 20,
-  ENGLISH_QUESTIONS: 60,
-  OTHER_QUESTIONS: 40,
+  ENG_QS: 60,
+  OTHER_QS: 40,
+  AUTOSAVE_MS: 30000,
+  STORAGE_KEY: "ct_cbt_session_v4",
+  APP_NAME: "CHIATECH JAMB CBT PRACTICE 2026"
 };
 
-// ─────────────────────────────────────────────────────
-//  APP STATE
-// ─────────────────────────────────────────────────────
-const state = {
-  student: { name: "", email: "", phone: "" },
-  selectedTest: 1,
-  selectedSubjects: [],          // e.g. ["English","Physics","Chemistry","Biology"]
-  currentSubjectIdx: 0,
-  currentQIdx: 0,
-  answers: {},                   // { "Physics_1": "A", "English_5": "C" }
-  flagged: {},                   // { "Physics_3": true }
-  timeRemaining: CONFIG.EXAM_DURATION,
-  examActive: false,
+/* ═══════════════════════════════════════════════════════════════
+   2. STATE
+═══════════════════════════════════════════════════════════════ */
+let S = {
+  student: { name: "", email: "", phone: "", pin: "" },
+  subjects: [],
+  testNumber: null,
+  questions: {},
+  answers: {},
+  flagged: {},
+  scores: {},
+  curSubject: "English",
+  curIdx: 0,
+  timerLeft: CFG.EXAM_SECS,
+  timerRef: null,
+  autoSaveRef: null,
   submitted: false,
-  currentReviewSubject: "",
+  pinVerified: false
 };
 
-// Helper: question key
-const qKey = (subject, idx) => `${subject}_${idx}`;
+let _mathJaxBusy = false;
 
-// ─────────────────────────────────────────────────────
-//  SCREEN MANAGEMENT
-// ─────────────────────────────────────────────────────
-function showScreen(id) {
-  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-  const el = document.getElementById(id);
-  if (el) { el.classList.add("active"); window.scrollTo(0,0); }
+/* ═══════════════════════════════════════════════════════════════
+   3. BOOT
+═══════════════════════════════════════════════════════════════ */
+document.addEventListener("DOMContentLoaded", () => {
+  S.subjects = [];
+  wireGateCheckboxes();
+  // restoreSession();
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   4. HELPERS
+═══════════════════════════════════════════════════════════════ */
+function byId(id) {
+  return document.getElementById(id);
 }
 
-// ─────────────────────────────────────────────────────
-//  STEP 1: VERIFY ACCESS GATE
-// ─────────────────────────────────────────────────────
-function verifyAndProceed() {
-  const name    = document.getElementById("studentName").value.trim();
-  const email   = document.getElementById("studentEmail").value.trim();
-  const phone   = document.getElementById("studentPhone").value.trim();
-  const pin     = document.getElementById("accessPin").value.trim();
-  const errEl   = document.getElementById("gateError");
-  const loadEl  = document.getElementById("gateLoading");
+function val(id) {
+  return (byId(id)?.value || "").trim();
+}
 
-  // Validation
-  if (!name) return showError(errEl, "⚠ Please enter your full name.");
-  if (pin !== CONFIG.ACCESS_PIN) return showError(errEl, "❌ Invalid Access PIN. Contact your tutor.");
+function setHTML(id, html) {
+  const el = byId(id);
+  if (el) el.innerHTML = html;
+}
 
-  const checked = [...document.querySelectorAll(".subject-grid input:checked")].map(i => i.value);
-  if (checked.length !== 3) return showError(errEl, "⚠ Please select exactly 3 subjects (English is auto-included).");
+function setText(id, text) {
+  const el = byId(id);
+  if (el) el.textContent = text;
+}
 
-  errEl.style.display = "none";
-  loadEl.style.display = "flex";
+function escapeHtml(str) {
+  return String(str ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
 
-  // Style selected subject pills
-  document.querySelectorAll(".subject-pill").forEach(p => {
-    p.classList.toggle("selected", p.querySelector("input").checked);
-  });
+function safeMathHtml(html) {
+  return String(html ?? "");
+}
 
-  setTimeout(() => {
-    loadEl.style.display = "none";
-    state.student = { name, email, phone };
-    state.selectedSubjects = ["English", ...checked];
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function pad2(n) {
+  return String(n).padStart(2, "0");
+}
+
+function mkKey(subject, idx) {
+  return `${subject}|${idx}`;
+}
+
+function testKey(n) {
+  return `test${n}`;
+}
+
+function prettyNow() {
+  try {
+    return new Date().toLocaleString("en-NG", {
+      dateStyle: "medium",
+      timeStyle: "short"
+    });
+  } catch (_) {
+    return new Date().toLocaleString();
+  }
+}
+
+function cssEscapeValue(str) {
+  if (window.CSS && typeof window.CSS.escape === "function") {
+    return CSS.escape(str);
+  }
+  return String(str).replace(/["\\]/g, "\\$&");
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   5. SCREEN CONTROL
+═══════════════════════════════════════════════════════════════ */
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(el => el.classList.remove("active"));
+  const sc = byId(id);
+  if (sc) {
+    sc.classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   6. ACCESS GATE
+═══════════════════════════════════════════════════════════════ */
+function wireGateCheckboxes() {
+  document
+    .querySelectorAll(".subject-grid input[type='checkbox']")
+    .forEach(cb => cb.addEventListener("change", handleSubjectChange));
+}
+
+function handleSubjectChange(e) {
+  const value = e.target.value;
+
+  if (e.target.checked) {
+    if (S.subjects.length >= 3) {
+      e.target.checked = false;
+      showGateError("⚠️ Select exactly 3 subjects besides English.");
+      return;
+    }
+    if (!S.subjects.includes(value)) S.subjects.push(value);
+  } else {
+    S.subjects = S.subjects.filter(s => s !== value);
+  }
+
+  clearGateMessages();
+}
+
+function showGateError(msg) {
+  const el = byId("gateMessage");
+  if (!el) return;
+  el.style.color = "#9b1111";
+  el.innerHTML = msg;
+}
+
+function showGateSuccess(msg) {
+  const el = byId("gateMessage");
+  if (!el) return;
+  el.style.color = "#17652c";
+  el.innerHTML = msg;
+}
+
+function clearGateMessages() {
+  const el = byId("gateMessage");
+  if (!el) return;
+  el.innerHTML = "";
+}
+
+function setGateLoading(loading) {
+  const btn = byId("continueBtn");
+  if (!btn) return;
+
+  btn.disabled = !!loading;
+  btn.style.opacity = loading ? "0.7" : "1";
+  btn.innerHTML = loading
+    ? `<i class="fas fa-spinner fa-spin"></i> Verifying PIN...`
+    : `<i class="fas fa-circle-play"></i> Proceed to Test Selection`;
+}
+
+async function verifyAndProceed() {
+  const name = val("studentName");
+  const email = val("studentEmail");
+  const phone = val("studentPhone");
+  const pin = val("accessPin").toUpperCase();
+
+  if (!name) return showGateError("⚠️ Full name is required.");
+  if (!email) return showGateError("⚠️ Email address is required.");
+  if (!isValidEmail(email)) return showGateError("⚠️ Enter a valid email address.");
+  if (!pin) return showGateError("⚠️ Access PIN is required.");
+  if (S.subjects.length !== 3) {
+    return showGateError("⚠️ Select exactly 3 subjects besides English.");
+  }
+
+  setGateLoading(true);
+  clearGateMessages();
+
+  try {
+    const formData = new URLSearchParams();
+    formData.append("action", "verifyPin");
+    formData.append("pin", pin);
+    formData.append("email", email);
+    formData.append("name", name);
+    formData.append("phone", phone);
+
+    const res = await fetch(CFG.GAS_URL, {
+      method: "POST",
+      body: formData
+    });
+
+    const text = await res.text();
+
+    let data = {};
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      throw new Error("Backend did not return valid JSON: " + text);
+    }
+
+    if (!res.ok || !data.success) {
+      setGateLoading(false);
+      return showGateError("❌ " + (data.message || "PIN verification failed."));
+    }
+
+    S.student = { name, email, phone, pin };
+    S.subjects = ["English", ...S.subjects];
+    S.pinVerified = true;
+
+    saveSession();
+    showGateSuccess("✅ PIN verified successfully.");
+    setGateLoading(false);
+
     buildTestSelectionScreen();
     showScreen("testSelectScreen");
-  }, 800);
+  } catch (err) {
+    console.error("PIN verification error:", err);
+    setGateLoading(false);
+    showGateError("❌ Unable to verify PIN right now. Check internet and try again.");
+  }
 }
 
-function showError(el, msg) {
-  el.textContent = msg;
-  el.style.display = "flex";
-  el.scrollIntoView({ behavior: "smooth", block: "nearest" });
-}
-
-// ─────────────────────────────────────────────────────
-//  STEP 2: BUILD TEST SELECTION SCREEN
-// ─────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════
+   7. TEST SELECTION
+═══════════════════════════════════════════════════════════════ */
 function buildTestSelectionScreen() {
-  document.getElementById("testSelectStudent").textContent = `Welcome, ${state.student.name}`;
+  setHTML("testSelectStudent", `
+    <p><strong>Candidate:</strong> ${escapeHtml(S.student.name)}</p>
+    <p><strong>Email:</strong> ${escapeHtml(S.student.email)}</p>
+  `);
 
-  const badgeRow = document.getElementById("testSelectSubjects");
-  badgeRow.innerHTML = state.selectedSubjects.map(s =>
-    `<span class="badge-green">${s}</span>`).join("");
+  setHTML(
+    "testSelectSubjects",
+    S.subjects.map(sub => `<span class="badge-subject">${escapeHtml(sub)}</span>`).join("")
+  );
 
-  const grid = document.getElementById("testGrid");
+  const grid = byId("testGrid");
+  if (!grid) return;
+
+  const totalQ = S.subjects.reduce(
+    (sum, sub) => sum + (sub === "English" ? CFG.ENG_QS : CFG.OTHER_QS),
+    0
+  );
+
   grid.innerHTML = "";
 
-  for (let t = 1; t <= CONFIG.TOTAL_TESTS; t++) {
+  for (let t = 1; t <= CFG.TOTAL_TESTS; t++) {
     const card = document.createElement("div");
     card.className = "test-card";
     card.innerHTML = `
-      <div class="test-num">${t}</div>
-      <div class="test-label">TEST ${t}</div>
-      <div class="test-qs">
-        Eng: ${CONFIG.ENGLISH_QUESTIONS}Q<br>
-        Others: ${CONFIG.OTHER_QUESTIONS}Q each
+      <div class="test-card-number">Test ${t}</div>
+      <div class="test-card-label">${escapeHtml(testLabel(t))}</div>
+      <div class="test-card-info">
+        <i class="fas fa-question-circle"></i> ${totalQ} Questions &nbsp;|&nbsp;
+        <i class="fas fa-clock"></i> 120 Minutes
       </div>
+      <button class="btn-primary btn-sm" type="button" onclick="selectTest(${t})">
+        <i class="fas fa-play"></i> Start
+      </button>
     `;
-    card.onclick = () => selectTest(t);
     grid.appendChild(card);
   }
 }
 
-function selectTest(testNum) {
-  state.selectedTest = testNum;
-  buildInstructionsScreen();
+function testLabel(t) {
+  if (t <= 4) return "Build Your Confidence";
+  if (t <= 8) return "Step Up Your Confidence";
+  if (t <= 12) return "Speed, Accuracy and Mastery";
+  if (t <= 16) return "300+ Readiness Challenge";
+  return "Mixed Difficult Questions";
+}
+
+function selectTest(num) {
+  S.testNumber = num;
+  saveSession();
+
+  setText("instrName", S.student.name);
+  setText("instrTest", `Test ${num} — ${testLabel(num)}`);
+  setHTML(
+    "instrSubjects",
+    S.subjects.map(sub => `<span class="badge-subject">${escapeHtml(sub)}</span>`).join("")
+  );
+
   showScreen("instructionsScreen");
 }
 
-// ─────────────────────────────────────────────────────
-//  STEP 3: INSTRUCTIONS SCREEN
-// ─────────────────────────────────────────────────────
-function buildInstructionsScreen() {
-  document.getElementById("instrName").textContent = state.student.name;
-  document.getElementById("instrTest").textContent = `Test ${state.selectedTest}`;
-
-  const subjectRow = document.getElementById("instrSubjects");
-  subjectRow.innerHTML = state.selectedSubjects.map(s =>
-    `<span class="badge-green">${s}</span>`).join("");
-}
-
-// ─────────────────────────────────────────────────────
-//  STEP 4: BEGIN EXAM
-// ─────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════
+   8. BEGIN EXAM
+═══════════════════════════════════════════════════════════════ */
 function beginExam() {
-  // Reset state
-  state.answers  = {};
-  state.flagged  = {};
-  state.currentSubjectIdx = 0;
-  state.currentQIdx = 0;
-  state.submitted = false;
-  state.timeRemaining = CONFIG.EXAM_DURATION;
-
-  // Build exam UI
-  buildSubjectTabs();
-  loadSubject(0);
-
-  // Update student badge
-  document.getElementById("examStudentBadge").textContent = state.student.name;
-
-  showScreen("examScreen");
-  startTimer();
-  state.examActive = true;
-}
-
-// ─────────────────────────────────────────────────────
-//  BUILD SUBJECT TABS
-// ─────────────────────────────────────────────────────
-function buildSubjectTabs() {
-  const bar = document.getElementById("subjectTabsBar");
-  bar.innerHTML = "";
-  state.selectedSubjects.forEach((sub, idx) => {
-    const btn = document.createElement("button");
-    btn.className = "subject-tab" + (idx === 0 ? " active" : "");
-    btn.textContent = sub.toUpperCase();
-    btn.id = `tab_${idx}`;
-    btn.onclick = () => switchSubject(idx);
-    bar.appendChild(btn);
-  });
-}
-
-// ─────────────────────────────────────────────────────
-//  LOAD SUBJECT
-// ─────────────────────────────────────────────────────
-function loadSubject(subIdx) {
-  state.currentSubjectIdx = subIdx;
-  state.currentQIdx = 0;
-
-  // Update tab styling
-  document.querySelectorAll(".subject-tab").forEach((t,i) => {
-    t.classList.toggle("active", i === subIdx);
-  });
-
-  buildPalette();
-  loadQuestion();
-}
-
-function switchSubject(subIdx) {
-  loadSubject(subIdx);
-}
-
-// ─────────────────────────────────────────────────────
-//  GET CURRENT SUBJECT DATA
-// ─────────────────────────────────────────────────────
-function getCurrentSubject() {
-  return state.selectedSubjects[state.currentSubjectIdx];
-}
-
-function getQuestions(subject, testNum) {
-  const bank = window.QUESTION_BANK;
-  if (!bank || !bank[subject]) return [];
-  const key = `test${testNum}`;
-  return bank[subject][key] || [];
-}
-
-function getQuestionsForCurrentSubject() {
-  return getQuestions(getCurrentSubject(), state.selectedTest);
-}
-
-function getTotalQuestionsForSubject(subject) {
-  return subject === "English" ? CONFIG.ENGLISH_QUESTIONS : CONFIG.OTHER_QUESTIONS;
-}
-
-// ─────────────────────────────────────────────────────
-//  LOAD QUESTION
-// ─────────────────────────────────────────────────────
-function loadQuestion() {
-  const subject  = getCurrentSubject();
-  const questions = getQuestionsForCurrentSubject();
-  const total    = questions.length || getTotalQuestionsForSubject(subject);
-  const qIdx     = state.currentQIdx;
-  const q        = questions[qIdx];
-
-  // Update label
-  document.getElementById("questionLabel").textContent =
-    `${subject}: Question ${qIdx + 1} of ${total}`;
-
-  // Flag indicator
-  const key = qKey(subject, qIdx);
-  const isFlagged = !!state.flagged[key];
-  document.getElementById("flagIndicator").style.display = isFlagged ? "flex" : "none";
-  const flagBtn = document.getElementById("flagBtn");
-  flagBtn.classList.toggle("active", isFlagged);
-
-  if (!q) {
-    document.getElementById("questionText").textContent = `Question ${qIdx + 1} — (Content coming soon. Check questions/${subject.toLowerCase()}.js)`;
-    document.getElementById("optionsContainer").innerHTML = "";
-    document.getElementById("passagePanel").style.display = "none";
-    document.getElementById("diagramContainer").style.display = "none";
-    updatePalette();
+  if (!window.QUESTION_BANK) {
+    alert("Question bank not loaded. Please refresh the page.");
+    return;
+  }
+  if (!S.testNumber) {
+    alert("Please select a test first.");
     return;
   }
 
-  // Passage
-  const passPanel = document.getElementById("passagePanel");
-  if (q.passage) {
-    passPanel.style.display = "block";
-    document.getElementById("passageText").innerHTML = q.passage;
-  } else {
-    passPanel.style.display = "none";
+  S.questions = {};
+  S.answers = {};
+  S.flagged = {};
+  S.scores = {};
+  S.submitted = false;
+  S.curIdx = 0;
+  S.timerLeft = CFG.EXAM_SECS;
+
+  const tKey = testKey(S.testNumber);
+
+  for (const sub of S.subjects) {
+    const bank = window.QUESTION_BANK[sub];
+    if (!bank || !bank[tKey]) {
+      alert(`⚠️ Questions missing: ${sub} ${tKey}.`);
+      return;
+    }
+
+    const limit = sub === "English" ? CFG.ENG_QS : CFG.OTHER_QS;
+    S.questions[sub] = bank[tKey].slice(0, limit);
   }
 
-  // Diagram
-  const diagContainer = document.getElementById("diagramContainer");
-  if (q.image) {
-    diagContainer.style.display = "block";
-    document.getElementById("questionDiagram").src = q.image;
-  } else {
-    diagContainer.style.display = "none";
-  }
+  S.curSubject = S.subjects[0];
+  window._cbtCurrentPassage = "";
 
-  // Question text
-  document.getElementById("questionText").innerHTML = q.question;
-
-  // Options
-  const optContainer = document.getElementById("optionsContainer");
-  optContainer.innerHTML = "";
-  const selectedAns = state.answers[key];
-
-  Object.entries(q.options).forEach(([letter, text]) => {
-    const div = document.createElement("div");
-    div.className = "option-item" + (selectedAns === letter ? " selected" : "");
-    div.innerHTML = `<span class="opt-letter">${letter}</span><span class="opt-text">${text}</span>`;
-    div.onclick = () => selectAnswer(letter);
-    optContainer.appendChild(div);
-  });
-
-  // Nav buttons
-  document.getElementById("prevBtn").disabled = qIdx === 0;
-  document.getElementById("nextBtn").textContent = (qIdx === total - 1) ? "END ✓" : "NEXT ›";
-
-  updatePalette();
-
-  // Re-render MathJax
-  if (window.MathJax) {
-    MathJax.typesetPromise([document.getElementById("questionText"),
-                            document.getElementById("optionsContainer")]).catch(console.error);
-  }
+  buildExamUI();
+  showScreen("examScreen");
+  startTimer();
+  startAutoSave();
+  saveSession();
 }
 
-// ─────────────────────────────────────────────────────
-//  SELECT ANSWER
-// ─────────────────────────────────────────────────────
-function selectAnswer(letter) {
-  if (state.submitted) return;
-  const subject = getCurrentSubject();
-  const key = qKey(subject, state.currentQIdx);
-  state.answers[key] = letter;
+/* ═══════════════════════════════════════════════════════════════
+   9. EXAM UI
+═══════════════════════════════════════════════════════════════ */
+function buildExamUI() {
+  setText("examStudentBadge", `${S.student.name} — Test ${S.testNumber}`);
+  buildSubjectTabs();
+  buildPalette();
+  renderQuestion();
+  renderTimer();
+}
 
-  // Update option UI
-  document.querySelectorAll(".option-item").forEach(opt => {
-    const optLetter = opt.querySelector(".opt-letter").textContent;
-    opt.classList.toggle("selected", optLetter === letter);
-    opt.querySelector(".opt-letter").style.background = optLetter === letter ? "var(--primary)" : "";
-    opt.querySelector(".opt-letter").style.color = optLetter === letter ? "white" : "";
+function buildSubjectTabs() {
+  const el = byId("subjectTabs");
+  if (!el) return;
+
+  el.innerHTML = S.subjects.map(sub => `
+    <button
+      class="subject-tab ${sub === S.curSubject ? "active" : ""}"
+      type="button"
+      onclick="switchSubject('${escapeHtml(sub).replaceAll("'", "\\'")}')"
+    >
+      ${escapeHtml(sub)} (${(S.questions[sub] || []).length})
+    </button>
+  `).join("");
+}
+
+function switchSubject(subject) {
+  if (!S.questions[subject]) return;
+  S.curSubject = subject;
+  S.curIdx = 0;
+  buildSubjectTabs();
+  buildPalette();
+  renderQuestion();
+  saveSession();
+  window._cbtCurrentPassage = "";
+}
+
+function buildPalette() {
+  const el = byId("questionPalette");
+  if (!el) return;
+  el.innerHTML = "";
+
+  (S.questions[S.curSubject] || []).forEach((_, idx) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "palette-btn";
+    btn.textContent = String(idx + 1);
+    btn.dataset.idx = String(idx);
+    btn.addEventListener("click", () => jumpToQuestion(idx));
+    el.appendChild(btn);
   });
 
   updatePalette();
-  updateProgress();
 }
 
-// ─────────────────────────────────────────────────────
-//  NAVIGATION
-// ─────────────────────────────────────────────────────
+function updatePalette() {
+  const qs = S.questions[S.curSubject] || [];
+  qs.forEach((_, idx) => {
+    const key = mkKey(S.curSubject, idx);
+    const btn = document.querySelector(`#questionPalette .palette-btn[data-idx="${idx}"]`);
+    if (!btn) return;
+
+    btn.classList.remove("answered", "flagged", "current", "unanswered");
+
+    if (idx === S.curIdx) btn.classList.add("current");
+    else if (S.flagged[key]) btn.classList.add("flagged");
+    else if (S.answers[key]) btn.classList.add("answered");
+    else btn.classList.add("unanswered");
+  });
+}
+
+function renderQuestion() {
+  const qs = S.questions[S.curSubject] || [];
+  const q = qs[S.curIdx];
+  // ===== JAMB PASSAGE SYSTEM =====
+if (typeof window._cbtCurrentPassage === "undefined") {
+  window._cbtCurrentPassage = "";
+}
+
+/* passage control
+   - string with content => start new passage block
+   - null => continue previous passage block
+   - "" or false => clear passage block
+*/
+if (q.passage === "" || q.passage === false) {
+  window._cbtCurrentPassage = "";
+} else if (q.passage !== null && q.passage !== undefined) {
+  window._cbtCurrentPassage = q.passage;
+}
+
+const passageHTML = window._cbtCurrentPassage
+  ? `<div class="cbt-passage math-content">${safeMathHtml(window._cbtCurrentPassage)}</div>`
+  : "";
+  if (!q) return;
+
+  const key = mkKey(S.curSubject, S.curIdx);
+  const selected = S.answers[key] || "";
+
+  const diagramHtml = q.diagram ? `
+    <aside class="question-diagram-box">
+      <img
+        src="${q.diagram}"
+        alt="Question diagram"
+        class="question-diagram"
+        onerror="this.closest('.question-diagram-box').style.display='none';"
+      />
+      <div class="question-diagram-caption">Question Diagram</div>
+    </aside>
+  ` : "";
+
+  const optionsHtml = ["A", "B", "C", "D"].map(letter => {
+    const optionText = q.options?.[letter];
+    if (!optionText) return "";
+
+    return `
+      <label class="option-card option-item ${selected === letter ? "selected" : ""}" data-key="${key}" data-letter="${letter}">
+        <input
+          type="radio"
+          name="q_${escapeHtml(key)}"
+          value="${letter}"
+          ${selected === letter ? "checked" : ""}
+          onchange="selectAnswer('${key.replaceAll("\\", "\\\\").replaceAll("'", "\\'")}','${letter}')"
+        />
+        <span class="option-letter">${letter}.</span>
+        <span class="option-text math-content">${safeMathHtml(optionText)}</span>
+      </label>
+    `;
+  }).join("");
+
+  const html = `
+  <div class="question-wrap ${q.diagram ? "has-diagram" : ""}">
+    <div class="question-main">
+      <div class="question-meta">
+        <span class="question-number">Question ${S.curIdx + 1} of ${qs.length}</span>
+        <span class="question-topic">${escapeHtml(q.topic || S.curSubject)}</span>
+        ${S.flagged[key] ? `<span class="question-topic" style="background:#fff3d4;color:#7a5400;">Flagged</span>` : ""}
+      </div>
+
+      ${passageHTML}
+
+      <div class="question-text math-content">${safeMathHtml(q.question)}</div>
+
+      <div class="options-container">${optionsHtml}</div>
+    </div>
+    ${diagramHtml}
+  </div>
+`;
+
+  setHTML("questionContainer", html);
+  buildSubjectTabs();
+  updatePalette();
+  safeTypesetMath([byId("questionContainer")]);
+  saveSession();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   10. MATHJAX
+═══════════════════════════════════════════════════════════════ */
+function safeTypesetMath(elements = []) {
+  if (!window.MathJax || !window.mathJaxReady || _mathJaxBusy) return;
+
+  const valid = elements.filter(el => el && el.nodeType === 1);
+  if (!valid.length) return;
+
+  _mathJaxBusy = true;
+
+  MathJax.typesetPromise(valid)
+    .catch(err => console.warn("MathJax render error:", err))
+    .finally(() => {
+      _mathJaxBusy = false;
+    });
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   11. ANSWERS
+═══════════════════════════════════════════════════════════════ */
+function selectAnswer(key, letter) {
+  if (S.submitted) return;
+  S.answers[key] = letter;
+
+  document
+    .querySelectorAll(`.option-item[data-key="${cssEscapeValue(key)}"]`)
+    .forEach(el => {
+      el.classList.toggle("selected", el.dataset.letter === letter);
+      const input = el.querySelector("input[type='radio']");
+      if (input) input.checked = el.dataset.letter === letter;
+    });
+
+  updatePalette();
+  saveSession();
+}
+
+function toggleFlagCurrent() {
+  if (S.submitted) return;
+  const key = mkKey(S.curSubject, S.curIdx);
+  S.flagged[key] = !S.flagged[key];
+  renderQuestion();
+  updatePalette();
+  saveSession();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   12. NAVIGATION
+═══════════════════════════════════════════════════════════════ */
 function nextQuestion() {
-  const questions = getQuestionsForCurrentSubject();
-  const total = questions.length || getTotalQuestionsForSubject(getCurrentSubject());
+  const qs = S.questions[S.curSubject] || [];
+  if (S.curIdx < qs.length - 1) {
+    S.curIdx++;
+    renderQuestion();
+    return;
+  }
 
-  if (state.currentQIdx < total - 1) {
-    state.currentQIdx++;
-    loadQuestion();
+  const subIndex = S.subjects.indexOf(S.curSubject);
+  if (subIndex < S.subjects.length - 1) {
+    S.curSubject = S.subjects[subIndex + 1];
+    S.curIdx = 0;
+    buildSubjectTabs();
+    buildPalette();
+    renderQuestion();
   }
 }
 
 function prevQuestion() {
-  if (state.currentQIdx > 0) {
-    state.currentQIdx--;
-    loadQuestion();
-  }
-}
-
-// ─────────────────────────────────────────────────────
-//  FLAG QUESTION
-// ─────────────────────────────────────────────────────
-function flagQuestion() {
-  const key = qKey(getCurrentSubject(), state.currentQIdx);
-  state.flagged[key] = !state.flagged[key];
-  loadQuestion(); // refresh display
-}
-
-// ─────────────────────────────────────────────────────
-//  PALETTE
-// ─────────────────────────────────────────────────────
-function buildPalette() {
-  const subject  = getCurrentSubject();
-  const questions = getQuestionsForCurrentSubject();
-  const total    = questions.length || getTotalQuestionsForSubject(subject);
-  const palette  = document.getElementById("questionPalette");
-  palette.innerHTML = "";
-
-  for (let i = 0; i < total; i++) {
-    const key = qKey(subject, i);
-    const btn = document.createElement("div");
-    btn.className = "palette-btn";
-    btn.textContent = i + 1;
-    btn.id = `pb_${i}`;
-
-    if (state.flagged[key]) btn.classList.add("flagged");
-    else if (state.answers[key]) btn.classList.add("answered");
-    if (i === state.currentQIdx) btn.classList.add("current");
-
-    btn.onclick = () => { state.currentQIdx = i; loadQuestion(); };
-    palette.appendChild(btn);
-  }
-
-  updateProgress();
-}
-
-function updatePalette() {
-  const subject  = getCurrentSubject();
-  const questions = getQuestionsForCurrentSubject();
-  const total    = questions.length || getTotalQuestionsForSubject(subject);
-
-  for (let i = 0; i < total; i++) {
-    const key = qKey(subject, i);
-    const btn = document.getElementById(`pb_${i}`);
-    if (!btn) continue;
-    btn.className = "palette-btn";
-    if (state.flagged[key]) btn.classList.add("flagged");
-    else if (state.answers[key]) btn.classList.add("answered");
-    if (i === state.currentQIdx) btn.classList.add("current");
-  }
-
-  updateProgress();
-}
-
-function updateProgress() {
-  let total = 0, answered = 0;
-  state.selectedSubjects.forEach(sub => {
-    const qs = getQuestions(sub, state.selectedTest);
-    const t = qs.length || getTotalQuestionsForSubject(sub);
-    total += t;
-    for (let i = 0; i < t; i++) {
-      if (state.answers[qKey(sub, i)]) answered++;
-    }
-  });
-
-  const pct = total > 0 ? (answered / total) * 100 : 0;
-  document.getElementById("progressBar").style.width = pct + "%";
-  document.getElementById("progressText").textContent = `${answered} / ${total} answered`;
-}
-
-// ─────────────────────────────────────────────────────
-//  SUBMIT
-// ─────────────────────────────────────────────────────
-function confirmSubmit() {
-  let total = 0, answered = 0, flaggedCount = 0;
-
-  state.selectedSubjects.forEach(sub => {
-    const qs = getQuestions(sub, state.selectedTest);
-    const t = qs.length || getTotalQuestionsForSubject(sub);
-    total += t;
-    for (let i = 0; i < t; i++) {
-      const key = qKey(sub, i);
-      if (state.answers[key]) answered++;
-      if (state.flagged[key]) flaggedCount++;
-    }
-  });
-
-  const unanswered = total - answered;
-
-  document.getElementById("submitStats").innerHTML = `
-    <div>✅ Answered: <strong>${answered}</strong></div>
-    <div>⚠ Unanswered: <strong style="color:var(--danger)">${unanswered}</strong></div>
-    <div>🚩 Flagged: <strong style="color:var(--accent)">${flaggedCount}</strong></div>
-    <div>📋 Total: <strong>${total}</strong></div>
-  `;
-
-  document.getElementById("submitModal").style.display = "flex";
-}
-
-function closeSubmitModal() {
-  document.getElementById("submitModal").style.display = "none";
-}
-
-function submitExam() {
-  closeSubmitModal();
-  stopTimer();
-  state.submitted = true;
-  state.examActive = false;
-  calculateAndShowResults();
-}
-
-// ─────────────────────────────────────────────────────
-//  CALCULATE RESULTS (JAMB SCALE)
-// ─────────────────────────────────────────────────────
-function calculateAndShowResults() {
-  const results = {};
-  let totalScaled = 0;
-
-  state.selectedSubjects.forEach(subject => {
-    const questions = getQuestions(subject, state.selectedTest);
-    const maxRaw = subject === "English" ? CONFIG.ENGLISH_QUESTIONS : CONFIG.OTHER_QUESTIONS;
-    let correct = 0;
-
-    questions.forEach((q, i) => {
-      if (state.answers[qKey(subject, i)] === q.correct) correct++;
-    });
-
-    const raw    = correct;
-    const scaled = Math.round((correct / maxRaw) * 100);
-    results[subject] = { correct, total: questions.length || maxRaw, raw, scaled };
-    totalScaled += scaled;
-  });
-
-  showResults(results, totalScaled);
-  sendResultsToBackend(results, totalScaled);
-}
-
-// ─────────────────────────────────────────────────────
-//  SHOW RESULTS SCREEN
-// ─────────────────────────────────────────────────────
-function showResults(results, totalScore) {
-  document.getElementById("resultsStudentName").textContent = state.student.name;
-  document.getElementById("resultsTestLabel").textContent  = `TEST ${state.selectedTest}`;
-
-  // Score ring
-  document.getElementById("totalScoreDisplay").textContent = totalScore;
-
-  // Grade & emoji
-  let grade = "", emoji = "", color = "";
-  if (totalScore >= 300) { grade = "EXCELLENT 🏆"; emoji = "🏆"; color = "var(--primary)"; }
-  else if (totalScore >= 250) { grade = "VERY GOOD ⭐"; emoji = "⭐"; color = "#0288d1"; }
-  else if (totalScore >= 200) { grade = "GOOD 👍"; emoji = "👍"; color = "#f57c00"; }
-  else if (totalScore >= 150) { grade = "AVERAGE 📚"; emoji = "📚"; color = "#9e9e9e"; }
-  else { grade = "NEEDS WORK 💪"; emoji = "💪"; color = var(--danger)"; }
-
-  document.getElementById("resultIcon").textContent = emoji;
-  const gradeEl = document.getElementById("scoreGrade");
-  gradeEl.textContent = grade.split(" ")[0];
-  gradeEl.style.color = color;
-
-  // Score ring color
-  const ring = document.querySelector(".total-score-ring");
-  const pct  = (totalScore / 400) * 100;
-  ring.style.background = `conic-gradient(${color} ${pct}%, #e0e0e0 ${pct}%)`;
-
-  // Breakdown cards
-  const breakdown = document.getElementById("scoreBreakdown");
-  breakdown.innerHTML = "";
-
-  state.selectedSubjects.forEach(sub => {
-    const r = results[sub];
-    if (!r) return;
-    const pct = r.scaled;
-
-    const card = document.createElement("div");
-    card.className = "score-card";
-    card.innerHTML = `
-      <div class="sc-subject">${sub}</div>
-      <div class="sc-score">${r.scaled}<span style="font-size:1rem;color:var(--text-light)">/100</span></div>
-      <div class="sc-scaled">${r.correct} / ${r.total} correct</div>
-      <div class="sc-bar"><div class="sc-fill" style="width:${pct}%"></div></div>
-    `;
-    breakdown.appendChild(card);
-  });
-
-  // Performance message
-  let msg = "";
-  if (totalScore >= 300) {
-    msg = `🎉 <strong>Outstanding!</strong> You scored ${totalScore}/400 — you are on track for admission to top universities! Keep it up!`;
-  } else if (totalScore >= 250) {
-    msg = `💪 <strong>Great effort!</strong> You scored ${totalScore}/400. You are close to 300! Focus on weak subjects and try more tests.`;
-  } else if (totalScore >= 200) {
-    msg = `📚 <strong>Good progress!</strong> You scored ${totalScore}/400. Review your explanations carefully and practice daily.`;
-  } else {
-    msg = `🔥 <strong>Keep pushing!</strong> You scored ${totalScore}/400. Study your explanations below — every test makes you stronger!`;
-  }
-  document.getElementById("performanceMsg").innerHTML = msg;
-
-  showScreen("resultsScreen");
-}
-
-// ─────────────────────────────────────────────────────
-//  SHOW REVIEW SCREEN
-// ─────────────────────────────────────────────────────
-function showReview() {
-  buildReviewTabs();
-  loadReview(state.selectedSubjects[0]);
-  showScreen("reviewScreen");
-}
-
-function buildReviewTabs() {
-  const tabsEl = document.getElementById("reviewSubjectTabs");
-  tabsEl.innerHTML = "";
-
-  state.selectedSubjects.forEach(sub => {
-    const btn = document.createElement("button");
-    btn.className = "review-tab" + (sub === state.selectedSubjects[0] ? " active" : "");
-    btn.textContent = sub;
-    btn.onclick = () => {
-      document.querySelectorAll(".review-tab").forEach(t => t.classList.remove("active"));
-      btn.classList.add("active");
-      loadReview(sub);
-    };
-    tabsEl.appendChild(btn);
-  });
-}
-
-function loadReview(subject) {
-  state.currentReviewSubject = subject;
-  const questions = getQuestions(subject, state.selectedTest);
-  const container = document.getElementById("reviewContainer");
-  container.innerHTML = "";
-
-  if (!questions.length) {
-    container.innerHTML = `<div class="review-container" style="text-align:center;padding:40px;">
-      <i class="fas fa-info-circle fa-3x" style="color:#ccc;"></i>
-      <p style="margin-top:16px;color:#999;">Questions for ${subject} Test ${state.selectedTest} not yet added.</p>
-      <p style="color:#999;font-size:0.85rem;">See questions/${subject.toLowerCase()}.js</p>
-    </div>`;
+  if (S.curIdx > 0) {
+    S.curIdx--;
+    renderQuestion();
     return;
   }
 
-  questions.forEach((q, i) => {
-    const key       = qKey(subject, i);
-    const studentAns = state.answers[key];
-    const isCorrect = studentAns === q.correct;
-    const isSkipped = !studentAns;
+  const subIndex = S.subjects.indexOf(S.curSubject);
+  if (subIndex > 0) {
+    const prevSub = S.subjects[subIndex - 1];
+    S.curSubject = prevSub;
+    S.curIdx = (S.questions[prevSub] || []).length - 1;
+    buildSubjectTabs();
+    buildPalette();
+    renderQuestion();
+  }
+}
 
-    let status = isSkipped ? "skipped" : isCorrect ? "correct" : "wrong";
-    let badge  = isSkipped ? "SKIPPED" : isCorrect ? "✓ CORRECT" : "✗ WRONG";
+function jumpToQuestion(idx) {
+  S.curIdx = idx;
+  renderQuestion();
+}
 
-    const div = document.createElement("div");
-    div.className = `review-question ${status}`;
+/* ═══════════════════════════════════════════════════════════════
+   13. TIMER
+═══════════════════════════════════════════════════════════════ */
+function startTimer() {
+  stopTimer();
 
-    let optionsHTML = "";
-    Object.entries(q.options).forEach(([letter, text]) => {
-      let cls = "neutral-ans";
-      if (letter === q.correct) cls = "correct-ans";
-      else if (letter === studentAns && !isCorrect) cls = "wrong-ans";
+  S.timerRef = setInterval(() => {
+    S.timerLeft--;
+    renderTimer();
 
-      optionsHTML += `<div class="review-opt ${cls}">
-        <strong>${letter}.</strong> ${text}
-        ${letter === q.correct ? " ✓" : ""}
-        ${letter === studentAns && !isCorrect ? " ← Your answer" : ""}
-      </div>`;
-    });
+    const timerEl = byId("examTimer");
+    if (timerEl && S.timerLeft <= 300) {
+      timerEl.style.background = "#ffd9d9";
+      timerEl.style.color = "#7d1111";
+    }
 
-    div.innerHTML = `
-      <div class="review-q-header">
-        <span class="review-q-num">Q${i + 1} &bull; ${q.topic || subject}</span>
-        <span class="review-badge ${status}">${badge}</span>
-      </div>
-      <div class="review-q-text">${q.question}</div>
-      <div class="review-options">${optionsHTML}</div>
-      <div class="review-explanation">
-        <strong><i class="fas fa-lightbulb"></i> Explanation:</strong>
-        ${q.explanation || "Correct answer: " + q.correct}
+    if (S.timerLeft <= 0) {
+      stopTimer();
+      autoSubmit();
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  if (S.timerRef) {
+    clearInterval(S.timerRef);
+    S.timerRef = null;
+  }
+}
+
+function renderTimer() {
+  const secs = Math.max(0, S.timerLeft);
+  const h = Math.floor(secs / 3600);
+  const m = Math.floor((secs % 3600) / 60);
+  const s = secs % 60;
+  setText("examTimer", `${pad2(h)}:${pad2(m)}:${pad2(s)}`);
+}
+
+function autoSubmit() {
+  alert("⏰ Time is up. Your exam will now be submitted.");
+  submitExam();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   14. REVIEW
+═══════════════════════════════════════════════════════════════ */
+function goToReviewScreen() {
+  renderReview();
+  showScreen("reviewScreen");
+}
+
+function renderReview() {
+  computeScores();
+
+  const totalAnswered = countAnswered();
+  const totalQuestions = countQuestions();
+
+  setHTML("reviewSummary", `
+    <p><strong>Candidate:</strong> ${escapeHtml(S.student.name)}</p>
+    <p><strong>Test:</strong> Test ${S.testNumber}</p>
+    <p><strong>Answered:</strong> ${totalAnswered} / ${totalQuestions}</p>
+  `);
+
+  const html = S.subjects.map(subject => {
+    const subjectQs = S.questions[subject] || [];
+    const sc = S.scores[subject] || { raw: 0, total: 0, scaled: 0 };
+
+    const items = subjectQs.map((q, idx) => {
+      const key = mkKey(subject, idx);
+      const userAns = S.answers[key] || "";
+      const correct = q.correct || "";
+      const isCorrect = !!userAns && userAns === correct;
+
+      const optionsHtml = ["A", "B", "C", "D"].map(letter => {
+        const text = q.options?.[letter];
+        if (!text) return "";
+
+        let cls = "review-option";
+        if (letter === correct) cls += " correct";
+        if (letter === userAns) cls += " chosen";
+        if (letter === userAns && userAns !== correct) cls += " wrong";
+
+        return `
+          <div class="${cls}">
+            <strong>${letter}.</strong> <span class="math-content">${safeMathHtml(text)}</span>
+          </div>
+        `;
+      }).join("");
+
+      return `
+        <div class="review-item">
+          <h4>
+            Q${idx + 1} — ${escapeHtml(q.topic || subject)}
+            ${isCorrect ? "✓" : userAns ? "✗" : "—"}
+          </h4>
+
+          ${q.diagram ? `
+            <div class="question-diagram-box" style="max-width:360px;margin-bottom:12px;">
+              <img
+                src="${q.diagram}"
+                alt="Question diagram"
+                class="question-diagram"
+                onerror="this.closest('.question-diagram-box').style.display='none';"
+              />
+            </div>
+          ` : ""}
+
+          <div class="question-text math-content" style="margin-bottom:12px;">
+            ${safeMathHtml(q.question)}
+          </div>
+
+          <div>${optionsHtml}</div>
+
+          <div style="margin-top:10px;">
+            <strong>Your Answer:</strong> ${userAns || "<em>Not answered</em>"}<br/>
+            <strong>Correct Answer:</strong> ${escapeHtml(correct)}<br/>
+            <strong>Explanation:</strong>
+            <span class="explanation-text math-content">${safeMathHtml(q.explanation || "<em>No explanation available.</em>")}</span>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    return `
+      <div style="margin-bottom:22px;">
+        <h3 style="color:#184d28;margin-bottom:10px;">
+          ${escapeHtml(subject)} — ${sc.raw}/${sc.total} correct (${sc.scaled}/100)
+        </h3>
+        ${items}
       </div>
     `;
-    container.appendChild(div);
-  });
+  }).join("");
 
-  // Re-render MathJax
-  if (window.MathJax) MathJax.typesetPromise([container]).catch(console.error);
+  setHTML("reviewContainer", html);
+  safeTypesetMath([byId("reviewContainer")]);
 }
 
-// ─────────────────────────────────────────────────────
-//  SEND RESULTS TO GOOGLE APPS SCRIPT
-// ─────────────────────────────────────────────────────
-function sendResultsToBackend(results, totalScore) {
-  if (!CONFIG.APPS_SCRIPT_URL || CONFIG.APPS_SCRIPT_URL.includes("YOUR_")) return;
+/* ═══════════════════════════════════════════════════════════════
+   15. SCORING + SUBMIT
+═══════════════════════════════════════════════════════════════ */
+function computeScores() {
+  const scores = {};
 
-  const payload = {
-    name:     state.student.name,
-    email:    state.student.email,
-    phone:    state.student.phone,
-    test:     state.selectedTest,
-    subjects: state.selectedSubjects,
-    results:  results,
-    total:    totalScore,
-    date:     new Date().toLocaleString("en-NG", { timeZone: "Africa/Lagos" }),
+  for (const subject of S.subjects) {
+    const qs = S.questions[subject] || [];
+    let raw = 0;
+
+    qs.forEach((q, idx) => {
+      const key = mkKey(subject, idx);
+      if (S.answers[key] && S.answers[key] === q.correct) raw++;
+    });
+
+    const total = qs.length;
+    const scaled = total ? Math.round((raw / total) * 100) : 0;
+
+    scores[subject] = { raw, total, scaled };
+  }
+
+  S.scores = scores;
+  return scores;
+}
+
+function totalScore400() {
+  computeScores();
+  return S.subjects.reduce((sum, sub) => sum + (S.scores[sub]?.scaled || 0), 0);
+}
+
+function countAnswered() {
+  let answered = 0;
+  for (const subject of S.subjects) {
+    const qs = S.questions[subject] || [];
+    qs.forEach((_, idx) => {
+      if (S.answers[mkKey(subject, idx)]) answered++;
+    });
+  }
+  return answered;
+}
+
+function countQuestions() {
+  let total = 0;
+  for (const subject of S.subjects) {
+    total += (S.questions[subject] || []).length;
+  }
+  return total;
+}
+
+async function submitExam() {
+  if (S.submitted) return;
+
+  const confirmed = confirm("Submit exam now? You will not be able to change answers after submission.");
+  if (!confirmed) return;
+
+  S.submitted = true;
+  stopTimer();
+  stopAutoSave();
+  computeScores();
+
+  const total = totalScore400();
+  renderResults(total);
+  showScreen("resultScreen");
+  saveSession();
+
+  try {
+    await sendResultEmail(total);
+  } catch (err) {
+    console.warn("Result send failed:", err);
+  }
+}
+
+function renderResults(total) {
+  const grade =
+    total >= 300 ? "Outstanding" :
+    total >= 250 ? "Very Good" :
+    total >= 200 ? "Good" :
+    "Keep Practising";
+
+  setHTML("resultSummary", `
+    <p><strong>Candidate:</strong> ${escapeHtml(S.student.name)}</p>
+    <p><strong>Test:</strong> Test ${S.testNumber}</p>
+    <p><strong>Total Score:</strong> <span style="font-size:1.3rem;font-weight:800;">${total}/400</span></p>
+    <p><strong>Remark:</strong> ${grade}</p>
+  `);
+
+  const rows = S.subjects.map(subject => {
+    const sc = S.scores[subject] || { raw: 0, total: 0, scaled: 0 };
+    return `
+      <tr>
+        <td>${escapeHtml(subject)}</td>
+        <td>${sc.raw}/${sc.total}</td>
+        <td>${sc.scaled}/100</td>
+      </tr>
+    `;
+  }).join("");
+
+  setHTML("resultBreakdown", `
+    <table class="result-table">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Raw Score</th>
+          <th>Scaled Score</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+  `);
+}
+
+async function sendResultEmail(total) {
+  if (!S.student.email) return;
+
+  const breakdown = S.subjects.map(subject => {
+    const sc = S.scores[subject];
+    return `${subject}: ${sc.raw}/${sc.total} -> ${sc.scaled}/100`;
+  }).join("\n");
+
+  const formData = new URLSearchParams();
+  formData.append("action", "sendResult");
+  formData.append("name", S.student.name);
+  formData.append("email", S.student.email);
+  formData.append("phone", S.student.phone);
+  formData.append("pin", S.student.pin);
+  formData.append("testNo", S.testNumber);
+  formData.append("total", total);
+  formData.append("subjects", S.subjects.join(", "));
+  formData.append("breakdown", breakdown);
+  formData.append("date", prettyNow());
+
+  const res = await fetch(CFG.GAS_URL, {
+    method: "POST",
+    body: formData
+  });
+
+  const text = await res.text();
+
+  let data = {};
+  try {
+    data = JSON.parse(text);
+  } catch (e) {
+    throw new Error("Backend did not return valid JSON: " + text);
+  }
+
+  if (!res.ok || !data.success) {
+    throw new Error(data.message || "Failed to send result.");
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   16. SESSION
+═══════════════════════════════════════════════════════════════ */
+function saveSession() {
+  try {
+    localStorage.setItem(CFG.STORAGE_KEY, JSON.stringify({
+      student: S.student,
+      subjects: S.subjects,
+      testNumber: S.testNumber,
+      questions: S.questions,
+      answers: S.answers,
+      flagged: S.flagged,
+      scores: S.scores,
+      curSubject: S.curSubject,
+      curIdx: S.curIdx,
+      timerLeft: S.timerLeft,
+      submitted: S.submitted,
+      pinVerified: S.pinVerified
+    }));
+  } catch (err) {
+    console.warn("Session save failed:", err);
+  }
+}
+
+function restoreSession() {
+  try {
+    const raw = localStorage.getItem(CFG.STORAGE_KEY);
+    if (!raw) return;
+
+    const saved = JSON.parse(raw);
+    if (!saved || typeof saved !== "object") return;
+
+    S.student = saved.student || S.student;
+    S.subjects = Array.isArray(saved.subjects) ? saved.subjects.filter(s => s !== "English") : [];
+    S.testNumber = saved.testNumber || null;
+    S.pinVerified = !!saved.pinVerified;
+
+    if (byId("studentName")) byId("studentName").value = S.student.name || "";
+    if (byId("studentEmail")) byId("studentEmail").value = S.student.email || "";
+    if (byId("studentPhone")) byId("studentPhone").value = S.student.phone || "";
+    if (byId("accessPin")) byId("accessPin").value = S.student.pin || "";
+
+    document
+      .querySelectorAll(".subject-grid input[type='checkbox']")
+      .forEach(cb => {
+        cb.checked = S.subjects.includes(cb.value);
+      });
+
+    if (S.pinVerified && S.student.name && S.testNumber) {
+      S.subjects = saved.subjects || [];
+      S.questions = saved.questions || {};
+      S.answers = saved.answers || {};
+      S.flagged = saved.flagged || {};
+      S.scores = saved.scores || {};
+      S.curSubject = saved.curSubject || S.subjects[0] || "English";
+      S.curIdx = Number.isInteger(saved.curIdx) ? saved.curIdx : 0;
+      S.timerLeft = Number.isInteger(saved.timerLeft) ? saved.timerLeft : CFG.EXAM_SECS;
+      S.submitted = !!saved.submitted;
+
+      if (Object.keys(S.questions).length) {
+        if (S.submitted) {
+          const total = totalScore400();
+          renderResults(total);
+          showScreen("resultScreen");
+        } else {
+          buildExamUI();
+          showScreen("examScreen");
+          startTimer();
+          startAutoSave();
+        }
+      } else {
+        buildTestSelectionScreen();
+      }
+    }
+  } catch (err) {
+    console.warn("Session restore failed:", err);
+  }
+}
+
+function clearSession() {
+  try {
+    localStorage.removeItem(CFG.STORAGE_KEY);
+  } catch (_) {}
+}
+
+function startAutoSave() {
+  stopAutoSave();
+  S.autoSaveRef = setInterval(saveSession, CFG.AUTOSAVE_MS);
+}
+
+function stopAutoSave() {
+  if (S.autoSaveRef) {
+    clearInterval(S.autoSaveRef);
+    S.autoSaveRef = null;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   17. RESET
+═══════════════════════════════════════════════════════════════ */
+function restartApp() {
+  stopTimer();
+  stopAutoSave();
+  clearSession();
+
+  S = {
+    student: { name: "", email: "", phone: "", pin: "" },
+    subjects: [],
+    testNumber: null,
+    questions: {},
+    answers: {},
+    flagged: {},
+    scores: {},
+    curSubject: "English",
+    curIdx: 0,
+    timerLeft: CFG.EXAM_SECS,
+    timerRef: null,
+    autoSaveRef: null,
+    submitted: false,
+    pinVerified: false
   };
 
-  fetch(CONFIG.APPS_SCRIPT_URL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  }).catch(err => console.warn("Backend notification failed:", err));
+  if (byId("studentName")) byId("studentName").value = "";
+  if (byId("studentEmail")) byId("studentEmail").value = "";
+  if (byId("studentPhone")) byId("studentPhone").value = "";
+  if (byId("accessPin")) byId("accessPin").value = "";
+
+  document
+    .querySelectorAll(".subject-grid input[type='checkbox']")
+    .forEach(cb => cb.checked = false);
+
+  clearGateMessages();
+  showScreen("gateScreen");
 }
 
-// ─────────────────────────────────────────────────────
-//  CALCULATOR TOGGLE
-// ─────────────────────────────────────────────────────
-function toggleCalculator() {
-  const modal = document.getElementById("calculatorModal");
-  modal.style.display = modal.style.display === "none" ? "flex" : "none";
-}
-
-function closeCalcOutside(e) {
-  if (e.target === document.getElementById("calculatorModal")) toggleCalculator();
-}
-
-// ─────────────────────────────────────────────────────
-//  PREVENT ACCIDENTAL NAVIGATION
-// ─────────────────────────────────────────────────────
-window.addEventListener("beforeunload", e => {
-  if (state.examActive && !state.submitted) {
-    e.preventDefault();
-    e.returnValue = "Exam is in progress. Are you sure you want to leave?";
-  }
-});
-
-// Subject pills toggle (visual)
-document.querySelectorAll(".subject-pill input").forEach(inp => {
-  inp.addEventListener("change", function () {
-    this.closest(".subject-pill").classList.toggle("selected", this.checked);
-    const checked = [...document.querySelectorAll(".subject-grid input:checked")];
-    if (checked.length > 3) {
-      this.checked = false;
-      this.closest(".subject-pill").classList.remove("selected");
-      showError(document.getElementById("gateError"), "⚠ You can only select exactly 3 subjects.");
-    } else {
-      document.getElementById("gateError").style.display = "none";
-    }
-  });
-});
+/* ═══════════════════════════════════════════════════════════════
+   18. GLOBAL EXPORTS
+═══════════════════════════════════════════════════════════════ */
+window.showScreen = showScreen;
+window.verifyAndProceed = verifyAndProceed;
+window.selectTest = selectTest;
+window.beginExam = beginExam;
+window.switchSubject = switchSubject;
+window.prevQuestion = prevQuestion;
+window.nextQuestion = nextQuestion;
+window.jumpToQuestion = jumpToQuestion;
+window.selectAnswer = selectAnswer;
+window.toggleFlagCurrent = toggleFlagCurrent;
+window.goToReviewScreen = goToReviewScreen;
+window.submitExam = submitExam;
+window.restartApp = restartApp;

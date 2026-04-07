@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#184d28">
+  />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="description"
+    content="ChiaTech JAMB CBT Practice 2026. Professional CBT practice with 20 test sets, equation rendering, diagrams, scoring, and installable web app support."
+  />
+  <meta
+    name="keywords"
+    content="JAMB CBT, ChiaTech, JAMB 2026, CBT Practice, Mathematics, Physics, Chemistry, Biology, English"
+  />
+  <meta name="author" content="CHIATECH SOLUTIONS & RESOURCES LTD" />
+  <meta name="theme-color" content="#166534" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="ChiaTech CBT" />
+  <meta name="format-detection" content="telephone=no" />
+
+  <title>CHIATECH JAMB CBT PRACTICE 2026</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    referrerpolicy="no-referrer"
+  />
+
+  <style>
+    :root {
+      --ct-green-dark: #155e2b;
+      --ct-green: #1f7a2f;
+      --ct-green-soft: #e8f6e8;
+      --ct-blue: #193a86;
+      --ct-blue-dark: #102a5c;
+      --ct-gold: #f5d26a;
+      --ct-white: #ffffff;
+      --ct-text: #17351d;
+      --ct-muted: #5f6f63;
+      --ct-border: #bdd8bf;
+      --ct-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+      --ct-radius-lg: 24px;
+      --ct-radius-md: 16px;
+      --ct-radius-sm: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      color: var(--ct-text);
+      background:
+        linear-gradient(135deg, rgba(16, 126, 45, 0.92), rgba(20, 40, 105, 0.92)),
+        #17492e;
+      min-height: 100vh;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .screen {
+      display: none;
+      width: 100%;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .page-shell {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 22px 0 26px;
+    }
+
+    .hero-card {
+      border-radius: 0 0 22px 22px;
+      overflow: hidden;
+      box-shadow: var(--ct-shadow);
+      background: var(--ct-white);
+    }
+
+    .hero-top {
+      background: linear-gradient(90deg, var(--ct-green-dark) 0%, var(--ct-blue) 72%);
+      color: var(--ct-white);
+      padding: 14px 18px 20px;
+      text-align: center;
+    }
+
+    .brand-logo-wrap {
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      background: #ffffff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+      overflow: hidden;
+    }
+
+    .brand-logo-wrap img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: clamp(2rem, 3.8vw, 3rem);
+      line-height: 1;
+      letter-spacing: 2px;
+      font-weight: 800;
+      color: #d6f0a7;
+    }
+
+    .brand-subtitle {
+      margin: 10px 0 0;
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .brand-tagline {
+      margin: 10px 0 0;
+      font-size: 0.98rem;
+      color: #f7e291;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .brand-tagline i {
+      color: #f9df76;
+    }
+
+    .hero-body {
+      background: #f5f7f5;
+      padding: 22px 24px 24px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label,
+    .section-label {
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      color: #0f5c20;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .required-star {
+      color: #bf1919;
+      font-weight: 900;
+    }
+
+    .form-group input {
+      width: 100%;
+      min-height: 50px;
+      padding: 0 14px;
+      border: 1.6px solid var(--ct-border);
+      border-radius: 10px;
+      outline: none;
+      background: #ffffff;
+      color: #263128;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-group input:focus {
+      border-color: #75b57d;
+      box-shadow: 0 0 0 3px rgba(56, 161, 73, 0.12);
+    }
+
+    .subject-section {
+      margin-top: 18px;
+    }
+
+    .subject-note {
+      margin: 8px 0 12px;
+      color: #69776d;
+      font-size: 0.96rem;
+    }
+
+    .subject-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 12px;
+    }
+
+    .subject-pill {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .subject-pill input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .subject-pill span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 16px;
+      min-height: 42px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1.6px solid #b7d6ba;
+      color: #16612b;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      user-select: none;
+    }
+
+    .subject-pill span:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 12px rgba(26, 87, 40, 0.08);
+    }
+
+    .subject-pill input[type="checkbox"]:checked + span {
+      background: linear-gradient(180deg, #2d8d3f, #166f2a);
+      border-color: #166f2a;
+      color: #ffffff;
+      box-shadow: 0 8px 16px rgba(18, 95, 36, 0.2);
+    }
+
+    .subject-pill span i {
+      font-size: 0.92rem;
+    }
+
+    .message-box {
+      margin-top: 16px;
+      min-height: 22px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .btn-row {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-warning,
+    .btn-danger {
+      border: none;
+      border-radius: 999px;
+      min-height: 48px;
+      padding: 0 20px;
+      font-weight: 800;
+      letter-spacing: 0.7px;
+      cursor: pointer;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .btn-warning:hover,
+    .btn-danger:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      min-width: min(520px, 100%);
+      background: linear-gradient(90deg, #44a13f 0%, #176f24 100%);
+      color: #ffffff;
+      box-shadow: 0 12px 18px rgba(24, 111, 36, 0.22);
+      text-transform: uppercase;
+    }
+
+    .btn-secondary {
+      background: #eaf1ea;
+      color: #165828;
+    }
+
+    .btn-warning {
+      background: #f0b82e;
+      color: #362300;
+    }
+
+    .btn-danger {
+      background: #c73535;
+      color: #ffffff;
+    }
+
+    .hero-footer {
+      padding: 18px 20px 0;
+      text-align: center;
+      color: #dce9df;
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .hero-footer strong {
+      color: #ffffff;
+    }
+
+    .hero-footer a {
+      color: #d9f4e0;
+      text-decoration: none;
+    }
+
+    .hero-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .install-app-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 3000;
+      display: none;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      background: linear-gradient(90deg, #1f7a2f, #193a86);
+      color: #ffffff;
+      font-weight: 800;
+      box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18);
+      cursor: pointer;
+    }
+
+    .page-card,
+    .exam-shell,
+    .result-shell {
+      width: min(1180px, calc(100% - 28px));
+      margin: 20px auto 28px;
+      background: #f7faf7;
+      border-radius: 20px;
+      box-shadow: var(--ct-shadow);
+      overflow: hidden;
+    }
+
+    .page-card-inner,
+    .result-inner {
+      padding: 24px;
+    }
+
+    .page-title {
+      margin: 0 0 12px;
+      color: #173d22;
+      font-size: 1.55rem;
+      font-weight: 800;
+    }
+
+    .badge-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 12px 0 16px;
+    }
+
+    .badge-subject {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #e8f6e8;
+      color: #155f29;
+      font-weight: 700;
+      border: 1px solid #bfdbbf;
+    }
+
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .test-card {
+      background: #ffffff;
+      border: 1px solid #d5e8d7;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 5px 14px rgba(0, 0, 0, 0.05);
+    }
+
+    .test-card-number {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #184f27;
+      margin-bottom: 6px;
+    }
+
+    .test-card-label {
+      color: #607067;
+      font-weight: 700;
+      min-height: 44px;
+      margin-bottom: 10px;
+    }
+
+    .test-card-info {
+      color: #425247;
+      font-size: 0.94rem;
+      margin-bottom: 14px;
+    }
+
+    .btn-sm {
+      min-height: 40px;
+      padding: 0 16px;
+      min-width: auto;
+    }
+
+    .instruction-list {
+      margin: 16px 0;
+      padding-left: 18px;
+      line-height: 1.8;
+      color: #324136;
+    }
+
+    .exam-shell {
+      background: #eef4ef;
+    }
+
+    .exam-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 20px;
+      background: linear-gradient(90deg, #165b2a, #193b86);
+      color: #ffffff;
+      flex-wrap: wrap;
+    }
+
+    .exam-top-left,
+    .exam-top-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .student-badge {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+    /* Floating Calculator - Top Right Corner */
+#calculatorContainer {
+  display: none; 
+  position: fixed;
+  top: 90px;      /* Adjust this so it sits below your green topbar */
+  right: 20px;    /* Snapped to the right side */
+  width: 280px;
+  background: #ffffff;
+  border: 2px solid #1b5e20;
+  border-radius: 8px;
+  z-index: 9999;  /* Ensures it stays above the questions */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+
+#calculatorContainer.active {
+  display: block !important;
+}
+
+.calc-header {
+  background: #1b5e20;
+  color: white;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+}
+
+
+    .timer-box {
+      background: #fff7da;
+      color: #4b3700;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+    }
+
+    .subject-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 16px 20px 0;
+    }
+
+    .subject-tab {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: #dde9df;
+      color: #1b4a29;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .subject-tab.active {
+      background: linear-gradient(90deg, #2b8b3d, #166d27);
+      color: #ffffff;
+    }
+
+    .exam-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 18px;
+      padding: 18px 20px 22px;
+    }
+
+    .exam-question-panel,
+    .exam-sidebar {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .exam-sidebar h3 {
+      margin: 0 0 12px;
+    }
+
+    .question-wrap.has-diagram {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .question-main {
+      min-width: 0;
+    }
+
+    .question-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .question-number,
+    .question-topic {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 800;
+    }
+
+    .question-number {
+      background: #e7f5e7;
+      color: #17652c;
+    }
+
+    .question-topic {
+      background: #e8efff;
+      color: #1a4186;
+    }
+
+    .question-text {
+      font-size: 1.02rem;
+      line-height: 1.75;
+      color: #223126;
+    }
+
+    .question-text,
+    .option-text,
+    .explanation-text,
+    .math-content {
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .options-container {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .option-card {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      border: 1px solid #d7e7d8;
+      border-radius: 14px;
+      padding: 13px 14px;
+      background: #fcfffc;
+      cursor: pointer;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+    }
+
+    .option-card:hover {
+      transform: translateY(-1px);
+      border-color: #92c196;
+      background: #f7fcf7;
+    }
+
+    .option-card input[type="radio"] {
+      margin-top: 4px;
+      accent-color: #1f7a2f;
+    }
+
+    .option-letter {
+      font-weight: 800;
+      color: #184f27;
+      min-width: 22px;
+    }
+
+    .option-text {
+      flex: 1;
+      line-height: 1.65;
+    }
+
+    .question-diagram-box {
+      background: #ffffff;
+      border: 1px solid #d8e5d9;
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .question-diagram {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .question-diagram-caption {
+      margin-top: 8px;
+      text-align: center;
+      color: #5d6a61;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .question-nav-row {
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+      gap: 10px;
+    }
+
+    .palette-btn {
+      border: none;
+      min-height: 42px;
+      border-radius: 10px;
+      font-weight: 800;
+      cursor: pointer;
+      background: #edf3ee;
+      color: #1b4d2a;
+    }
+
+    .palette-btn.current {
+      background: #193a86;
+      color: #ffffff;
+    }
+
+    .palette-btn.answered {
+      background: #22863a;
+      color: #ffffff;
+    }
+
+    .palette-btn.flagged {
+      outline: 3px solid #f0b82e;
+    }
+
+    .review-item {
+      border: 1px solid #d9e6da;
+      border-radius: 16px;
+      background: #ffffff;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .review-item h4 {
+      margin: 0 0 10px;
+      color: #184d28;
+    }
+
+    .review-option {
+      padding: 8px 10px;
+      border-radius: 10px;
+      margin: 6px 0;
+      line-height: 1.65;
+    }
+
+    .review-option.correct {
+      background: #e8f7ea;
+      color: #145825;
+    }
+
+    .review-option.chosen {
+      border: 1px solid #97caa0;
+    }
+
+    .review-option.wrong {
+      background: #ffeaea;
+      color: #7d1b1b;
+    }
+
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      background: #ffffff;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .result-table th,
+    .result-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #e4ece5;
+      text-align: left;
+    }
+
+    .result-table th {
+      background: #edf6ee;
+      color: #184e28;
+    }
+
+    .footer-spacer {
+      height: 6px;
+    }
+
+    @media (max-width: 980px) {
+      .exam-main,
+      .question-wrap.has-diagram {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page-shell,
+      .page-card,
+      .exam-shell,
+      .result-shell {
+        width: min(100% - 16px, 1180px);
+      }
+
+      .hero-body,
+      .page-card-inner,
+      .result-inner,
+      .exam-question-panel,
+      .exam-sidebar {
+        padding: 16px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-title {
+        letter-spacing: 1px;
+      }
+
+      .btn-primary {
+        min-width: 100%;
+      }
+    }
+    /* Calculator Positioning - Doesn't affect main layout */
+#calculatorContainer {
+  display: none;
+  position: fixed;
+  top: 85px;
+  right: 20px;
+  left: auto;
+  transform: none;
+  width: 280px;
+  background: #ffffff;
+  border: 2px solid #1b5e20;
+  border-radius: 8px;
+  z-index: 10000;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+
+#calculatorContainer.active {
+  display: block !important;
+}
+
+.calc-header {
+  background: #1b5e20;
+  color: white;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+}
+
+  </style>
+
+  <!-- MathJax config MUST come before MathJax script -->
+  <script>
+    window.mathJaxReady = false;
+
+    window.MathJax = {
+     tex: {
+  inlineMath: [['\\(', '\\)'], ['$', '$']],
+  displayMath: [['\\[', '\\]'], ['$$', '$$']],
+  processEscapes: true,
+  processEnvironments: true
+},
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      chtml: {
+        scale: 1,
+        minScale: 0.5,
+        mtextInheritFont: true
+      },
+      startup: {
+        ready: () => {
+          MathJax.startup.defaultReady();
+          window.mathJaxReady = true;
+          console.log('MathJax ready.');
+        }
+      }
+    };
+  </script>
+
+  <!-- Local MathJax -->
+  <script defer src="mathjax/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <noscript>
+    <div style="padding:16px;background:#ffe9e9;color:#8b1111;font-weight:700;">
+      This app requires JavaScript to run properly. Please enable JavaScript.
+    </div>
+  </noscript>
+
+  <button id="installAppBtn" class="install-app-btn" type="button">
+    <i class="fas fa-download"></i> Install App
+  </button>
+
+  <!-- ACCESS / LANDING SCREEN -->
+  <section id="gateScreen" class="screen active">
+    <div class="page-shell">
+      <div class="hero-card">
+        <div class="hero-top">
+          <div class="brand-logo-wrap">
+            <img src="assets/logo.png" alt="CHIATECH Logo" />
+          </div>
+          <h1 class="brand-title">CHIATECH</h1>
+          <p class="brand-subtitle">JAMB CBT PRACTICE 2026</p>
+          <p class="brand-tagline">
+            <i class="fas fa-star"></i>
+            Targeting 300+ | Learn · Know · Do · Create SUCCESS
+          </p>
+        </div>
+
+        <div class="hero-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="studentName">
+                <i class="fas fa-user"></i> Full Name <span class="required-star">*</span>
+              </label>
+              <input type="text" id="studentName" placeholder="Enter your full name" />
+            </div>
+
+            <div class="form-group">
+              <label for="studentEmail">
+                <i class="fas fa-envelope"></i> Email Address
+              </label>
+              <input type="email" id="studentEmail" placeholder="Enter your email address" />
+            </div>
+
+            <div class="form-group">
+              <label for="studentPhone">
+                <i class="fas fa-phone"></i> Phone Number
+              </label>
+              <input type="tel" id="studentPhone" placeholder="Enter phone number" />
+            </div>
+
+            <div class="form-group">
+              <label for="accessPin">
+                <i class="fas fa-lock"></i> Access Pin <span class="required-star">*</span>
+              </label>
+              <input type="password" id="accessPin" placeholder="Enter access pin" />
+            </div>
+          </div>
+
+          <div class="subject-section">
+            <div class="section-label">
+              <i class="fas fa-book-open"></i> Subject Combination <span class="required-star">*</span>
+            </div>
+            <div class="subject-note">
+              English is compulsory. Select exactly 3 more subjects:
+            </div>
+
+            <div class="subject-grid">
+              <label class="subject-pill">
+                <input type="checkbox" value="Physics" />
+                <span><i class="fas fa-atom"></i> PHYSICS</span>
+              </label>
+
+              <label class="subject-pill">
+                <input type="checkbox" value="Chemistry" />
+                <span><i class="fas fa-flask"></i> CHEMISTRY</span>
+              </label>
+
+              <label class="subject-pill">
+                <input type="checkbox" value="Biology" />
+                <span><i class="fas fa-seedling"></i> BIOLOGY</span>
+              </label>
+
+              <label class="subject-pill">
+                <input type="checkbox" value="Mathematics" />
+                <span><i class="fas fa-square-root-variable"></i> MATHEMATICS</span>
+              </label>
+
+              <label class="subject-pill">
+                <input type="checkbox" value="Economics" />
+                <span><i class="fas fa-chart-line"></i> ECONOMICS</span>
+              </label>
+
+              <label class="subject-pill">
+                <input type="checkbox" value="Government" />
+                <span><i class="fas fa-landmark"></i> GOVERNMENT</span>
+              </label>
+
+              <label class="subject-pill">
+                <input type="checkbox" value="Literature" />
+                <span><i class="fas fa-feather"></i> LITERATURE</span>
+              </label>
+
+              <label class="subject-pill">
+                <input type="checkbox" value="CRK" />
+                <span><i class="fas fa-cross"></i> C.R.K</span>
+              </label>
+
+              <label class="subject-pill">
+                <input type="checkbox" value="Commerce" />
+                <span><i class="fas fa-basket-shopping"></i> COMMERCE</span>
+              </label>
+
+              <label class="subject-pill">
+                <input type="checkbox" value="Accounting" />
+                <span><i class="fas fa-calculator"></i> ACCOUNTING</span>
+              </label>
+
+              <label class="subject-pill">
+                <input type="checkbox" value="Computer" />
+                <span><i class="fas fa-laptop-code"></i> COMPUTER</span>
+              </label>
+
+              <label class="subject-pill">
+                <input type="checkbox" value="Geography" />
+                <span><i class="fas fa-earth-africa"></i> GEOGRAPHY</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="gateMessage" class="message-box"></div>
+
+          <div class="btn-row">
+            <button id="continueBtn" class="btn-primary" type="button" onclick="verifyAndProceed()">
+              <i class="fas fa-circle-play"></i> Proceed to Test Selection
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-footer">
+        <div>© 2026 <strong>CHIATECH SOLUTIONS &amp; RESOURCES LTD (RC1839865)</strong> | All Rights Reserved</div>
+        <div>
+          Developed by <strong>Engr. Chia S. Kenneth</strong> |
+          <a href="tel:+2347037689917">+2347037689917</a> |
+          <a href="mailto:chiatechresearch@gmail.com">chiatechresearch@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEST SELECTION SCREEN -->
+  <section id="testSelectScreen" class="screen">
+    <div class="page-card">
+      <div class="page-card-inner">
+        <h2 class="page-title">Select Practice Test</h2>
+        <div id="testSelectStudent"></div>
+        <div id="testSelectSubjects" class="badge-wrap"></div>
+        <div id="testGrid" class="test-grid"></div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" type="button" onclick="showScreen('gateScreen')">
+            Back
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTRUCTIONS SCREEN -->
+  <section id="instructionsScreen" class="screen">
+    <div class="page-card">
+      <div class="page-card-inner">
+        <h2 class="page-title">Exam Instructions</h2>
+        <p><strong>Candidate:</strong> <span id="instrName"></span></p>
+        <p><strong>Test:</strong> <span id="instrTest"></span></p>
+        <div id="instrSubjects" class="badge-wrap"></div>
+
+        <ul class="instruction-list">
+          <li>Duration: <strong>120 Minutes</strong> for all selected subjects combined.</li>
+          <li>English Language: <strong>60 Questions</strong>.</li>
+          <li>Other Subjects: <strong>40 Questions</strong> each.</li>
+          <li>Each subject is scored out of <strong>100</strong>.</li>
+          <li>Total score is out of <strong>400</strong>.</li>
+          <li>Use the question palette to move quickly across questions.</li>
+          <li>Flag difficult questions and return later.</li>
+          <li>Submit before the timer runs out.</li>
+        </ul>
+
+        <div class="btn-row">
+          <button class="btn-secondary" type="button" onclick="showScreen('testSelectScreen')">
+            Back
+          </button>
+          <button class="btn-primary btn-sm" type="button" onclick="beginExam()">
+            Start Exam
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXAM SCREEN -->
+  <section id="examScreen" class="screen">
+    <div class="exam-shell">
+      <div class="exam-topbar">
+        <div class="exam-top-left">
+          <div id="examStudentBadge" class="student-badge"></div>
+          <div id="examTimer" class="timer-box">02:00:00</div>
+        </div>
+
+        <div class="exam-top-right">
+  <button type="button" id="calcToggleBtn" class="btn-secondary btn-sm">
+    <i class="fas fa-calculator"></i> Calc
+  </button>
+
+  <button class="btn-secondary btn-sm" type="button" onclick="goToReviewScreen()">
+    Review
+  </button>
+
+  <button class="btn-danger btn-sm" type="button" onclick="submitExam()">
+    Submit
+  </button>
+</div>
+      
+      <div id="subjectTabs" class="subject-tabs"></div>
+
+      <div class="exam-main">
+        <div class="exam-question-panel">
+          <div id="questionContainer"></div>
+
+          <div class="question-nav-row">
+            <button class="btn-secondary btn-sm" type="button" onclick="prevQuestion()">
+              Previous
+            </button>
+            <button class="btn-warning btn-sm" type="button" onclick="toggleFlagCurrent()">
+              Flag
+            </button>
+            <button class="btn-primary btn-sm" style="min-width:auto;" type="button" onclick="nextQuestion()">
+              Next
+            </button>
+          </div>
+        </div>
+
+        <aside class="exam-sidebar">
+          <h3>Question Palette</h3>
+          <div id="questionPalette" class="palette-grid"></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEW SCREEN -->
+  <section id="reviewScreen" class="screen">
+    <div class="page-card">
+      <div class="page-card-inner">
+        <h2 class="page-title">Review Answers</h2>
+        <div id="reviewSummary"></div>
+        <div id="reviewContainer"></div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" type="button" onclick="showScreen('examScreen')">
+            Back to Exam
+          </button>
+          <button class="btn-danger" type="button" onclick="submitExam()">
+            Submit Exam
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULT SCREEN -->
+  <section id="resultScreen" class="screen">
+    <div class="result-shell">
+      <div class="result-inner">
+        <h2 class="page-title">Exam Result</h2>
+        <div id="resultSummary"></div>
+        <div id="resultBreakdown"></div>
+
+        <div class="btn-row">
+          <button class="btn-primary btn-sm" type="button" onclick="restartApp()">
+            Take Another Test
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="footer-spacer"></div>
+  
+  <div id="calculatorContainer" aria-hidden="true">
+  <div class="calc-header">
+    <span>JAMB Calculator</span>
+    <button
+      type="button"
+      aria-label="Close calculator"
+      onclick="document.getElementById('calculatorContainer').classList.remove('active')"
+      style="background:none; border:none; color:white; cursor:pointer; font-size:20px;"
+    >&times;</button>
+  </div>
+
+  <div class="calc-body">
+    <div id="calcHistory" class="calc-history"></div>
+    <input id="calcDisplay" class="calc-display" type="text" value="0" readonly />
+    <div id="calcGrid" class="calc-grid"></div>
+  </div>
+</div>
+
+<script src="questions/english.js"></script>
+
+  <!-- SUBJECT QUESTION FILES -->
+  <script src="questions/english.js"></script>
+  <script src="questions/mathematics.js"></script>
+  <script src="questions/physics.js"></script>
+  <script src="questions/chemistry.js"></script>
+  <script src="questions/biology.js"></script>
+  <script src="questions/economics.js"></script>
+  <script src="questions/geography.js"></script>
+  <script src="questions/government.js"></script>
+  <script src="questions/commerce.js"></script>
+  <script src="questions/accounting.js"></script>
+  <script src="questions/literature.js"></script>
+  <script src="questions/crk.js"></script>
+  <script src="questions/computer.js"></script>
+
+  <!-- OPTIONAL HELPER FILES -->
+  <script src="js/calculator.js"></script>
+  <script src="js/timer.js"></script>
+
+  <!-- MAIN APP CONTROLLER MUST LOAD LAST -->
+  <script src="js/app.js"></script>
+
+  <!-- INSTALL + SERVICE WORKER -->
+  <script>
+    let deferredPrompt = null;
+    const installBtn = document.getElementById('installAppBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (installBtn) installBtn.style.display = 'inline-flex';
+    });
+
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        installBtn.style.display = 'none';
+      });
+    }
+
+    window.addEventListener('appinstalled', () => {
+      if (installBtn) installBtn.style.display = 'none';
+      console.log('ChiaTech CBT installed.');
+    });
+
+    if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('service-worker.js').then(reg => {
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // Notifies user/app to refresh for the new PIN logic
+              newWorker.postMessage('SKIP_WAITING');
+            }
+          });
+        });
+      });
+    });
+  }
+  
+  const calcBtn = document.getElementById('calcToggleBtn');
+  const calcCont = document.getElementById('calculatorContainer');
+
+  if (calcBtn && calcCont) {
+    calcBtn.onclick = function (e) {
+      e.preventDefault();
+      const isOpening = !calcCont.classList.contains('active');
+      calcCont.classList.toggle('active');
+
+      if (isOpening && typeof buildCalc === 'function') {
+        buildCalc();
+      }
+    };
+  }
+</script>
+</body>
+</html>

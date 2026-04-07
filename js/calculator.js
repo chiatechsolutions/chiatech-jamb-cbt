@@ -1,105 +1,96 @@
-/* ═══════════════════════════════════════════════
-   CHIATECH CBT — Scientific Calculator Module
-   ═══════════════════════════════════════════════ */
-(function initCalculator() {
-  const buttons = [
-    { label: "C",    type: "clear" },
-    { label: "±",    type: "op",  action: "negate" },
-    { label: "%",    type: "op",  action: "%" },
-    { label: "÷",    type: "op",  action: "/" },
-    { label: "7",    type: "num" },
-    { label: "8",    type: "num" },
-    { label: "9",    type: "num" },
-    { label: "×",    type: "op",  action: "*" },
-    { label: "4",    type: "num" },
-    { label: "5",    type: "num" },
-    { label: "6",    type: "num" },
-    { label: "−",    type: "op",  action: "-" },
-    { label: "1",    type: "num" },
-    { label: "2",    type: "num" },
-    { label: "3",    type: "num" },
-    { label: "+",    type: "op",  action: "+" },
-    { label: "0",    type: "num zero" },
-    { label: ".",    type: "num" },
-    { label: "⌫",    type: "op",  action: "del" },
-    { label: "=",    type: "equals" },
-  ];
+/* ================================================================
+   ChiaTech CBT — calculator.js
+================================================================ */
+"use strict";
 
-  let calcExpr = "";
+const CALC_BTNS = [
+  ["C","⌫","(",")"],
+  ["7","8","9","÷"],
+  ["4","5","6","×"],
+  ["1","2","3","−"],
+  ["±","0",".","="],
+  ["√","x²","%","+"],
+];
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const grid = document.getElementById("calcGrid");
-    if (!grid) return;
+let calcExpr = "";
 
-    buttons.forEach(b => {
-      const btn = document.createElement("button");
-      btn.className = `calc-btn ${b.type}`;
-      btn.textContent = b.label;
+function toggleCalculator() {
+  const modal = document.getElementById("calculatorModal");
+  if (!modal) return;
+  const isHidden = modal.style.display === "none" || modal.style.display === "";
+  modal.style.display = isHidden ? "flex" : "none";
+  if (isHidden) buildCalc();
+}
 
-      btn.onclick = () => {
-        const disp = document.getElementById("calcDisplay");
-        const hist = document.getElementById("calcHistory");
-
-        if (b.type === "clear") {
-          calcExpr = "";
-          disp.value = "";
-          hist.textContent = "";
-          return;
-        }
-
-        if (b.type === "num" || b.type === "num zero") {
-          if (b.label === "." && calcExpr.includes(".")) return;
-          calcExpr += b.label;
-          disp.value = calcExpr;
-          return;
-        }
-
-        if (b.action === "del") {
-          calcExpr = calcExpr.slice(0, -1);
-          disp.value = calcExpr;
-          return;
-        }
-
-        if (b.action === "negate") {
-          if (calcExpr.startsWith("-")) calcExpr = calcExpr.slice(1);
-          else calcExpr = "-" + calcExpr;
-          disp.value = calcExpr;
-          return;
-        }
-
-        if (b.action === "%") {
-          try {
-            const val = eval(calcExpr) / 100;
-            hist.textContent = calcExpr + " %";
-            calcExpr = String(val);
-            disp.value = calcExpr;
-          } catch { disp.value = "Error"; calcExpr = ""; }
-          return;
-        }
-
-        if (b.type === "equals") {
-          try {
-            const result = Function('"use strict"; return (' + calcExpr + ')')();
-            hist.textContent = calcExpr + " =";
-            calcExpr = String(parseFloat(result.toFixed(10)));
-            disp.value = calcExpr;
-          } catch {
-            disp.value = "Error";
-            calcExpr = "";
-          }
-          return;
-        }
-
-        // Operator
-        const lastChar = calcExpr.slice(-1);
-        if (["+","-","*","/"].includes(lastChar)) {
-          calcExpr = calcExpr.slice(0, -1);
-        }
-        calcExpr += b.action;
-        disp.value = calcExpr;
-      };
-
-      grid.appendChild(btn);
-    });
+function buildCalc() {
+  const grid = document.getElementById("calcGrid");
+  if (!grid || grid.children.length) return;   // already built
+  CALC_BTNS.flat().forEach(label => {
+    const btn = document.createElement("button");
+    btn.className   = "calc-btn";
+    btn.textContent = label;
+    if (label === "=")  btn.classList.add("calc-eq");
+    if (label === "C")  btn.classList.add("calc-clear");
+    btn.addEventListener("click", () => handleCalc(label));
+    grid.appendChild(btn);
   });
-})();
+}
+
+function handleCalc(label) {
+  const disp = document.getElementById("calcDisplay");
+  const hist = document.getElementById("calcHistory");
+  if (!disp) return;
+
+  switch (label) {
+    case "C":  calcExpr = ""; break;
+    case "⌫":  calcExpr = calcExpr.slice(0,-1); break;
+    case "=": {
+      try {
+        const expr = calcExpr
+          .replace(/÷/g, "/")
+          .replace(/×/g, "*")
+          .replace(/−/g, "-");
+        const result = Function('"use strict"; return (' + expr + ')')();
+        if (hist) hist.textContent = calcExpr + " =";
+        calcExpr = String(parseFloat(result.toFixed(10)));
+      } catch {
+        calcExpr = "Error";
+        setTimeout(() => { calcExpr = ""; disp.value = ""; }, 1000);
+      }
+      break;
+    }
+    case "√": {
+      try {
+        const n = parseFloat(calcExpr);
+        calcExpr = String(Math.sqrt(n));
+      } catch { calcExpr = "Error"; }
+      break;
+    }
+    case "x²": {
+      try {
+        const n = parseFloat(calcExpr);
+        calcExpr = String(n * n);
+      } catch { calcExpr = "Error"; }
+      break;
+    }
+    case "%": {
+      try {
+        const n = parseFloat(calcExpr);
+        calcExpr = String(n / 100);
+      } catch { calcExpr = "Error"; }
+      break;
+    }
+    case "±": {
+      if (calcExpr.startsWith("-")) calcExpr = calcExpr.slice(1);
+      else if (calcExpr) calcExpr = "-" + calcExpr;
+      break;
+    }
+    default: calcExpr += label;
+  }
+  disp.value = calcExpr || "0";
+}
+
+function closeCalcOutside(e) {
+  if (e.target === document.getElementById("calculatorModal"))
+    toggleCalculator();
+}

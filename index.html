@@ -14,6 +14,8 @@
     };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#184d28">
 </head>
 <body>
 
@@ -193,6 +195,10 @@
         <button class="btn-nav" onclick="nextQuestion()" id="nextBtn">NEXT <i class="fas fa-chevron-right"></i></button>
       </div>
     </div>
+    <div id="question-container">
+  <p id="question-text"></p>
+  <img id="question-image" style="max-width:300px; display:none;" />
+</div>
 
     <!-- Palette Panel -->
     <div class="palette-panel">
@@ -297,22 +303,47 @@
   </div>
 </div>
 
-<!-- Scripts -->
-<script src="questions/english.js"></script>
-<script src="questions/physics.js"></script>
-<script src="questions/chemistry.js"></script>
-<script src="questions/biology.js"></script>
-<script src="questions/mathematics.js"></script>
-<script src="questions/economics.js"></script>
-<script src="questions/government.js"></script>
-<script src="questions/literature.js"></script>
-<script src="questions/crk.js"></script>
-<script src="questions/commerce.js"></script>
-<script src="questions/accounting.js"></script>
-<script src="questions/computer.js"></script>
-<script src="questions/geography.js"></script>
-<script src="js/timer.js"></script>
-<script src="js/calculator.js"></script>
-<script src="js/app.js"></script>
+<!-- ✅ MathJax config MUST come BEFORE the script tag -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath:  [['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    },
+    options: {
+      skipHtmlTags: ['script','noscript','style','textarea','pre']
+    },
+    startup: {
+      typeset: false   /* ✅ Prevents auto-typeset on page load */
+    }
+  };
+</script>
+<script>
+  window.location.replace("subject.html");
+</script>
+<!-- Question banks -->
+<script src="questions/english.js"     defer></script>
+<script src="questions/physics.js"     defer></script>
+<script src="questions/chemistry.js"   defer></script>
+<script src="questions/biology.js"     defer></script>
+<script src="questions/mathematics.js" defer></script>
+<script src="questions/economics.js"   defer></script>
+<script src="questions/government.js"  defer></script>
+<script src="questions/literature.js"  defer></script>
+<script src="questions/crk.js"         defer></script>
+<script src="questions/commerce.js"    defer></script>
+<script src="questions/accounting.js"  defer></script>
+<script src="questions/computer.js"    defer></script>
+<script src="questions/geography.js"   defer></script>
+<!-- App scripts -->
+<script src="js/timer.js"       defer></script>
+<script src="js/calculator.js"  defer></script>
+<script src="js/app.js"         defer></script>
+
+<!-- ✅ MathJax with defer — loads after DOM and other scripts -->
+<script src="mathjax/es5/tex-mml-chtml.js" defer></script>
+
+
 </body>
 </html>
