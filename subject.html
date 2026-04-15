@@ -877,6 +877,13 @@
       This app requires JavaScript to run properly. Please enable JavaScript.
     </div>
   </noscript>
+  <div id="updateBanner" style="display:none; position:fixed; top:12px; left:50%; transform:translateX(-50%); z-index:9999; background:#fff7da; color:#4b3700; border:1px solid #e7c85c; border-radius:14px; padding:12px 16px; box-shadow:0 10px 24px rgba(0,0,0,0.18); max-width:92%; width:auto;">
+  <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; justify-content:center;">
+    <strong>New update available.</strong>
+    <span>Update your app before continuing.</span>
+    <button type="button" class="btn-primary btn-sm" onclick="applyAppUpdate()">Update App</button>
+  </div>
+</div>
 
   <button id="installAppBtn" class="install-app-btn" type="button">
     <i class="fas fa-download"></i> Install App
@@ -1031,9 +1038,9 @@
         <div id="testGrid" class="test-grid"></div>
 
         <div class="btn-row">
-          <button class="btn-secondary" type="button" onclick="showScreen('gateScreen')">
-            Back
-          </button>
+          <button class="btn-secondary" type="button" onclick="restartApp()">
+  Logout
+</button>
         </div>
       </div>
     </div>
@@ -1080,13 +1087,9 @@
           <div id="examTimer" class="timer-box">02:00:00</div>
         </div>
 
-        <div class="exam-top-right">
+       <div class="exam-top-right">
   <button type="button" id="calcToggleBtn" class="btn-secondary btn-sm">
     <i class="fas fa-calculator"></i> Calc
-  </button>
-
-  <button class="btn-secondary btn-sm" type="button" onclick="goToReviewScreen()">
-    Review
   </button>
 
   <button class="btn-danger btn-sm" type="button" onclick="submitExam()">
@@ -1123,22 +1126,26 @@
 
   <!-- REVIEW SCREEN -->
   <section id="reviewScreen" class="screen">
-    <div class="page-card">
-      <div class="page-card-inner">
-        <h2 class="page-title">Review Answers</h2>
-        <div id="reviewSummary"></div>
-        <div id="reviewContainer"></div>
+  <div class="page-card">
+    <div class="page-card-inner">
+      <h2 class="page-title">Review Answers</h2>
+      <div id="reviewSummary"></div>
+      <div id="reviewSubjectTabs" class="subject-tabs"></div>
+      <div id="reviewContainer"></div>
 
         <div class="btn-row">
-          <button class="btn-secondary" type="button" onclick="showScreen('examScreen')">
-            Back to Exam
-          </button>
-          <button class="btn-danger" type="button" onclick="submitExam()">
-            Submit Exam
-          </button>
-        </div>
-      </div>
-    </div>
+  <button class="btn-secondary" type="button" onclick="goToTestSelection()">
+    Choose Another Test
+  </button>
+
+  <button class="btn-warning" type="button" onclick="repeatCurrentTest()">
+    Repeat Test
+  </button>
+
+  <button class="btn-danger" type="button" onclick="restartApp()">
+    Logout
+  </button>
+</div>
   </section>
 
   <!-- RESULT SCREEN -->
@@ -1150,10 +1157,22 @@
         <div id="resultBreakdown"></div>
 
         <div class="btn-row">
-          <button class="btn-primary btn-sm" type="button" onclick="restartApp()">
-            Take Another Test
-          </button>
-        </div>
+  <button class="btn-primary btn-sm" type="button" onclick="goToReviewScreen()">
+    Review Test
+  </button>
+
+  <button class="btn-warning btn-sm" type="button" onclick="repeatCurrentTest()">
+    Repeat Test
+  </button>
+
+  <button class="btn-secondary btn-sm" type="button" onclick="goToTestSelection()">
+    Choose Another Test
+  </button>
+
+  <button class="btn-danger btn-sm" type="button" onclick="restartApp()">
+    Logout
+  </button>
+
       </div>
     </div>
   </section>
@@ -1176,8 +1195,6 @@
     <div id="calcGrid" class="calc-grid"></div>
   </div>
 </div>
-
-<script src="questions/english.js"></script>
 
   <!-- SUBJECT QUESTION FILES -->
   <script src="questions/english.js"></script>
@@ -1203,46 +1220,82 @@
 
   <!-- INSTALL + SERVICE WORKER -->
   <script>
-    let deferredPrompt = null;
-    const installBtn = document.getElementById('installAppBtn');
+  let deferredPrompt;
+  let waitingWorker = null;
+  let appReloading = false;
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      if (installBtn) installBtn.style.display = 'inline-flex';
+  const installBtn = document.getElementById('installAppBtn');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (installBtn) installBtn.style.display = 'inline-flex';
+  });
+
+  if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      installBtn.style.display = 'none';
     });
+  }
 
-    if (installBtn) {
-      installBtn.addEventListener('click', async () => {
-        if (!deferredPrompt) return;
-        deferredPrompt.prompt();
-        await deferredPrompt.userChoice;
-        deferredPrompt = null;
-        installBtn.style.display = 'none';
-      });
-    }
+  window.addEventListener('appinstalled', () => {
+    if (installBtn) installBtn.style.display = 'none';
+    console.log('ChiaTech CBT installed.');
+  });
 
-    window.addEventListener('appinstalled', () => {
-      if (installBtn) installBtn.style.display = 'none';
-      console.log('ChiaTech CBT installed.');
-    });
+  function showUpdateBanner(worker) {
+    waitingWorker = worker;
+    const banner = document.getElementById('updateBanner');
+    if (banner) banner.style.display = 'block';
+  }
 
-    if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('service-worker.js').then(reg => {
+  function applyAppUpdate() {
+    if (!waitingWorker) return;
+
+    const banner = document.getElementById('updateBanner');
+    if (banner) banner.style.display = 'none';
+
+    waitingWorker.postMessage({ type: 'SKIP_WAITING' });
+  }
+
+  window.applyAppUpdate = applyAppUpdate;
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', async () => {
+      try {
+        const reg = await navigator.serviceWorker.register('/service-worker.js');
+
+        if (reg.waiting) {
+          showUpdateBanner(reg.waiting);
+        }
+
         reg.addEventListener('updatefound', () => {
           const newWorker = reg.installing;
+          if (!newWorker) return;
+
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              // Notifies user/app to refresh for the new PIN logic
-              newWorker.postMessage('SKIP_WAITING');
+              showUpdateBanner(newWorker);
             }
           });
         });
-      });
+
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (appReloading) return;
+          appReloading = true;
+          waitingWorker = null;
+          window.location.reload();
+        });
+      } catch (err) {
+        console.error('Service Worker registration failed:', err);
+      }
     });
   }
-  
+
   const calcBtn = document.getElementById('calcToggleBtn');
   const calcCont = document.getElementById('calculatorContainer');
 

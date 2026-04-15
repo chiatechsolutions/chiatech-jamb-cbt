@@ -222,11 +222,18 @@ window.QUESTION_BANK["Biology"] = {
   explanation: "NOTE: MONERA are prokaryotes without a nucleus. Others are eukaryotic. REMEMBER: 'Monera = no nucleus.'"
 },
 {
-  id: 28, topic: "Reproduction",
-  question: "Fusion of gametes is called:",
-  options: { A: "Pollination", B: "Fertilization", C: "Germination", D: "Implantation" },
-  correct: "B",
-  explanation: "KEY RULE: FERTILIZATION is fusion of male and female gametes. Pollination is transfer of pollen. REMEMBER: 'Fertilization = fusion.'"
+  id: 28,
+  topic: "Plant Biology",
+  question: "The flower shown above is:",
+  diagram: "assets/biology/test1/question28.png",
+  options: {
+    A: "complete, regular, hermaphroditic with inferior ovary",
+    B: "incomplete, regular, staminate with inferior ovary",
+    C: "complete regular, hermaphroditic with inferior ovary",
+    D: "incomplete, irregular, pistillate with superior ovary"
+  },
+  correct: "A",
+  explanation: "The flower is complete because it has all four floral parts (sepals, petals, stamens, and carpels). It is hermaphroditic because it contains both male (stamens) and female (pistil/carpel) reproductive organs. The ovary is described as inferior because the other floral parts (petals, sepals, and stamens) are attached above the level of the ovary (epigynous flower)."
 },
 {
   id: 29, topic: "Transport in Plants",
@@ -347,12 +354,19 @@ window.QUESTION_BANK["Biology"] = {
     explanation: "NOTE: The PHENOTYPIC ratio is 3:1 (dominant:recessive). The genotype ratio is 1:2:1. REMEMBER: 'Mono cross gives 3:1.'"
   },
   {
-    id: 5, topic: "Ecology",
-    question: "Which term describes a feeding relationship in an ecosystem?",
-    options: { A: "Food chain", B: "Habitat", C: "Niche", D: "Biome" },
-    correct: "A",
-    explanation: "KEY RULE: A FOOD CHAIN shows energy flow from producers to consumers. Habitat is where organisms live. REMEMBER: 'Food chain = who eats who.'"
+  id: 5,
+  topic: "Circulatory System",
+  question: "Oxygenated blood is pumped to the entire body from the part labelled:",
+  diagram: "assets/biology/test2/question5.png",
+  options: {
+    A: "IV",
+    B: "III",
+    C: "II",
+    D: "I"
   },
+  correct: "A",
+  explanation: "In the diagram of the heart, the part labelled IV represents the left ventricle. The left ventricle is responsible for pumping oxygenated blood through the aorta to the rest of the body. Part III is the right ventricle (pumps deoxygenated blood to the lungs), part II is the tricuspid valve/right atrium area, and part I indicates the pulmonary artery/aorta region."
+},
   {
     id: 6, topic: "Human Physiology",
     question: "Which blood group is known as the universal donor?",
@@ -416,13 +430,20 @@ window.QUESTION_BANK["Biology"] = {
     correct: "C",
     explanation: "NOTE: THYROXINE controls metabolic rate. Insulin controls glucose. REMEMBER: 'Thyroxine = metabolism.'"
   },
-  {
-    id: 15, topic: "Transport in Plants",
-    question: "Which force helps in water movement in plants?",
-    options: { A: "Diffusion", B: "Transpiration pull", C: "Respiration", D: "Photosynthesis" },
-    correct: "B",
-    explanation: "KEY RULE: TRANSPIRATION PULL drives upward water movement. Diffusion is minor here. REMEMBER: 'Water pulled up by leaves.'"
+ {
+  id: 15,
+  topic: "Reproductive System",
+  question: "The organ through which the embryo receives food, water and oxygen is labelled:",
+  diagram: "assets/biology/test2/question15.png",
+  options: {
+    A: "III",
+    B: "IV",
+    C: "II",
+    D: "I"
   },
+  correct: "D",
+  explanation: "In the diagram of the developing fetus in the uterus, the part labelled I represents the placenta. The placenta is the organ responsible for the exchange of nutrients, oxygen, and waste products between the maternal blood and the fetus. Part II indicates the amniotic fluid/sac, part III is the umbilical cord, and part IV is the uterine wall (endometrium)."
+},
   {
     id: 16, topic: "Respiration",
     question: "Anaerobic respiration produces:",
@@ -593,7 +614,7 @@ window.QUESTION_BANK["Biology"] = {
   },
   {
     id: 40, topic: "Plant Reproduction",
-    question: "In the diagram below, the function of the part labelled part III is:",
+    question: "In the diagram below, the part labelled part III is:",
     diagram: "assets/biology/test2/question40.png",
     options: { A: "Mitochondria", B: "Chloroplast", C: "Nucleus", D: "Ribosome" },
     correct: "B",
@@ -634,12 +655,19 @@ test3: [
       explanation: "KEY FACT: Malpighian tubules are found in insects. NOTE: Earthworms use nephridia. Reptiles use kidneys."
     },
     {
-      id: 5, topic: "Support System",
-      question: "Which is NOT a function of the mammalian skeleton?",
-      options: { A: "Protection", B: "Respiration", C: "Transportation", D: "Support" },
-      correct: "C",
-      explanation: "NOTE: Skeleton supports, protects and aids movement. It helps breathing via rib cage. Transport is done by blood."
-    },
+  id: 5,
+  topic: "Excretory System",
+  question: "In mammals, reabsorption of salt takes place in:",
+  diagram: "assets/biology/test3/question5.png",
+  options: {
+    A: "IV",
+    B: "III",
+    C: "II",
+    D: "I"
+  },
+  correct: "B",
+  explanation: "The diagram shows a nephron, the functional unit of the kidney. Label III points to the Proximal Convoluted Tubule (PCT), which is the primary site for the reabsorption of salts (like sodium chloride), glucose, and amino acids from the glomerular filtrate back into the bloodstream. Label I is the Glomerulus (filtration), label II is the Bowman's Capsule, and label IV is the Distal Convoluted Tubule (where further selective reabsorption and secretion occur)."
+},
     {
       id: 6, topic: "Growth",
       question: "The most reliable estimate of growth is obtained by measuring:",
@@ -725,12 +753,19 @@ test3: [
       explanation: "KEY RULE: Agglutination occurs when antigen meets antibody. NOTE: Causes clumping."
     },
     {
-      id: 18, topic: "Variation",
-      question: "Differences among organisms of same parents is:",
-      options: { A: "Mutation", B: "Growth", C: "Variation", D: "Selection" },
-      correct: "C",
-      explanation: "KEY CONCEPT: Variation occurs due to genes and environment. NOTE: Important for evolution."
-    },
+  id: 18,
+  topic: "Photosynthesis",
+  question: "The gas occupying the space labelled I is:",
+  diagram: "assets/biology/test3/question18.png",
+  options: {
+    A: "carbon (IV) oxide",
+    B: "nitrogen",
+    C: "hydrogen",
+    D: "oxygen"
+  },
+  correct: "D",
+  explanation: "The diagram illustrates an experiment to show that oxygen is produced during photosynthesis in an aquatic plant (like Elodea). The plant is placed under a funnel in a beaker of water. When exposed to light, bubbles of gas are evolved and collected at the top of the test tube by the downward displacement of water. This gas (labelled I) is oxygen, which can be tested using a glowing splint."
+},
     {
       id: 19, topic: "Genetics",
       question: "Phenotype refers to:",
@@ -816,12 +851,19 @@ test3: [
       explanation: "KEY FACT: Dark reaction fixes CO2. NOTE: Occurs in stroma."
     },
     {
-      id: 31, topic: "Adaptation",
-      question: "High altitude adaptation involves:",
-      options: { A: "Reduce RBC", B: "Destroy RBC", C: "Increase RBC", D: "Break proteins" },
-      correct: "C",
-      explanation: "KEY FACT: More RBC improves oxygen transport. NOTE: Important in low oxygen."
+    id: 31,
+    topic: "Plant Biology",
+    question: "The part labelled II is the:",
+    diagram: "assets/biology/test3/question31.png",
+    options: {
+      A: "mesocarp",
+      B: "pericarp",
+      C: "endocarp",
+      D: "epicarp"
     },
+    correct: "A",
+    explanation: "The diagram shows a cross-section of a drupe fruit (like a mango). The layers of the fruit wall (pericarp) are: I - Epicarp (outer skin), II - Mesocarp (fleshy middle layer), III - Endocarp (hard inner layer protecting the seed), and IV - Seed. Therefore, label II points to the mesocarp."
+  },
     {
       id: 32, topic: "Nutrition",
       question: "Nitrobacter is:",
@@ -941,19 +983,33 @@ test4: [
       explanation: "KEY IDEA: Insects have EXOSKELETON made of chitin. Vertebrates have endoskeletons. Hydrostatic skeleton occurs in earthworms."
     },
     {
-      id: 8, topic: "Reproduction",
-      question: "Fusion of male and female gametes is called:",
-      options: { A: "Pollination", B: "Fertilization", C: "Germination", D: "Ovulation" },
-      correct: "B",
-      explanation: "NOTE: FERTILIZATION is fusion of gametes forming a zygote. Pollination is transfer of pollen. Germination is seed growth."
-    },
+  id: 8,
+  topic: "Skeletal System",
+  question: "The structure above represents a:",
+  diagram: "assets/biology/test4/question8_9.png",
+  options: {
+    A: "caudal vertebra",
+    B: "lumbar vertebra",
+    C: "thoracic vertebra",
+    D: "cervical vertebra"
+  },
+  correct: "D",
+  explanation: "The diagram shows a cervical vertebra, identifiable by specific features like the vertebrarterial canal (the small opening on the side for the vertebral artery) and a broad, relatively flat centrum. Cervical vertebrae are located in the neck region of mammals."
+},
     {
-      id: 9, topic: "Growth",
-      question: "Growth in living organisms is best measured by:",
-      options: { A: "Height", B: "Weight", C: "Dry mass", D: "Age" },
-      correct: "C",
-      explanation: "KEY RULE: DRY MASS is most accurate as it excludes water content. Height and weight can vary with water fluctuations."
+    id: 9,
+    topic: "Skeletal System",
+    question: "Blood vessel usually pass through the structure labelled",
+    diagram: "assets/biology/test4/question9.png",
+    options: {
+      A: "III",
+      B: "II",
+      C: "V",
+      D: "IV"
     },
+    correct: "C",
+    explanation: "Blood vessels, specifically the vertebral artery and vein, pass through the vertebrarterial canal (labelled V) of the cervical vertebrae."
+  },
     {
       id: 10, topic: "Coordination",
       question: "The part of the brain responsible for balance is:",
@@ -1067,19 +1123,33 @@ test4: [
       explanation: "REMEMBER: POLLEN GRAIN contains male gametes. Ovule contains female gamete."
     },
     {
-      id: 26, topic: "Ecology",
-      question: "Organisms that break down dead matter are:",
-      options: { A: "Producers", B: "Consumers", C: "Decomposers", D: "Herbivores" },
-      correct: "C",
-      explanation: "KEY IDEA: DECOMPOSERS recycle nutrients. Producers make food. Consumers eat."
-    },
+  "id": 26,
+  "topic": "Digestive System",
+  "question": "Use the diagram below to answer this question. Emulsification of fats takes place in the part labelled",
+  "diagram": "assets/biology/test4/question26_27.png",
+  "options": {
+    "A": "I",
+    "B": "II",
+    "C": "III",
+    "D": "IV"
+  },
+  "correct": "B",
+  "explanation": "Emulsification is the process of breaking down large fat globules into smaller droplets to increase the surface area for enzyme action. This process is carried out by bile, which is produced in the liver (I) and stored in the gall bladder (II). \n\nIn the provided diagram:\n* **I** represents the Liver.\n* **II** represents the Gall bladder/Bile duct area where bile is released into the duodenum.\n* **III** represents the Stomach.\n* **IV** represents the Small intestine (specifically the lower region).\n\nBile is released into the duodenum (the first part of the small intestine) to emulsify fats. According to the provided solution, the part labelled **II** is the correct site for this action."
+},
     {
-      id: 27, topic: "Soil Science",
-      question: "Humus improves soil by:",
-      options: { A: "Reducing nutrients", B: "Increasing fertility", C: "Decreasing water", D: "Hardening soil" },
-      correct: "B",
-      explanation: "NOTE: HUMUS adds nutrients and improves structure. It increases fertility and water retention."
-    },
+  "id": 27,
+  "topic": "Digestive System",
+  "question": "Use the diagram below to answer this question. The content of the part labelled III is usually",
+  "diagram": "assets/biology/test4/question27.png",
+  "options": {
+    "A": "neutral",
+    "B": "alkaline",
+    "C": "acidic",
+    "D": "saline"
+  },
+  "correct": "C",
+  "explanation": "Part III in the diagram represents the stomach. The stomach secretes gastric juice, which contains hydrochloric acid (HCl). This makes the contents of the stomach highly acidic, which is necessary for the activation of digestive enzymes like pepsin and for killing harmful bacteria."
+},
     {
       id: 28, topic: "Health",
       question: "Vaccination works by:",
@@ -1262,19 +1332,33 @@ test4: [
       explanation: "NOTE: Energy is lost as HEAT during respiration at each trophic level."
     },
     {
-      id: 13, topic: "Soil Science",
-      question: "Which soil is best for agriculture?",
-      options: { A: "Sandy", B: "Clayey", C: "Loamy", D: "Rocky" },
-      correct: "C",
-      explanation: "KEY FACT: LOAMY soil has balanced nutrients, water retention and aeration."
+    "id": 13,
+    "topic": "Adaptive Variation",
+    "question": "The bird’s bill adapted for fishing is labeled",
+    "diagram": "assets/biology/test5/question13_14.png",
+    "options": {
+      "A": "I",
+      "B": "II",
+      "C": "III",
+      "D": "IV"
     },
-    {
-      id: 14, topic: "Health",
-      question: "Malaria is transmitted by:",
-      options: { A: "Housefly", B: "Mosquito", C: "Tsetse fly", D: "Tick" },
-      correct: "B",
-      explanation: "REMEMBER: Female ANOPHELES MOSQUITO transmits malaria parasite."
+    "correct": "D",
+    "explanation": "Bill IV is long and spear-like, which is an adaptation for stabbing or catching fish in water. Bill I is short and conical (seed-eating), Bill II is hooked (carnivorous/tearing meat), and Bill III is pointed (insect-eating or probing)."
+  },
+  {
+    "id": 14,
+    "topic": "Adaptive Variation",
+    "question": "Toes of the feet ending in a sharp, curved hook suitable for holding and tearing are most likely to belong to the bird with the bill in",
+    "diagram": "assets/biology/test5/question13_14.png",
+    "options": {
+      "A": "I",
+      "B": "II",
+      "C": "III",
+      "D": "IV"
     },
+    "correct": "B",
+    "explanation": "Sharp, curved claws (talons) are a characteristic of birds of prey (raptors). These birds also possess a strong, hooked bill like the one labeled II, which is used for tearing the flesh of their prey."
+  },
     {
       id: 15, topic: "Genetics",
       question: "A homozygous genotype has:",
@@ -1353,19 +1437,33 @@ test4: [
       explanation: "KEY FACT: Ovulation releases ovum from ovary."
     },
     {
-      id: 26, topic: "Ecology",
-      question: "A habitat is:",
-      options: { A: "Food chain", B: "Place organism lives", C: "Group of species", D: "Energy flow" },
-      correct: "B",
-      explanation: "NOTE: Habitat is natural environment of organism."
+    id: 26,
+    topic: "Cell Biology",
+    question: "Food is stored in the structure labelled:",
+    diagram: "assets/biology/test5/question26.png",
+    options: { 
+        A: "III", 
+        B: "IV", 
+        C: "I", 
+        D: "II" 
     },
-    {
-      id: 27, topic: "Soil",
-      question: "Leaching removes:",
-      options: { A: "Water", B: "Nutrients", C: "Air", D: "Sand" },
-      correct: "B",
-      explanation: "KEY IDEA: Leaching washes away nutrients from soil."
+    correct: "B",
+    explanation: "In the Spirogyra cell shown, structure IV represents the pyrenoid. Pyrenoids are proteinaceous bodies found within chloroplasts that are involved in carbon fixation and the storage of starch (food)."
+},
+{
+    id: 27,
+    topic: "Cell Biology",
+    question: "The structures that are common to both plant and animal cell are labelled:",
+    diagram: "assets/biology/test5/question27.png",
+    options: { 
+        A: "II and III", 
+        B: "III and IV", 
+        C: "IV and I", 
+        D: "I and II" 
     },
+    correct: "A",
+    explanation: "Structure II represents the cytoplasm and structure III represents the nucleus. Both of these are fundamental components found in both plant and animal cells. Structure I (Cell Wall) and Structure IV (Chloroplast/Pyrenoid) are specific to plant and algal cells."
+},
     {
       id: 28, topic: "Health",
       question: "Antibiotics are used to treat:",
@@ -1464,19 +1562,33 @@ test4: [
   ],
     test6: [
     {
-      id: 1, topic: "Cell Biology",
-      question: "Which structure encloses the cell contents?",
-      options: { A: "Cell wall", B: "Cell membrane", C: "Cytoplasm", D: "Nucleus" },
-      correct: "B",
-      explanation: "KEY IDEA: CELL MEMBRANE controls entry and exit of substances. The cell wall is only in plants and provides support, not regulation."
+    id: 1,
+    topic: "Unicellular Organisms",
+    question: "The organelle responsible for sexual reproduction is:",
+    diagram: "assets/biology/test6/question1.png",
+    options: { 
+        A: "II", 
+        B: "I", 
+        C: "IV", 
+        D: "III" 
     },
-    {
-      id: 2, topic: "Cell Transport",
-      question: "Diffusion occurs due to:",
-      options: { A: "Energy", B: "Concentration gradient", C: "Pressure", D: "Temperature" },
-      correct: "B",
-      explanation: "REMEMBER: Diffusion is movement from high to low concentration without energy. Active transport requires energy."
+    correct: "D",
+    explanation: "The diagram shows a Paramecium. Structure III is the micronucleus, which is responsible for genetic recombination during sexual reproduction (conjugation). Structure II is the macronucleus, which controls metabolic activities."
+},
+{
+    id: 2,
+    topic: "Unicellular Organisms",
+    question: "The part responsible for osmoregulation is labelled:",
+    diagram: "assets/biology/test6/question2.png",
+    options: { 
+        A: "I", 
+        B: "II", 
+        C: "III", 
+        D: "IV" 
     },
+    correct: "D",
+    explanation: "Structure IV is the contractile vacuole. Its primary function is osmoregulation, which involves collecting and expelling excess water from the cell to maintain osmotic balance."
+},
     {
       id: 3, topic: "Nutrition",
       question: "Balanced diet contains:",
@@ -1486,7 +1598,7 @@ test4: [
     },
     {
       id: 4, topic: "Transport",
-      question: "Which carries oxygen?",
+      question: "Which of the following blood cells carries oxygen?",
       options: { A: "Plasma", B: "Red blood cells", C: "Platelets", D: "White cells" },
       correct: "B",
       explanation: "NOTE: RED BLOOD CELLS contain haemoglobin which binds oxygen. Plasma transports nutrients, platelets clot blood."
@@ -1506,33 +1618,47 @@ test4: [
       explanation: "REMEMBER: KIDNEY filters blood and forms urine. Liver produces urea, but kidney excretes it."
     },
     {
-      id: 7, topic: "Support",
-      question: "Bone provides:",
-      options: { A: "Flexibility only", B: "Support and protection", C: "Digestion", D: "Respiration" },
-      correct: "B",
-      explanation: "KEY FACT: BONES support the body and protect organs like the brain and heart."
+    id: 7,
+    topic: "Genetics and Variation",
+    question: "Which of the following will be true of dog II which lost its tail in an accident if it mates with dog III?",
+    diagram: "assets/biology/test6/question7.png",
+    options: { 
+        A: "None of its offspring will be born without a tail", 
+        B: "3/4 of its offspring will be born without tails", 
+        C: "All its offspring will be born without tails", 
+        D: "1/4 of its offspring will be born without tails" 
     },
+    correct: "A",
+    explanation: "The loss of a tail in an accident is an acquired characteristic. According to the principles of genetics, acquired traits (non-heritable changes to the phenotype caused by environmental factors or injury) are not passed on to the next generation because they do not affect the genetic makeup of the gametes."
+},
     {
-      id: 8, topic: "Reproduction",
-      question: "The male reproductive cell is:",
-      options: { A: "Ovum", B: "Sperm", C: "Zygote", D: "Embryo" },
-      correct: "B",
-      explanation: "NOTE: SPERM is the male gamete. Ovum is the female gamete."
+    "id": 8,
+    "topic": "Skeletal System",
+    "question": "The structure labelled II articulates with III to form",
+    "diagram": "assets/biology/test6/question8_9.png",
+    "options": {
+      "A": "sliding joint",
+      "B": "hinge joint",
+      "C": "pivot joint",
+      "D": "ball-and-socket joint"
     },
-    {
-      id: 9, topic: "Growth",
-      question: "Increase in size and mass is called:",
-      options: { A: "Development", B: "Growth", C: "Movement", D: "Respiration" },
-      correct: "B",
-      explanation: "KEY IDEA: Growth is increase in size and mass. Development includes differentiation."
+    "correct": "B",
+    "explanation": "The diagram shows the bones of the human forelimb. Label II represents the distal end of the humerus, and label III represents the ulna. The articulation between the humerus and the ulna at the elbow creates a hinge joint, which allows for movement in only one plane (flexion and extension)."
+  },
+  {
+    "id": 9,
+    "topic": "Skeletal System",
+    "question": "Which of the bones is the radius?",
+    "diagram": "assets/biology/test6/question8_9.png",
+    "options": {
+      "A": "I",
+      "B": "II",
+      "C": "III",
+      "D": "IV"
     },
-    {
-      id: 10, topic: "Coordination",
-      question: "The brain is part of the:",
-      options: { A: "Digestive system", B: "Nervous system", C: "Circulatory system", D: "Respiratory system" },
-      correct: "B",
-      explanation: "REMEMBER: Brain controls body activities as part of nervous system."
-    },
+    "correct": "D",
+    "explanation": "In the human forearm, there are two bones: the ulna and the radius. Based on the anatomical structure shown:\n* **I** is the Scapula (shoulder blade).\n* **II** is the Humerus (upper arm bone).\n* **III** is the Ulna.\n* **IV** is the Radius.\n\nThe radius is the bone located on the lateral side of the forearm (the thumb side)."
+  },
     {
       id: 11, topic: "Ecology",
       question: "Green plants are:",
@@ -1681,19 +1807,33 @@ test4: [
       explanation: "REMEMBER: Thin walls allow exchange."
     },
     {
-      id: 32, topic: "Respiration",
-      question: "Breathing involves:",
-      options: { A: "Digestion", B: "Gas exchange", C: "Excretion", D: "Movement" },
-      correct: "B",
-      explanation: "NOTE: Breathing exchanges oxygen and CO2."
+    id: 32,
+    topic: "Mammalian Reproductive System",
+    question: "From the diagram above, the structure labelled I originates from the:",
+    diagram: "assets/biology/test6/question32_33.png",
+    options: { 
+        A: "liver", 
+        B: "kidney", 
+        C: "small intestine", 
+        D: "stomach" 
     },
-    {
-      id: 33, topic: "Excretion",
-      question: "Skin excretes:",
-      options: { A: "CO2", B: "Sweat", C: "Urea only", D: "Protein" },
-      correct: "B",
-      explanation: "KEY FACT: Sweat contains water, salts and urea."
+    correct: "B",
+    explanation: "Structure I represents the ureter, which is the tube that carries urine from the kidney to the urinary bladder."
+},
+{
+    id: 33,
+    topic: "Mammalian Reproductive System",
+    question: "From the diagram above, birth control by vasectomy is achieved by severing the structure labelled:",
+    diagram: "assets/biology/test6/question32_33.png",
+    options: { 
+        A: "I", 
+        B: "II", 
+        C: "III", 
+        D: "IV" 
     },
+    correct: "C",
+    explanation: "Structure III represents the sperm duct (vas deferens). A vasectomy is a surgical procedure for male sterilization where the vas deferens are severed and tied to prevent sperm from entering the urethra."
+},
     {
       id: 34, topic: "Movement",
       question: "Hinge joint allows:",
@@ -1826,13 +1966,20 @@ test4: [
     correct: "B",
     explanation: "Systemic circulation supplies the body."
   },
-  {
-    id: 12, topic: "Respiration",
-    question: "Anaerobic respiration in yeast produces",
-    options: { A: "Oxygen", B: "Alcohol", C: "Protein", D: "Fat" },
-    correct: "B",
-    explanation: "Fermentation produces alcohol and CO2."
-  },
+ {
+    id: 12,
+    topic: "Endocrine System",
+    question: "A hormone secreted at IV serves to:",
+    diagram: "assets/biology/test7/question12.png",
+    options: { 
+        A: "make the body react to emergencies", 
+        B: "lower blood glucose levels", 
+        C: "raise the level of calcium ions in the blood", 
+        D: "facilitate the development of facial hairs" 
+    },
+    correct: "D",
+    explanation: "Structure IV points to the testes in the male reproductive system. The testes secrete testosterone, which is the hormone responsible for the development of secondary sexual characteristics in males, such as the growth of facial hair, deepening of the voice, and muscle development."
+},
   {
     id: 13, topic: "Respiration",
     question: "The diaphragm separates",
@@ -1868,19 +2015,19 @@ test4: [
     correct: "C",
     explanation: "Epididymis stores sperm."
   },
-  {
-    id: 18, topic: "Nutrition",
-    question: "Chemosynthesis involves",
-    options: { A: "Sunlight", B: "Oxidation of chemicals", C: "Water", D: "Photosynthesis" },
-    correct: "B",
-    explanation: "Energy from oxidation of inorganic substances."
-  },
-  {
-    id: 19, topic: "Digestion",
+   {
+    id: 18, topic: "Digestion",
     question: "The acidic part of the gut is the",
     options: { A: "Stomach", B: "Duodenum", C: "Ileum", D: "Colon" },
     correct: "A",
     explanation: "Stomach contains HCl."
+  },
+   {
+    id: 19, topic: "Nutrition",
+    question: "Chemosynthesis involves",
+    options: { A: "Sunlight", B: "Oxidation of chemicals", C: "Water", D: "Photosynthesis" },
+    correct: "B",
+    explanation: "Energy from oxidation of inorganic substances."
   },
   {
     id: 20, topic: "Ecology",
@@ -1904,12 +2051,19 @@ test4: [
     explanation: "Placenta separates blood supplies."
   },
   {
-    id: 23, topic: "Blood",
-    question: "Oxygen is carried by",
-    options: { A: "Leucocytes", B: "Lymphocytes", C: "Erythrocytes", D: "Platelets" },
+    id: 23,
+    topic: "Excretory System and Skin",
+    question: "The structure labelled 5 is the:",
+    diagram: "assets/biology/test7/question23.png",
+    options: { 
+        A: "sweat gland", 
+        B: "sebaceous gland", 
+        C: "blood vessel", 
+        D: "nerve fibre" 
+    },
     correct: "C",
-    explanation: "Red blood cells carry oxygen."
-  },
+    explanation: "In the diagram of the mammalian skin, structure 5 indicates a blood vessel located in the dermis. These vessels supply nutrients to the skin and play a crucial role in temperature regulation through vasodilation and vasoconstriction."
+},
   {
     id: 24, topic: "Habitat",
     question: "Marine organism among these is",
@@ -1925,12 +2079,19 @@ test4: [
     explanation: "Nocturnal activity reduces heat exposure."
   },
   {
-    id: 26, topic: "Ecology",
-    question: "Low rainfall and sparse vegetation indicate",
-    options: { A: "Rainforest", B: "Desert", C: "Savanna", D: "Montane" },
-    correct: "B",
-    explanation: "Typical desert features."
+  id: 26,
+  topic: "Vegetative Reproduction",
+  question: "The type of vegetative reproduction illustrated in the diagram above is",
+  diagram: "assets/biology/test7/question26.png",
+  options: {
+    A: "grafting",
+    B: "adventitious bud",
+    C: "sucker",
+    D: "aerial layering"
   },
+  correct: "B",
+  explanation: "The diagram shows a leaf (likely Bryophyllum) with small plantlets developing along its margins. This is a form of natural vegetative propagation where adventitious buds develop on the leaf tissues. When these buds fall onto moist soil, they grow into new independent plants."
+},
   {
     id: 27, topic: "Ecology",
     question: "Interaction between organisms is a",
@@ -1953,12 +2114,19 @@ test4: [
     explanation: "Aedes mosquito transmits yellow fever."
   },
   {
-    id: 30, topic: "Soil",
-    question: "Erosion is reduced by",
-    options: { A: "Watering", B: "Crop rotation", C: "Burning", D: "Flooding" },
-    correct: "B",
-    explanation: "Crop rotation improves soil stability."
+  id: 30,
+  topic: "Reproductive System",
+  question: "The diagram above is an illustration of the human sperm. The part labelled I is the",
+  diagram: "assets/biology/test7/question30.png",
+  options: {
+    A: "acrosome",
+    B: "nucleus",
+    C: "mitochondrion",
+    D: "tail"
   },
+  correct: "A",
+  explanation: "Part I points to the tip of the sperm head, known as the acrosome. The acrosome contains enzymes (such as hyaluronidase) that help the sperm penetrate the outer layers of the egg during fertilization. Part II indicates the tail (flagellum), which provides motility."
+},
   {
     id: 31, topic: "Genetics",
     question: "Taste variation in PTC is",
@@ -2127,19 +2295,33 @@ test8: [
     explanation: "Phloem transports food."
   },
   {
-    id: 14, topic: "Soil",
-    question: "Leaching leads to loss of",
-    options: { A: "Water", B: "Minerals", C: "Air", D: "Humus" },
-    correct: "B",
-    explanation: "Minerals are washed away."
-  },
-  {
-    id: 15, topic: "Adaptation",
-    question: "Streamlined body reduces",
-    options: { A: "Heat", B: "Friction", C: "Weight", D: "Energy" },
-    correct: "B",
-    explanation: "Reduces resistance in movement."
-  },
+    id: 14,
+    topic: "Parasitology",
+    question: "At which stage in this cycle can man be infected?",
+    diagram: "assets/biology/test8/question14_15.png",
+    options: { 
+        A: "2", 
+        B: "4", 
+        C: "5", 
+        D: "6" 
+    },
+    correct: "C",
+    explanation: "The diagram assets/biology/test8/question14_15.png represents the life cycle of the Tapeworm (Taenia solium). Man becomes infected by eating undercooked 'measly' pork containing the bladderworm (cysticercus), which is represented by stage 5."
+},
+{
+    id: 15,
+    topic: "Parasitology",
+    question: "Which stage is found in the muscle of an infected pig?",
+    diagram: "assets/biology/test8/question14_15.png",
+    options: { 
+        A: "3", 
+        B: "4", 
+        C: "5", 
+        D: "6" 
+    },
+    correct: "C",
+    explanation: "In the life cycle shown in assets/biology/test8/question14_15.png, stage 5 is the cysticercus (bladderworm). After the pig ingests eggs, the larvae migrate through the bloodstream and encyst as bladderworms in the muscle tissues of the pig."
+},
   {
     id: 16, topic: "Cell Biology",
     question: "Ribosomes are responsible for",
@@ -2473,11 +2655,18 @@ explanation: "Fallopian tube. COMMONLY REPEATED QUESTION."
 },
 
 {
-id: 20, topic: "Ecology",
-question: "A food chain begins with",
-options: { A: "Consumer", B: "Producer", C: "Decomposer", D: "Carnivore" },
-correct: "B",
-explanation: "Autotrophs form base. EXTENSION: Energy flow questions."
+    id: 20,
+    topic: "Digestive System",
+    question: "From the diagram above the part labelled IV represents the:",
+    diagram: "assets/biology/test9/question20.png",
+    options: { 
+        A: "Colon", 
+        B: "Ileum", 
+        C: "Caecum", 
+        D: "Duodenum" 
+    },
+    correct: "D",
+    explanation: "The diagram  shows the human digestive organs. Structure I is the liver, II is the gall bladder, III is the pancreas, and IV is the duodenum—the first part of the small intestine where bile and pancreatic juice are secreted."
 },
 
 {
@@ -2948,19 +3137,34 @@ test11: [
     explanation: "KEY RULE: Microscopic organisms have the least biomass per individual. NOTE: Do not confuse total biomass with individual biomass."
   },
   {
-    id: 3, topic: "Plant Classification",
-    question: "Seed plants are classified into",
-    options: { A: "tracheophytes and ferns", B: "angiosperms and gymnosperms", C: "monocots and dicots", D: "thallophytes and bryophytes" },
-    correct: "B",
-    explanation: "KEY FACT: Spermatophytes include gymnosperms and angiosperms. NOTE: Monocots and dicots are subdivisions of angiosperms."
-  },
-  {
-    id: 4, topic: "Animal Behaviour",
-    question: "Parental care is most developed in",
-    options: { A: "Reptilia", B: "Amphibia", C: "Aves", D: "Mammalia" },
-    correct: "D",
-    explanation: "KEY IDEA: Mammals show highest parental care through lactation and protection. NOTE: Birds also show strong care—common trap."
-  },
+    id: 3,
+    topic: "Sensory Organs",
+    question: "The parts labelled IV, V and VI respectively are the:",
+    diagram: "assets/biology/test11/question3_4.png",
+    options: { 
+        A: "ciliary body, optic nerve and yellow spot", 
+        B: "blind spot, optic nerve and suspensory ligament", 
+        C: "vitreous humour, yellow spot and optic nerve", 
+        D: "blind spot, optic nerve and pupil",
+        E: "yellow spot, retina and choroid layer"
+    },
+    correct: "C",
+    explanation: "In the diagram of the eye, IV represents the vitreous humour (the clear gel filling the space behind the lens), V is the yellow spot (fovea centralis, the area of sharpest vision), and VI is the optic nerve which transmits visual information to the brain."
+},
+{
+    id: 4,
+    topic: "Sensory Organs",
+    question: "Which of the labelled parts is responsible for focusing light rays onto the retina?",
+    diagram: "assets/biology/test11/question3_4.png",
+    options: { 
+        A: "I", 
+        B: "II", 
+        C: "III", 
+        D: "VII" 
+    },
+    correct: "C",
+    explanation: "Structure III represents the lens. The lens is a transparent, biconvex structure that, along with the cornea, helps to refract light to be focused on the retina."
+},
   {
     id: 5, topic: "Adaptation",
     question: "The adaptive importance of nuptial flight in termites is to",
@@ -3604,12 +3808,19 @@ test13: [
     explanation: "KEY FACT: Sweat removes urea."
   },
   {
-    id: 13, topic: "Skeleton",
-    question: "Body support is by",
-    options: { A: "Muscle", B: "Joint", C: "Skeleton", D: "Ligament" },
-    correct: "C",
-    explanation: "KEY FACT: Skeleton supports and protects."
-  },
+    id: 13,
+    topic: "Sensory Organs",
+    question: "The part labelled II in the diagram of the human ear is the:",
+    diagram: "assets/biology/test13/question13.png",
+    options: { 
+        A: "fenestra ovalis", 
+        B: "middle ear canal", 
+        C: "internal auditory meatus", 
+        D: "ear ossicles" 
+    },
+    correct: "D",
+    explanation: "The diagram  depicts the human ear. Label II points to the malleus, incus, and stapes, which are the small bones within the middle ear that transmit sound vibrations from the eardrum to the inner ear; these are collectively known as the ear ossicles. For a complete overview of the structures, refer to the fully labeled diagram: assets/biology/test13/solution13.png."
+},
   {
     id: 14, topic: "Reproduction",
     question: "Transfer of pollen is",

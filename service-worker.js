@@ -6,7 +6,7 @@
    - Auto-caches diagram files on first use
 ================================================================ */
 
-const SW_VERSION = "ct-cbt-v1.1.1";
+const SW_VERSION = "ct-cbt-v2.0.0";
 const STATIC_CACHE = `static-${SW_VERSION}`;
 const PAGE_CACHE = `pages-${SW_VERSION}`;
 const QUESTION_CACHE = `questions-${SW_VERSION}`;
@@ -15,19 +15,26 @@ const DIAGRAM_CACHE = `diagrams-${SW_VERSION}`;
 const RUNTIME_CACHE = `runtime-${SW_VERSION}`;
 
 const APP_SHELL = [
+  // CORE NAVIGATION
   "/",
   "/index.html",
   "/subject.html",
   "/test-selection.html",
   "/results.html",
-  "/manifest.json",
 
+  // MANIFEST & CORE CONFIG
+  "/manifest.json",
+  "/service-worker.js",
+
+  // STYLES
   "/css/style.css",
 
+  // CORE JS ENGINE
   "/js/app.js",
   "/js/calculator.js",
   "/js/timer.js",
 
+  // QUESTION BANKS (CRITICAL FOR OFFLINE)
   "/questions/english.js",
   "/questions/mathematics.js",
   "/questions/physics.js",
@@ -42,10 +49,12 @@ const APP_SHELL = [
   "/questions/crk.js",
   "/questions/computer.js",
 
+  // ICONS & BRANDING
   "/icons/icon-192.png",
   "/icons/icon-512.png",
   "/assets/logo.png",
 
+  // MATHJAX (VERY IMPORTANT)
   "/mathjax/es5/tex-mml-chtml.js"
 ];
 
@@ -122,6 +131,12 @@ self.addEventListener("install", (event) => {
     caches.open(STATIC_CACHE).then((cache) => cache.addAll(APP_SHELL))
   );
   self.skipWaiting();
+});
+
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
 });
 
 /* ═══════════════════════════════════════════════════════════════
@@ -201,7 +216,6 @@ self.addEventListener("fetch", (event) => {
   // Default runtime
   event.respondWith(staleWhileRevalidate(req, RUNTIME_CACHE));
 });
-
 /* ═══════════════════════════════════════════════════════════════
    CACHE STRATEGIES
 ═══════════════════════════════════════════════════════════════ */

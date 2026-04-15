@@ -8,19 +8,13 @@
    - 20 tests, 120 minutes, English 60 / others 40
    - Scores each subject over 100, total over 400
 ================================================================ */
-// ✅ Listen for Service Worker updates and reload the page
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    window.location.reload();
-  });
-}
 "use strict";
 
 /* ═══════════════════════════════════════════════════════════════
    1. CONFIG
 ═══════════════════════════════════════════════════════════════ */
 const CFG = {
-  GAS_URL:"https://script.google.com/macros/s/AKfycbwbTYOTuysoKrNRxA98cqiWp-u37DzEg1ior3hLsJTrXRHlZytz0ozLSBVOZavWC9MhoA/exec",
+  GAS_URL:"https://script.google.com/macros/s/AKfycby2Y4YhJ9dSop4CNM6E4-Sa1yxumSM6fhocyGyxnHQesEv0U2E5ZR3B_mTmCdb1eg8Pow/exec",
   EXAM_SECS: 7200,
   TOTAL_TESTS: 20,
   ENG_QS: 60,
@@ -47,9 +41,9 @@ let S = {
   timerRef: null,
   autoSaveRef: null,
   submitted: false,
-  pinVerified: false
+  pinVerified: false,
+  reviewSubject: "English"
 };
-
 let _mathJaxBusy = false;
 
 /* ═══════════════════════════════════════════════════════════════
@@ -58,7 +52,7 @@ let _mathJaxBusy = false;
 document.addEventListener("DOMContentLoaded", () => {
   S.subjects = [];
   wireGateCheckboxes();
-  // restoreSession();
+  restoreSession();
 });
 
 /* ═══════════════════════════════════════════════════════════════
@@ -127,6 +121,16 @@ function cssEscapeValue(str) {
     return CSS.escape(str);
   }
   return String(str).replace(/["\\]/g, "\\$&");
+}
+
+/* ───── DEVICE ID (ADD THIS EXACTLY HERE) ───── */
+function getOrCreateDeviceId() {
+  let id = localStorage.getItem("ct_device_id");
+  if (!id) {
+    id = "dev-" + Math.random().toString(36).slice(2) + Date.now();
+    localStorage.setItem("ct_device_id", id);
+  }
+  return id;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -203,6 +207,7 @@ async function verifyAndProceed() {
   const email = val("studentEmail");
   const phone = val("studentPhone");
   const pin = val("accessPin").toUpperCase();
+  const deviceId = getOrCreateDeviceId();
 
   if (!name) return showGateError("⚠️ Full name is required.");
   if (!email) return showGateError("⚠️ Email address is required.");
@@ -222,6 +227,7 @@ async function verifyAndProceed() {
     formData.append("email", email);
     formData.append("name", name);
     formData.append("phone", phone);
+    formData.append("deviceId", deviceId);
 
     const res = await fetch(CFG.GAS_URL, {
       method: "POST",
@@ -659,88 +665,106 @@ function autoSubmit() {
    14. REVIEW
 ═══════════════════════════════════════════════════════════════ */
 function goToReviewScreen() {
+  if (!S.submitted) return;
+  S.reviewSubject = (S.subjects && S.subjects.length) ? S.subjects[0] : "English";
   renderReview();
   showScreen("reviewScreen");
 }
+function buildReviewSubjectTabs() {
+  const wrap = byId("reviewSubjectTabs");
+  if (!wrap) return;
 
+  wrap.innerHTML = "";
+
+  (S.subjects || []).forEach(sub => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "subject-tab" + (S.reviewSubject === sub ? " active" : "");
+    btn.textContent = sub;
+    btn.onclick = () => {
+      S.reviewSubject = sub;
+      renderReview();
+    };
+    wrap.appendChild(btn);
+  });
+}
 function renderReview() {
   computeScores();
 
   const totalAnswered = countAnswered();
   const totalQuestions = countQuestions();
 
+  const subject = S.reviewSubject || (S.subjects && S.subjects[0]) || "English";
+  const subjectQs = S.questions[subject] || [];
+  const sc = S.scores[subject] || { raw: 0, total: 0, scaled: 0 };
+
   setHTML("reviewSummary", `
     <p><strong>Candidate:</strong> ${escapeHtml(S.student.name)}</p>
     <p><strong>Test:</strong> Test ${S.testNumber}</p>
     <p><strong>Answered:</strong> ${totalAnswered} / ${totalQuestions}</p>
+    <p><strong>Subject:</strong> ${escapeHtml(subject)} — ${sc.raw}/${sc.total} correct (${sc.scaled}/100)</p>
   `);
 
-  const html = S.subjects.map(subject => {
-    const subjectQs = S.questions[subject] || [];
-    const sc = S.scores[subject] || { raw: 0, total: 0, scaled: 0 };
+  buildReviewSubjectTabs();
 
-    const items = subjectQs.map((q, idx) => {
-      const key = mkKey(subject, idx);
-      const userAns = S.answers[key] || "";
-      const correct = q.correct || "";
-      const isCorrect = !!userAns && userAns === correct;
+  const html = subjectQs.map((q, idx) => {
+    const key = mkKey(subject, idx);
+    const userAns = S.answers[key] || "";
+    const correct = q.correct || "";
+    const isCorrect = !!userAns && userAns === correct;
 
-      const optionsHtml = ["A", "B", "C", "D"].map(letter => {
-        const text = q.options?.[letter];
-        if (!text) return "";
+    const optionsHtml = ["A", "B", "C", "D"].map(letter => {
+      const text = q.options?.[letter];
+      if (!text) return "";
 
-        let cls = "review-option";
-        if (letter === correct) cls += " correct";
-        if (letter === userAns) cls += " chosen";
-        if (letter === userAns && userAns !== correct) cls += " wrong";
-
-        return `
-          <div class="${cls}">
-            <strong>${letter}.</strong> <span class="math-content">${safeMathHtml(text)}</span>
-          </div>
-        `;
-      }).join("");
+      let cls = "review-option";
+      if (letter === correct) cls += " correct";
+      if (letter === userAns) cls += " chosen";
+      if (letter === userAns && userAns !== correct) cls += " wrong";
 
       return `
-        <div class="review-item">
-          <h4>
-            Q${idx + 1} — ${escapeHtml(q.topic || subject)}
-            ${isCorrect ? "✓" : userAns ? "✗" : "—"}
-          </h4>
-
-          ${q.diagram ? `
-            <div class="question-diagram-box" style="max-width:360px;margin-bottom:12px;">
-              <img
-                src="${q.diagram}"
-                alt="Question diagram"
-                class="question-diagram"
-                onerror="this.closest('.question-diagram-box').style.display='none';"
-              />
-            </div>
-          ` : ""}
-
-          <div class="question-text math-content" style="margin-bottom:12px;">
-            ${safeMathHtml(q.question)}
-          </div>
-
-          <div>${optionsHtml}</div>
-
-          <div style="margin-top:10px;">
-            <strong>Your Answer:</strong> ${userAns || "<em>Not answered</em>"}<br/>
-            <strong>Correct Answer:</strong> ${escapeHtml(correct)}<br/>
-            <strong>Explanation:</strong>
-            <span class="explanation-text math-content">${safeMathHtml(q.explanation || "<em>No explanation available.</em>")}</span>
-          </div>
+        <div class="${cls}">
+          <strong>${letter}.</strong> <span class="math-content">${safeMathHtml(text)}</span>
         </div>
       `;
     }).join("");
 
     return `
-      <div style="margin-bottom:22px;">
-        <h3 style="color:#184d28;margin-bottom:10px;">
-          ${escapeHtml(subject)} — ${sc.raw}/${sc.total} correct (${sc.scaled}/100)
-        </h3>
-        ${items}
+      <div class="review-item">
+        <h4>
+          Q${idx + 1} — ${escapeHtml(q.topic || subject)}
+          ${isCorrect ? "✓" : userAns ? "✗" : "—"}
+        </h4>
+
+        ${q.diagram ? `
+          <div class="question-diagram-box" style="max-width:360px;margin-bottom:12px;">
+            <img
+              src="${q.diagram}"
+              alt="Question diagram"
+              class="question-diagram"
+              onerror="this.closest('.question-diagram-box').style.display='none';"
+            />
+          </div>
+        ` : ""}
+
+        ${q.passage ? `
+          <div class="question-text math-content" style="margin-bottom:12px;">
+            ${safeMathHtml(q.passage)}
+          </div>
+        ` : ""}
+
+        <div class="question-text math-content" style="margin-bottom:12px;">
+          ${safeMathHtml(q.question)}
+        </div>
+
+        <div>${optionsHtml}</div>
+
+        <div style="margin-top:10px;">
+          <strong>Your Answer:</strong> ${userAns || "<em>Not answered</em>"}<br/>
+          <strong>Correct Answer:</strong> ${escapeHtml(correct)}<br/>
+          <strong>Explanation:</strong>
+          <span class="explanation-text math-content">${safeMathHtml(q.explanation || "<em>No explanation available.</em>")}</span>
+        </div>
       </div>
     `;
   }).join("");
@@ -863,6 +887,8 @@ function renderResults(total) {
 async function sendResultEmail(total) {
   if (!S.student.email) return;
 
+  const deviceId = getOrCreateDeviceId();
+
   const breakdown = S.subjects.map(subject => {
     const sc = S.scores[subject];
     return `${subject}: ${sc.raw}/${sc.total} -> ${sc.scaled}/100`;
@@ -874,6 +900,7 @@ async function sendResultEmail(total) {
   formData.append("email", S.student.email);
   formData.append("phone", S.student.phone);
   formData.append("pin", S.student.pin);
+  formData.append("deviceId", deviceId);
   formData.append("testNo", S.testNumber);
   formData.append("total", total);
   formData.append("subjects", S.subjects.join(", "));
@@ -958,7 +985,7 @@ function restoreSession() {
       S.timerLeft = Number.isInteger(saved.timerLeft) ? saved.timerLeft : CFG.EXAM_SECS;
       S.submitted = !!saved.submitted;
 
-      if (Object.keys(S.questions).length) {
+    if (Object.keys(S.questions).length) {
         if (S.submitted) {
           const total = totalScore400();
           renderResults(total);
@@ -971,6 +998,7 @@ function restoreSession() {
         }
       } else {
         buildTestSelectionScreen();
+        showScreen("testSelectScreen");
       }
     }
   } catch (err) {
@@ -1018,7 +1046,8 @@ function restartApp() {
     timerRef: null,
     autoSaveRef: null,
     submitted: false,
-    pinVerified: false
+    pinVerified: false,
+    reviewSubject: "English"
   };
 
   if (byId("studentName")) byId("studentName").value = "";
@@ -1032,6 +1061,44 @@ function restartApp() {
 
   clearGateMessages();
   showScreen("gateScreen");
+}
+function goToTestSelection() {
+  stopTimer();
+  stopAutoSave();
+
+  S.questions = {};
+  S.answers = {};
+  S.flagged = {};
+  S.scores = {};
+  S.curSubject = "English";
+  S.curIdx = 0;
+  S.timerLeft = CFG.EXAM_SECS;
+  S.timerRef = null;
+  S.autoSaveRef = null;
+  S.submitted = false;
+
+  saveSession();
+  buildTestSelectionScreen();
+  showScreen("testSelectScreen");
+}
+
+function repeatCurrentTest() {
+  stopTimer();
+  stopAutoSave();
+
+  S.questions = {};
+  S.answers = {};
+  S.flagged = {};
+  S.scores = {};
+  S.curSubject = "English";
+  S.curIdx = 0;
+  S.timerLeft = CFG.EXAM_SECS;
+  S.timerRef = null;
+  S.autoSaveRef = null;
+  S.submitted = false;
+
+  saveSession();
+  beginExam();
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1050,3 +1117,5 @@ window.toggleFlagCurrent = toggleFlagCurrent;
 window.goToReviewScreen = goToReviewScreen;
 window.submitExam = submitExam;
 window.restartApp = restartApp;
+window.goToTestSelection = goToTestSelection;
+window.repeatCurrentTest = repeatCurrentTest;

@@ -17,18 +17,19 @@ window.QUESTION_BANK["Physics"] = {
     explanation: "KEY RULE: A pair of Vernier calipers is suitable for measuring internal diameters because it has inside jaws made for that purpose. NOTE: A micrometer screw gauge is mainly used for external diameters and thicknesses. REMEMBER: Internal measurement → inside jaws of Vernier calipers."
   },
   {
-    id: 2,
-    topic: "Scalars and Vectors",
-    question: "Which of the following is a scalar quantity?",
-    options: {
-      A: "Velocity",
-      B: "Displacement",
-      C: "Speed",
-      D: "Force"
-    },
-    correct: "C",
-    explanation: "KEY RULE: A scalar has magnitude only, while a vector has both magnitude and direction. NOTE: Speed has no direction, but velocity, displacement and force do. REMEMBER: Scalar = size only; vector = size + direction."
+  "id": 2,
+  "topic": "Machines",
+  "question": "A wheel and axle is used to raise a load of $500N$ by the application of an effort of $250N$. If the radii of the wheel and the axle are $0.4cm$ and $0.1cm$ respectively, the efficiency of the machine is?",
+  "diagram": "",
+  "options": {
+    "A": "60%",
+    "B": "50%",
+    "C": "40%",
+    "D": "20%"
   },
+  "correct": "B",
+  "explanation": "Efficiency is calculated using the formula: \n\n$$\\text{Efficiency} = \\frac{\\text{Mechanical Advantage (MA)}}{\\text{Velocity Ratio (VR)}} \\times 100\\%$$\n\n1. Calculate Mechanical Advantage (MA): \n   $$MA = \\frac{\\text{Load}}{\\text{Effort}} = \\frac{500}{250} = 2$$\n\n2. Calculate Velocity Ratio (VR) for wheel and axle: \n   $$VR = \\frac{\\text{Radius of Wheel (R)}}{\\text{Radius of Axle (r)}} = \\frac{0.4}{0.1} = 4$$\n\n3. Calculate Efficiency:\n   $$\\text{Efficiency} = \\frac{2}{4} \\times 100\\% = 0.5 \\times 100\\% = 50\\%$$\n\nTherefore, the efficiency of the machine is 50%."
+},
   {
     id: 3,
     topic: "Motion Graphs",
@@ -174,18 +175,19 @@ window.QUESTION_BANK["Physics"] = {
     explanation: "KEY RULE: A density bottle is suitable for finding the relative density of powders and liquids accurately. NOTE: The mass is measured with the balance, while the bottle helps determine displaced volume. REMEMBER: powdered substance → density bottle."
   },
   {
-    id: 14,
-    topic: "Density",
-    question: "A hydrometer is an instrument used in measuring",
-    options: {
-      A: "density of a liquid",
-      B: "relative density of a liquid",
-      C: "relative humidity of a liquid",
-      D: "vapour pressure of a fluid"
-    },
-    correct: "B",
-    explanation: "KEY RULE: A hydrometer is designed to float in liquids and indicate their relative density. NOTE: It compares the density of the liquid to that of water. REMEMBER: hydro-meter here is for liquid relative density."
+  "id": 14,
+  "topic": "Machines",
+  "question": "A 20-toothed gear wheel drives a 60-toothed one. If the angular speed of the smaller wheel is 120 rev s⁻¹, the angular speed of the larger wheel is?",
+  "diagram": "",
+  "options": {
+    "A": "3 rev s⁻¹",
+    "B": "40 rev s⁻¹",
+    "C": "360 rev s⁻¹",
+    "D": "2400 rev s⁻¹"
   },
+  "correct": "B",
+  "explanation": "Note: The provided solution in the image contains a mathematical error in the relationship between gear teeth and speed. In gear systems, the velocity ratio is inversely proportional to the number of teeth. \n\n$$\\frac{\\text{Speed of Driven Wheel}}{\\text{Speed of Driving Wheel}} = \\frac{\\text{Number of teeth on Driving Wheel}}{\\text{Number of teeth on Driven Wheel}}$$\n\nGiven:\n- Teeth on driving (smaller) wheel ($N_1$) = 20\n- Teeth on driven (larger) wheel ($N_2$) = 60\n- Speed of driving wheel ($S_1$) = 120 rev s⁻¹\n\nLet $S_2$ be the speed of the larger wheel:\n$$\\frac{S_2}{120} = \\frac{20}{60}$$\n$$S_2 = \\frac{20}{60} \\times 120$$\n$$S_2 = \\frac{1}{3} \\times 120 = 40 \\text{ rev s}^{-1}$$\n\nThus, the angular speed of the larger wheel is 40 rev s⁻¹."
+},
   {
     id: 15,
     topic: "Thermometry",
@@ -212,32 +214,34 @@ window.QUESTION_BANK["Physics"] = {
     correct: "C",
     explanation: "FORMULA: ΔL ∝ αLΔθ. Since Δθ is the same, ratio = (2 × 3):(3 × 4) = 6:12 = 1:2. REMEMBER: increase in length depends on both original length and expansivity."
   },
-  {
-    id: 17,
-    topic: "Electricity",
-    question: "A resistor has a voltage of 12 V across it and a current of 3 A. What is its resistance?",
-    options: {
-      A: "36 Ω",
-      B: "4 Ω",
-      C: "15 Ω",
-      D: "0.25 Ω"
-    },
-    correct: "B",
-    explanation: "FORMULA: R = V/I = 12/3 = 4 Ω. NOTE: This is a direct application of Ohm's law. REMEMBER: resistance is voltage divided by current."
+ {
+  "id": 17,
+  "topic": "Machines",
+  "question": "Which of the following levers has the greatest mechanical advantage?",
+  "diagram": "assets/physics/test1/question17.png",
+  "options": {
+    "A": "Lever A",
+    "B": "Lever B",
+    "C": "Lever C",
+    "D": "Lever D"
   },
-  {
-    id: 18,
-    topic: "Waves",
-    question: "A wave has frequency 200 Hz and wavelength 1.5 m. Calculate its speed.",
-    options: {
-      A: "133.3 m/s",
-      B: "201.5 m/s",
-      C: "300 m/s",
-      D: "198.5 m/s"
-    },
-    correct: "C",
-    explanation: "FORMULA: v = fλ = 200 × 1.5 = 300 m/s. NOTE: Frequency multiplied by wavelength gives wave speed. REMEMBER: v = fλ is a very important wave formula."
+  "correct": "C",
+  "explanation": "Mechanical Advantage (MA) for a lever can be calculated as the ratio of the Effort Arm to the Load Arm ($MA = \\frac{\\text{Effort Arm}}{\\text{Load Arm}}$).\n\n* **Lever A:** $MA = \\frac{1}{3} = 0.33$\n* **Lever B:** $MA = \\frac{2}{2} = 1.0$\n* **Lever C:** $MA = \\frac{3}{1} = 3.0$\n* **Lever D:** This is a second-class lever where the effort arm is $4cm$ ($2+2$) and the load arm is $2cm$. $MA = \\frac{4}{2} = 2.0$\n\nLever C has the greatest mechanical advantage with a value of 3.0."
+},
+ {
+  id: 18,
+  topic: "Thermal Properties of Matter",
+  question: "What is the temperature gradient across a copper rod of thickness 0.02m, maintained at two temperature junctions of 20°C and 80°C respectively?",
+  diagram: "",
+  options: {
+    A: "$3.0 \\times 10^2 Km^{-1}$",
+    B: "$3.0 \\times 10^3 Km^{-1}$",
+    C: "$5.0 \\times 10^3 Km^{-1}$",
+    D: "$3.0 \\times 10^4 Km^{-1}$"
   },
+  correct: "B",
+  explanation: "Temperature gradient is defined as the change in temperature per unit length. It is calculated using the formula: $\\text{Temperature gradient} = \\frac{\\theta_2 - \\theta_1}{L}$. Given $\\theta_2 = 80^{\\circ}C$, $\\theta_1 = 20^{\\circ}C$, and $L = 0.02m$: $\\text{Gradient} = \\frac{80 - 20}{0.02} = \\frac{60}{0.02} = 3000 = 3 \\times 10^3 Km^{-1}$. Note that a temperature interval in Celsius is equal to the interval in Kelvin."
+},
   {
     id: 19,
     topic: "Gas Laws",
@@ -279,31 +283,33 @@ window.QUESTION_BANK["Physics"] = {
     explanation: "KEY RULE: For an alternating current, the r.m.s. value is the effective value that produces the same heating effect as direct current. From the given circuit data in the question source, the correct effective current is 48 A. NOTE: r.m.s. values are the standard values used for practical AC measurements. REMEMBER: r.m.s. is the useful working value in AC circuits."
   },
   {
-    id: 22,
-    topic: "Thermometry",
-    question: "Convert 37°C to kelvin.",
-    options: {
-      A: "236 K",
-      B: "310 K",
-      C: "100 K",
-      D: "374 K"
-    },
-    correct: "B",
-    explanation: "FORMULA: K = °C + 273 = 37 + 273 = 310 K. NOTE: Kelvin temperature does not use the degree sign. REMEMBER: add 273 to convert from Celsius to kelvin."
+  "id": 22,
+  "topic": "Work, Energy and Power",
+  "question": "A body is under the action of a force $F$ such that the force-displacement graph of the body is a semicircle as shown above. The work done on the body by the force in moving through 24 meters is:",
+  "diagram": "assets/physics/test1/question22.png",
+  "options": {
+    "A": "$36\pi J$",
+    "B": "$72\pi J$",
+    "C": "$144\pi J$",
+    "D": "$288\pi J$"
   },
+  "correct": "B",
+  "explanation": "The work done by a force is equal to the area under the force-displacement ($F-x$) graph. Since the graph is a semicircle, the work done is equivalent to the area of that semicircle.\n\n1.  **Identify the dimensions**: The base of the semicircle (the diameter) lies on the x-axis from 0 to 24 meters. Therefore, the diameter ($d$) is 24m and the radius ($r$) is $12m$.\n2.  **Calculate the area**: The area ($A$) of a semicircle is given by $\frac{1}{2}\pi r^2$.\n3.  **Substitution**: \n    $W = \frac{1}{2} \times \pi \times (12)^2$\n    $W = \frac{1}{2} \times \pi \times 144$\n    $W = 72\pi J$.\n\nThus, the total work done is $72\pi J$."
+},
   {
-    id: 23,
-    topic: "Capacitance",
-    question: "The unit of capacitance is the",
-    options: {
-      A: "ohm",
-      B: "henry",
-      C: "farad",
-      D: "weber"
-    },
-    correct: "C",
-    explanation: "KEY RULE: The SI unit of capacitance is the farad, F. NOTE: Ohm is for resistance, henry for inductance and weber for magnetic flux. REMEMBER: capacitor → farad."
+  id: 23,
+  topic: "Quantity of Heat",
+  question: "A 500W heater is used to heat 0.6kg of water from 25°C to 100°C in $t_1$ second. If another 1000W heater is used to heat 0.2kg of water from 10°C to 100°C in $t_2$ seconds, find $t_1/t_2$:",
+  diagram: "",
+  options: {
+    A: "50",
+    B: "5",
+    C: "5/4",
+    D: "1/5"
   },
+  correct: "B",
+  explanation: "Using the formula for electrical heating $Pt = mc\\Delta\\theta$, we find the time $t = \\frac{mc\\Delta\\theta}{P}$. For the first instance: $t_1 = \\frac{0.6 \\times c \\times (100 - 25)}{500} = \\frac{0.6 \\times 75 \\times c}{500} = 0.09c$. For the second instance: $t_2 = \\frac{0.2 \\times c \\times (100 - 10)}{1000} = \\frac{0.2 \\times 90 \\times c}{1000} = 0.018c$. Therefore, the ratio $\\frac{t_1}{t_2} = \\frac{0.09c}{0.018c} = \\frac{90}{18} = 5$."
+},
   {
     id: 24,
     topic: "Atomic Physics",
@@ -357,18 +363,19 @@ window.QUESTION_BANK["Physics"] = {
     explanation: "KEY RULE: Static friction acts when two surfaces are in contact without sliding. NOTE: It prevents motion from starting. REMEMBER: static friction acts before motion begins."
   },
   {
-    id: 28,
-    topic: "Gas Laws",
-    question: "Boyle's law states that, at constant temperature, pressure is _____ proportional to volume.",
-    options: {
-      A: "directly",
-      B: "inversely",
-      C: "equally",
-      D: "exponentially"
-    },
-    correct: "B",
-    explanation: "KEY RULE: Boyle's law says P ∝ 1/V when temperature is constant. NOTE: As volume increases, pressure decreases. REMEMBER: pressure and volume move oppositely in Boyle's law."
+  "id": 18,
+  "topic": "Thermal Energy",
+  "question": "An electric current of $3A$ flowing through an electric heating element of resistance $20\\Omega$ embedded in $1,000g$ of an oil raises the temperature of the oil by $10^\\circ C$ in $10$ sec. What is the specific heat capacity of the liquid?",
+  "diagram": "",
+  "options": {
+    "A": "1.8 J/g",
+    "B": "0.6 J/g",
+    "C": "0.18 J/g°C",
+    "D": "1.8 J/g°C"
   },
+  "correct": "C",
+  "explanation": "To find the specific heat capacity ($c$), we use the principle of conservation of energy where the heat supplied by the heater equals the heat gained by the oil.\n\n1. **Heat supplied by heater ($H$)** is given by Joule's Law: $H = I^2Rt$\n   $$H = 3^2 \\times 20 \\times 10 = 9 \\times 20 \\times 10 = 1,800J$$\n\n2. **Heat gained by oil ($Q$)** is given by: $Q = mc\\Delta\\theta$\n   $$1,800 = 1,000 \\times c \\times 10$$\n\n3. **Solve for $c$**:\n   $$c = \\frac{1,800}{1,000 \\times 10}$$\n   $$c = \\frac{1,800}{10,000} = 0.18 J/g^\\circ C$$\n\nThus, the specific heat capacity of the liquid is $0.18 J/g^\\circ C$."
+},
   {
     id: 29,
     topic: "Optics",
@@ -542,18 +549,19 @@ test2: [
     explanation: "KEY RULE: The least possible error is usually half of the smallest scale division. A metre rule has a smallest division of 1 mm, so the least possible error is 0.5 mm. REMEMBER: Least possible error = ½ × smallest division."
   },
   {
-    id: 2,
-    topic: "Scalars and Vectors",
-    question: "Which of the following physical quantities is a vector?",
-    options: {
-      A: "Speed",
-      B: "Distance",
-      C: "Velocity",
-      D: "Mass"
-    },
-    correct: "C",
-    explanation: "KEY RULE: A vector has both magnitude and direction. Velocity has magnitude and direction, while speed, distance and mass are scalars. REMEMBER: vector = size + direction."
+  "id": 2,
+  "topic": "Thermal Energy",
+  "question": "A piece of substance of specific heat capacity $450 Jkg^{-1}K^{-1}$ falls through a vertical distance of $20m$ from rest. Calculate the rise in temperature of the substance on hitting the ground when all energies are converted into heat. (Take $g = 10m/s^2$)",
+  "diagram": "",
+  "options": {
+    "A": "2/9 °C",
+    "B": "4/9 °C",
+    "C": "9/4 °C",
+    "D": "9/2 °C"
   },
+  "correct": "B",
+  "explanation": "This problem is based on the conservation of energy, where the initial potential energy ($PE$) of the substance is converted into heat energy ($Q$) upon impact. \n\n1. **Potential Energy ($PE$):** $mgh$\n2. **Heat Energy ($Q$):** $mc\\Delta\\theta$\n\nSetting the two equal since all energy is converted to heat:\n$$mgh = mc\\Delta\\theta$$\n\nThe mass ($m$) cancels out from both sides:\n$$gh = c\\Delta\\theta$$\n\nSubstitute the given values ($g = 10m/s^2$, $h = 20m$, $c = 450 Jkg^{-1}K^{-1}$):\n$$10 \\times 20 = 450 \\times \\Delta\\theta$$\n$$200 = 450 \\times \\Delta\\theta$$\n\nSolve for $\\Delta\\theta$:\n$$\\Delta\\theta = \\frac{200}{450} = \\frac{20}{45} = \\frac{4}{9} ^\\circ C$$\n\nThus, the rise in temperature is $4/9 ^\\circ C$."
+},
   {
     id: 3,
     topic: "Kinematics",
@@ -594,18 +602,19 @@ test2: [
     explanation: "KEY RULE: The turning effect of a force is called the moment of the force. FORMULA: Moment = Force × perpendicular distance from pivot. REMEMBER: turning effect → moment."
   },
   {
-    id: 6,
-    topic: "Simple Harmonic Motion",
-    question: "The time taken for one complete oscillation is called",
-    options: {
-      A: "frequency",
-      B: "period",
-      C: "amplitude",
-      D: "phase"
-    },
-    correct: "B",
-    explanation: "KEY RULE: Period is the time for one complete cycle. Frequency is the number of oscillations per second. REMEMBER: Period and frequency are reciprocals."
+  id: 6,
+  topic: "Latent Heat",
+  question: "An electric heater is used to melt a block of ice, mass 1.5kg. If the heater is powered by a 12V battery and a current of 20A flows through the coil, calculate the time taken to melt the block of ice at 0°C. [Specific latent heat of fusion of ice = $336 \\times 10^3 Jkg^{-1}$]:",
+  diagram: "",
+  options: {
+    A: "76.0 min",
+    B: "35.0 min",
+    C: "21.0 min",
+    D: "2.9 min"
   },
+  correct: "B",
+  explanation: "The electrical energy supplied by the heater is given by $E = IVt$, and the heat required to melt the ice is $Q = mL$, where $L$ is the specific latent heat of fusion. Setting electrical energy equal to heat energy ($IVt = mL$), we can solve for time: $t = \\frac{mL}{IV}$. Given $m = 1.5kg$, $L = 336 \\times 10^3 Jkg^{-1}$, $I = 20A$, and $V = 12V$, we get $t = \\frac{1.5 \\times 336 \\times 10^3}{20 \\times 12} = \\frac{504000}{240} = 2100$ seconds. To convert to minutes: $\\frac{2100}{60} = 35.0$ minutes."
+},
   {
     id: 7,
     topic: "Equilibrium",
@@ -764,18 +773,19 @@ test2: [
     explanation: "FORMULA: V₁/T₁ = V₂/T₂. T₁ = 300 K, T₂ = 400 K. So V₂ = 300 × 400/300 = 400 cm³. REMEMBER: convert Celsius to kelvin before using gas laws."
   },
   {
-    id: 19,
-    topic: "Wave Motion",
-    question: "The speed of a wave of frequency 50 Hz and wavelength 4 m is",
-    options: {
-      A: "12.5 m/s",
-      B: "54 m/s",
-      C: "200 m/s",
-      D: "46 m/s"
-    },
-    correct: "C",
-    explanation: "FORMULA: v = fλ = 50 × 4 = 200 m/s. REMEMBER: wave speed = frequency × wavelength."
+  id: 19,
+  topic: "Gas Laws",
+  question: "A gas at a volume $V_o$ in a container at pressure $P_o$ is compressed to one fifth of its volume. What will be its pressure if it maintains its original temperature T?",
+  diagram: "",
+  options: {
+    A: "$P_o/5$",
+    B: "$\\frac{4}{5}P_o$",
+    C: "$P_o$",
+    D: "$5P_o$"
   },
+  correct: "D",
+  explanation: "According to Boyle's law, for a fixed mass of gas at constant temperature, the pressure is inversely proportional to its volume ($P_1V_1 = P_2V_2$). Given initial conditions $P_1 = P_o$ and $V_1 = V_o$, and final volume $V_2 = \\frac{1}{5}V_o$, we can solve for $P_2$: $P_2 = \\frac{P_1V_1}{V_2} = \\frac{P_o V_o}{\\frac{1}{5}V_o} = P_o V_o \\times \\frac{5}{V_o} = 5P_o$."
+},
   {
     id: 20,
     topic: "Sound",
@@ -829,18 +839,19 @@ test2: [
     explanation: "KEY RULE: A convex lens brings parallel rays together, so it is called a converging lens. REMEMBER: convex converges, concave diverges."
   },
   {
-    id: 24,
-    topic: "Electrostatics",
-    question: "Like electric charges",
-    options: {
-      A: "attract each other",
-      B: "repel each other",
-      C: "neutralize each other",
-      D: "move together always"
-    },
-    correct: "B",
-    explanation: "KEY RULE: Like charges repel while unlike charges attract. REMEMBER: positive-positive and negative-negative repel."
+  "id": 24,
+  "topic": "Pressure in Liquids",
+  "question": "A rectangular tank contains water to a depth of $2m$. If the base is $4m \\times 3m$, calculate the force on the base. (Density of water = $10^3 kgm^{-3}$, $g = 10ms^{-2}$)",
+  "diagram": "",
+  "options": {
+    "A": "2.4 × 10⁴ N",
+    "B": "2.4 × 10⁵ N",
+    "C": "2.0 × 10⁴ N",
+    "D": "1.7 × 10³ N"
   },
+  "correct": "B",
+  "explanation": "The force ($F$) exerted on the base of the tank is equal to the weight ($W$) of the water above it. \n\n1. **Calculate the Volume ($V$):** \n   $$V = \text{length} \times \text{width} \times \text{depth} = 4m \times 3m \times 2m = 24m^3$$\n\n2. **Calculate the Mass ($m$):** \n   Using $\text{Density} = \frac{\text{mass}}{\text{volume}}$, then $m = \text{density} \times V$\n   $$m = 1000 kgm^{-3} \times 24m^3 = 24,000kg$$\n\n3. **Calculate the Force (Weight):**\n   $$F = W = mg = 24,000kg \times 10ms^{-2} = 240,000N = 2.4 \times 10^5 N$$\n\nThus, the force on the base is $2.4 \times 10^5 N$."
+},
   {
     id: 25,
     topic: "Current Electricity",
@@ -855,31 +866,32 @@ test2: [
     explanation: "KEY RULE: Ohm's law states that V ∝ I, provided temperature remains constant. FORMULA: V = IR. REMEMBER: more voltage across same resistor gives more current."
   },
   {
-    id: 26,
-    topic: "Current Electricity",
-    question: "The unit of electrical resistance is the",
-    options: {
-      A: "volt",
-      B: "ampere",
-      C: "coulomb",
-      D: "ohm"
-    },
-    correct: "D",
-    explanation: "KEY RULE: The SI unit of resistance is the ohm, symbol Ω. REMEMBER: resistance is measured in ohms."
+  id: 26,
+  topic: "Hydrostatics",
+  question: "The atmospheric pressure due to water is $1.3 \\times 10^6 \\text{Nm}^{-2}$. What is the total pressure at the bottom of an ocean 10m deep? (Density of water = $1000 \\text{kgm}^{-3}$, g = $10 \\text{m/s}^2$):",
+  options: {
+    A: "$1.3 \\times 10^7 \\text{Nm}^{-2}$",
+    B: "$1.4 \\times 10^6 \\text{Nm}^{-2}$",
+    C: "$1.4 \\times 10^5 \\text{Nm}^{-2}$",
+    D: "$1.0 \\times 10^5 \\text{Nm}^{-2}$"
   },
+  correct: "B",
+  explanation: "To find the total pressure, we add the atmospheric pressure to the pressure exerted by the water column (hydrostatic pressure). Using the formula $P_{total} = P_{atm} + \\rho h g$: Given $P_{atm} = 1.3 \\times 10^6 \\text{Nm}^{-2}$, depth $h = 10\\text{m}$, density $\\rho = 1000 \\text{kgm}^{-3}$, and $g = 10 \\text{m/s}^2$. Calculation: $1.3 \\times 10^6 + (1000 \\times 10 \\times 10) = 1.3 \\times 10^6 + 10^5$. Converting to a common exponent: $1.3 \\times 10^6 + 0.1 \\times 10^6 = 1.4 \\times 10^6 \\text{Nm}^{-2}$."
+},
   {
-    id: 27,
-    topic: "Electrical Circuits",
-    question: "Cells are connected in series in order to",
-    options: {
-      A: "decrease current",
-      B: "increase total e.m.f.",
-      C: "decrease voltage",
-      D: "increase internal resistance only"
-    },
-    correct: "B",
-    explanation: "KEY RULE: In series connection of cells, the e.m.f.s add up. REMEMBER: series cells give higher voltage."
+  id: 1,
+  topic: "Pressure in Fluids",
+  question: "A hydraulic press has a large circular piston of radius 0.8m and a circular plunger of radius 0.2m. A force of 500N is exerted by the plunger. Find the force exerted on the piston:",
+  diagram: "",
+  options: {
+    A: "8000N",
+    B: "4000N",
+    C: "2000N",
+    D: "31N"
   },
+  correct: "A",
+  explanation: "Based on Pascal's principle, the pressure in an enclosed fluid is transmitted equally in all directions. Therefore, $P_1 = P_2$, which implies $\\frac{F_1}{A_1} = \\frac{F_2}{A_2}$. Given $r_1 = 0.2m$ and $r_2 = 0.8m$, the areas are $A_1 = \\pi(0.2)^2 = 0.04\\pi$ and $A_2 = \\pi(0.8)^2 = 0.64\\pi$. Substituting the values: $\\frac{500}{0.04\\pi} = \\frac{F_2}{0.64\\pi}$. Solving for $F_2$, we get $F_2 = \\frac{500 \\times 0.64\\pi}{0.04\\pi} = 500 \\times 16 = 8000N$."
+},
   {
     id: 28,
     topic: "Magnetism",
@@ -907,18 +919,18 @@ test2: [
     explanation: "KEY RULE: Electromagnetic induction occurs when a conductor cuts magnetic flux. REMEMBER: changing magnetic flux induces e.m.f."
   },
   {
-    id: 30,
-    topic: "Atomic Physics",
-    question: "The neutral particle found in the nucleus of an atom is the",
-    options: {
-      A: "electron",
-      B: "proton",
-      C: "neutron",
-      D: "positron"
-    },
-    correct: "C",
-    explanation: "KEY RULE: Neutrons have no electric charge. Protons are positive and electrons are negative. REMEMBER: neutron = neutral."
+  id: 30,
+  topic: "Waves",
+  question: "The equation of a wave travelling along the positive x-direction is given by $y = 0.25 \\times 10^{-3} \\sin(500t - 0.025x)$. Determine the angular frequency of the wave motion.",
+  options: {
+    A: "$0.25 \\times 10^{-3} \\text{rad s}^{-1}$",
+    B: "$0.25 \\times 10^{-1} \\text{rad s}^{-1}$",
+    C: "$5.00 \\times 10^2 \\text{rad s}^{-1}$",
+    D: "$2.50 \\times 10^2 \\text{rad s}^{-1}$"
   },
+  correct: "C",
+  explanation: "The general equation for a progressive wave is $y = A \\sin(\\omega t - k x)$, where $\\omega$ is the angular frequency. By comparing the given equation $y = 0.25 \\times 10^{-3} \\sin(500t - 0.025x)$ to the general form, we can see that $\\omega = 500$. In scientific notation, $500 = 5.00 \\times 10^2 \\text{rad s}^{-1}$."
+},
   {
     id: 31,
     topic: "Radioactivity",
@@ -959,18 +971,20 @@ test2: [
     explanation: "FORMULA: KE = ½mv² = ½ × 4 × 5² = 2 × 25 = 50 J. REMEMBER: square the speed first."
   },
   {
-    id: 34,
-    topic: "Power",
-    question: "Power is the rate of doing",
-    options: {
-      A: "energy",
-      B: "momentum",
-      C: "work",
-      D: "force"
-    },
-    correct: "C",
-    explanation: "KEY RULE: Power is the rate at which work is done or energy is transferred. FORMULA: P = W/t. REMEMBER: watt = joule per second."
+  id: 34,
+  topic: "Waves",
+  question: "The wave motion shown above has a frequency of:",
+  diagram: "assets/physics/test2/question34.png",
+  options: {
+    A: "0.1Hz",
+    B: "0.2Hz",
+    C: "5Hz",
+    D: "10Hz",
+    E: "100Hz"
   },
+  correct: "C",
+  explanation: "Frequency ($f$) is the reciprocal of the period ($T$), which is the time taken for one complete cycle. From the displacement-time graph, one complete wave cycle is completed at $t = 0.2$ seconds. Therefore, $T = 0.2s$. Using the formula $f = 1/T$, we get $f = 1/0.2 = 5Hz$."
+},
   {
     id: 35,
     topic: "AC Circuits",
@@ -1149,33 +1163,36 @@ test3: [
     correct: "A",
     explanation: "FORMULA: p = mv = 5 × 6 = 30 kg m/s. REMEMBER: momentum depends on mass and velocity."
   },
+  
   {
     id: 8,
-    topic: "Work and Energy",
-    question: "A force of 10 N moves a body through a distance of 5 m. The work done is",
+    topic: "Waves",
+    question: "The relationship between L and the wavelength $\\lambda$ of the stationary wave is:",
+    diagram: "assets/physics/test3/question8_9.png",
     options: {
-      A: "50 J",
-      B: "2 J",
-      C: "15 J",
-      D: "5 J"
+      A: "$2L = \\lambda$",
+      B: "$L = \\lambda$",
+      C: "$L = \\lambda/3$",
+      D: "$4L = 3\\lambda$"
     },
-    correct: "A",
-    explanation: "FORMULA: Work = Force × distance = 10 × 5 = 50 J. REMEMBER: work is measured in joules."
+    correct: "D",
+    explanation: "In a closed pipe, a stationary wave has a node at the closed end and an antinode at the open end. From the diagram, the length $L$ of the tube contains three-quarters of a wavelength ($L = \\frac{3\\lambda}{4}$). Rearranging for the relationship gives $4L = 3\\lambda$."
   },
   {
     id: 9,
-    topic: "Power",
-    question: "A machine does 1000 J of work in 5 s. Its power is",
+    topic: "Waves",
+    question: "Determine the distance between consecutive antinodes XX if the wavelength is 60cm:",
+    diagram: "assets/physics/test3/question8_9.png",
     options: {
-      A: "200 W",
-      B: "500 W",
-      C: "100 W",
-      D: "50 W"
+      A: "15cm",
+      B: "30cm",
+      C: "60cm",
+      D: "120cm"
     },
-    correct: "A",
-    explanation: "FORMULA: Power = Work/Time = 1000/5 = 200 W. REMEMBER: power is the rate of doing work."
+    correct: "B",
+    explanation: "In a stationary wave, the distance between two consecutive nodes or two consecutive antinodes is equal to half a wavelength ($\\lambda/2$). Given $\\lambda = 60cm$, the distance XX is $60/2 = 30cm$."
   },
-  {
+    {
     id: 10,
     topic: "Pressure",
     question: "A force of 100 N acts on an area of 2 m². The pressure is",
@@ -1202,18 +1219,18 @@ test3: [
     explanation: "FORMULA: Density = mass/volume = 200/50 = 4 g/cm³. REMEMBER: density measures how compact a substance is."
   },
   {
-    id: 12,
-    topic: "Heat",
-    question: "The SI unit of heat energy is",
-    options: {
-      A: "calorie",
-      B: "joule",
-      C: "watt",
-      D: "kelvin"
-    },
-    correct: "B",
-    explanation: "KEY RULE: Heat is a form of energy, and its SI unit is joule. REMEMBER: 1 calorie ≈ 4.2 J."
+  id: 12,
+  topic: "Optics",
+  question: "A concave mirror of radius of curvature 40cm forms a real image twice as large as the object. The object distance is:",
+  options: {
+    A: "30cm",
+    B: "40cm",
+    C: "60cm",
+    D: "10cm"
   },
+  correct: "A",
+  explanation: "Given the radius of curvature $r = 40\\text{cm}$, the focal length is $f = \\frac{r}{2} = \\frac{40}{2} = 20\\text{cm}$. Since the real image is twice as large as the object, the magnification $M = 2$. Using the magnification formula $M = \\frac{v}{u}$, we get $2 = \\frac{v}{u}$, which means $v = 2u$. Substituting these into the mirror formula $\\frac{1}{f} = \\frac{1}{u} + \\frac{1}{v}$ (or the shortcut $f = \\frac{uv}{u+v}$): $20 = \\frac{u \\times 2u}{u + 2u} = \\frac{2u^2}{3u} = \\frac{2u}{3}$. Solving for $u$: $2u = 20 \\times 3 = 60$, therefore $u = \\frac{60}{2} = 30\\text{cm}$."
+},
   {
     id: 13,
     topic: "Gas Laws",
@@ -1266,19 +1283,19 @@ test3: [
     correct: "B",
     explanation: "KEY RULE: Refraction is the bending of light due to change in speed. REMEMBER: light bends at boundaries."
   },
-  {
-    id: 17,
-    topic: "Electricity",
-    question: "The unit of current is",
-    options: {
-      A: "volt",
-      B: "ampere",
-      C: "ohm",
-      D: "watt"
-    },
-    correct: "B",
-    explanation: "KEY RULE: Current is measured in amperes (A). REMEMBER: 1 A = 1 coulomb per second."
+ {
+  id: 17,
+  topic: "Waves",
+  question: "A man hears his echo from a nearby hill 2s after he shouted. If the frequency of his voice is 260Hz and the wavelength is 1.29m, how far is the hill?",
+  options: {
+    A: "330.0m",
+    B: "335.4m",
+    C: "660.0m",
+    D: "670.8m"
   },
+  correct: "B",
+  explanation: "First, find the velocity ($V$) of the sound using the wave equation: $V = f \\lambda = 260 \\times 1.29 = 335.4 \\text{ m/s}$. For an echo, the sound travels to the hill and back, so the distance to the hill ($x$) is half the total distance covered: $x = \\frac{Vt}{2}$. Given the echo time $t = 2\\text{s}$, the distance is $x = \\frac{335.4 \\times 2}{2} = 335.4\\text{m}$."
+},
   {
     id: 18,
     topic: "Electricity",
@@ -1292,19 +1309,20 @@ test3: [
     correct: "A",
     explanation: "FORMULA: V = IR = 2 × 5 = 10 V. REMEMBER: Ohm's law relates voltage, current and resistance."
   },
-  {
-    id: 19,
-    topic: "Magnetism",
-    question: "Like poles of magnets",
-    options: {
-      A: "attract",
-      B: "repel",
-      C: "neutralize",
-      D: "rotate"
-    },
-    correct: "B",
-    explanation: "KEY RULE: Like poles repel, unlike poles attract. REMEMBER: N repels N, S repels S."
+ {
+  id: 19,
+  topic: "Waves",
+  question: "A vibrator of frequency 60Hz is used in generating transverse stationary waves in a long thin wire. If the average distance between successive nodes on the wire is 45cm, find the speed of the transverse waves in the wire.",
+  diagram: "assets/physics/test3/solution19.png",
+  options: {
+    A: "27ms⁻¹",
+    B: "54ms⁻¹",
+    C: "90ms⁻¹",
+    D: "108ms⁻¹"
   },
+  correct: "B",
+  explanation: "The distance between successive nodes in a stationary wave is equal to half a wavelength ($\frac{\lambda}{2}$). Given the distance $l = 45\text{cm} = 0.45\text{m}$, we have $\frac{\lambda}{2} = 0.45\text{m}$, which means $\lambda = 0.90\text{m}$. Using the wave equation $V = f\lambda$, where $f = 60\text{Hz}$, the speed $V = 60 \times 0.90 = 54\text{ms⁻¹}$."
+},
   {
     id: 20,
     topic: "Electromagnetic Induction",
@@ -1357,19 +1375,20 @@ test3: [
     correct: "B",
     explanation: "KEY RULE: Kinetic energy is energy due to motion. FORMULA: KE = ½mv². REMEMBER: moving object → kinetic energy."
   },
-  {
-    id: 24,
-    topic: "Machines",
-    question: "Mechanical advantage is defined as",
-    options: {
-      A: "Load × effort",
-      B: "Effort/Load",
-      C: "Load/Effort",
-      D: "Work/time"
-    },
-    correct: "C",
-    explanation: "KEY RULE: MA = Load/Effort. REMEMBER: how much the machine multiplies force."
+ {
+  "id": 24,
+  "topic": "Newton's Laws of Motion",
+  "question": "Two bodies have masses in the ratio 3:1. They experience forces which impart to them accelerations in the ratio 2:9 respectively. Find the ratio of the forces the masses experience.",
+  "diagram": "",
+  "options": {
+    "A": "1:4",
+    "B": "2:1",
+    "C": "2:3",
+    "D": "2:5"
   },
+  "correct": "C",
+  "explanation": "According to Newton's second law of motion, force is the product of mass and acceleration ($F = ma$). \n\nGiven the ratios:\n- Ratio of masses ($m_1:m_2$) = 3:1\n- Ratio of accelerations ($a_1:a_2$) = 2:9\n\nTo find the ratio of the forces ($F_1:F_2$):\n$$F_1 = m_1 \\times a_1 = 3 \\times 2 = 6$$\n$$F_2 = m_2 \\times a_2 = 1 \\times 9 = 9$$\n\nThe ratio of the forces is $6:9$. Dividing both sides by 3, we get $2:3$."
+},
   {
     id: 25,
     topic: "Heat Transfer",
@@ -1383,19 +1402,20 @@ test3: [
     correct: "B",
     explanation: "KEY RULE: Convection involves movement of fluid particles. REMEMBER: fluids move → convection."
   },
-  {
-    id: 26,
-    topic: "Radiation",
-    question: "Heat transfer without a medium is called",
-    options: {
-      A: "conduction",
-      B: "convection",
-      C: "radiation",
-      D: "diffusion"
-    },
-    correct: "C",
-    explanation: "KEY RULE: Radiation does not require a medium. REMEMBER: heat from the sun reaches Earth by radiation."
+{
+  id: 26,
+  topic: "Waves",
+  question: "When the tension in a Sonometer wire is doubled, the ratio of the new frequency to the initial frequency is:",
+  diagram: "",
+  options: {
+    A: "$1/\\sqrt{2}$",
+    B: "$1/2$",
+    C: "$\\sqrt{2}$",
+    D: "2"
   },
+  correct: "C",
+  explanation: "In a Sonometer, the fundamental frequency $f$ of a vibrating string is directly proportional to the square root of the tension $T$ ($f \\propto \\sqrt{T}$). Let $f_1$ and $T_1$ be the initial frequency and tension, and $f_2$ and $T_2$ be the new frequency and tension. Since the tension is doubled, $T_2 = 2T_1$. Therefore, $\\frac{f_2}{f_1} = \\sqrt{\\frac{T_2}{T_1}} = \\sqrt{\\frac{2T_1}{T_1}} = \\sqrt{2}$. See solution diagram: assets/physics/test3/solution21.png"
+},
   {
     id: 27,
     topic: "Wave Properties",
@@ -2526,17 +2546,18 @@ test5: [
     explanation: "KEY RULE: A changing magnetic flux induces an e.m.f. REMEMBER: motion through a magnetic field can produce electricity."
   },
   {
-    id: 33,
-    topic: "Atomic Physics",
-    question: "The neutral particle in the nucleus of an atom is the",
+    id: 30,
+    topic: "Electrolysis",
+    question: "In an electrolysis experiment, a cathode of mass $5g$ is found to weigh $5.01g$ after a current of $5A$ flows for $50$ seconds. What is the electrochemical equivalent of the deposited substance?",
     options: {
-      A: "electron",
-      B: "proton",
-      C: "neutron",
-      D: "positron"
+      A: "$0.00004\\text{g/C}$",
+      B: "$0.00002\\text{g/C}$",
+      C: "$0.02500\\text{g/C}$",
+      D: "$0.05000\\text{g/C}$",
+      E: "$0.00001\\text{g/C}$"
     },
-    correct: "C",
-    explanation: "KEY RULE: Neutrons have no charge. Protons are positive and electrons are negative. REMEMBER: neutron = neutral."
+    correct: "A",
+    explanation: "First, determine the mass deposited ($M$): $5.01g - 5g = 0.01g$. Using the formula $M = ZIt$, we solve for the electrochemical equivalent ($Z$): $Z = \\frac{M}{It}$. Given $I = 5A$ and $t = 50\\text{s}$, $Z = \\frac{0.01}{5 \\times 50} = \\frac{0.01}{250} = 0.00004\\text{g/C}$ (which can also be written as $4 \\times 10^{-5}\\text{gC}^{-1}$)."
   },
   {
     id: 34,
@@ -2578,18 +2599,18 @@ test5: [
     explanation: "KEY RULE: Centripetal force acts towards the centre of the circle. REMEMBER: circular motion always needs an inward force."
   },
   {
-    id: 37,
-    topic: "Simple Harmonic Motion",
-    question: "The time taken for one complete oscillation is called the",
-    options: {
-      A: "amplitude",
-      B: "period",
-      C: "frequency",
-      D: "phase"
-    },
-    correct: "B",
-    explanation: "KEY RULE: Period is the time for one complete oscillation. REMEMBER: frequency = 1/period."
+  id: 37,
+  topic: "Magnetic Fields",
+  question: "A proton moving with a speed of $1.0 \\times 10^6 \\text{ms}^{-1}$ through a magnetic field of $1.0\\text{T}$ experiences a magnetic force of magnitude $8.0 \\times 10^{-14} \\text{N}$. The angle between the proton's velocity and the field is:",
+  options: {
+    A: "45°",
+    B: "30°",
+    C: "60°",
+    D: "90°"
   },
+  correct: "B",
+  explanation: "The magnetic force ($F$) on a moving charge is given by the formula $F = qVB\\sin\\theta$, where $q$ is the charge, $V$ is the velocity, $B$ is the magnetic field strength, and $\\theta$ is the angle between the velocity and the field. Given $V = 1.0 \\times 10^6 \\text{ms}^{-1}$, $B = 1.0\\text{T}$, $F = 8.0 \\times 10^{-14}\\text{N}$, and $q = 1.6 \\times 10^{-19}\\text{C}$, we solve for $\\sin\\theta$: $\\sin\\theta = \\frac{F}{qVB} = \\frac{8.0 \\times 10^{-14}}{(1.6 \\times 10^{-19}) \\times (1.0 \\times 10^6) \\times 1.0} = \\frac{8.0 \\times 10^{-14}}{1.6 \\times 10^{-13}} = 0.5$. Therefore, $\\theta = \\sin^{-1}(0.5) = 30°$."
+},
   {
     id: 38,
     topic: "Wave Motion",
@@ -2644,18 +2665,20 @@ test6: [
     correct: "C",
     explanation: "KEY RULE: A micrometer screw gauge is designed for very small thicknesses and diameters. REMEMBER: for thin objects like wires and coins, use a micrometer screw gauge for better precision."
   },
+  
   {
     id: 2,
-    topic: "Scalars and Vectors",
-    question: "Which of the following is a vector quantity?",
+    topic: "Inductors",
+    question: "Given three inductors of inductances 5mH, 10mH and 20mH connected in series, the effective inductance is:",
+    diagram: "assets/physics/test6/question2.png",
     options: {
-      A: "Distance",
-      B: "Mass",
-      C: "Velocity",
-      D: "Speed"
+      A: "0.35mH",
+      B: "3.50mH",
+      C: "2.90mH",
+      D: "35.00mH"
     },
-    correct: "C",
-    explanation: "KEY RULE: A vector has both magnitude and direction. Velocity has direction, but distance, mass and speed do not. REMEMBER: speed is scalar, velocity is vector."
+    correct: "D",
+    explanation: "For inductors connected in series, the total or effective inductance ($L_T$) is the sum of the individual inductances. $L_T = L_1 + L_2 + L_3$. Substituting the given values: $L_T = 5mH + 10mH + 20mH = 35mH$."
   },
   {
     id: 3,
@@ -3158,18 +3181,19 @@ test6: [
 ],
 test7: [
   {
-    id: 1,
-    topic: "Measurements",
-    question: "In order to remove the error of parallax when taking measurements with a metre rule, the eye should be focused",
-    options: {
-      A: "slantingly towards the left on the markings",
-      B: "slantingly towards the right on the markings",
-      C: "vertically downwards on the markings",
-      D: "vertically upwards on the markings"
-    },
-    correct: "C",
-    explanation: "KEY RULE: To avoid parallax error, the eye must be directly above the mark being read. Looking from either side shifts the apparent position. REMEMBER: eye vertically above the reading."
+  "id": 1,
+  "topic": "Measurements and Units",
+  "question": "What is the reading of the vernier calipers shown above?",
+  "diagram": "assets/physics/test7/question1.png",
+  "options": {
+    "A": "1.79cm",
+    "B": "1.73cm",
+    "C": "1.39cm",
+    "D": "1.34cm"
   },
+  "correct": "C",
+  "explanation": "To calculate the final reading: 1. Main Scale Reading (M): The zero mark of the vernier scale rests after the 1.3cm mark, so M = 1.30cm. 2. Vernier Scale Reading (V): The 9th mark of the vernier scale aligns perfectly with a main scale division. Multiplying by the least count (0.01cm), we get V = 0.09cm. 3. Total Reading (T): T = M + V = 1.30cm + 0.09cm = 1.39cm."
+},
   {
     id: 2,
     topic: "Vectors",
@@ -3210,18 +3234,19 @@ test7: [
     explanation: "FORMULA: a = (v − u)/t = (45 − 25)/10 = 20/10 = 2 m/s². REMEMBER: acceleration is change in velocity divided by time."
   },
   {
-    id: 5,
-    topic: "Kinematics",
-    question: "A car moving with a speed of 90 km h⁻¹ is brought uniformly to rest in 10 s. How far did the car travel after the brakes were applied?",
-    options: {
-      A: "125 m",
-      B: "150 m",
-      C: "250 m",
-      D: "15 m"
-    },
-    correct: "A",
-    explanation: "FORMULA: Convert 90 km h⁻¹ to m/s: 90 × 1000/3600 = 25 m/s. Distance under uniform retardation = average speed × time = ((25 + 0)/2) × 10 = 125 m. REMEMBER: for uniform deceleration, use average velocity."
+  "id": 5,
+  "topic": "Dynamics",
+  "question": "A body of mass 10kg on a smooth inclined plane is connected over a smooth pulley to a mass of 15kg as shown. The acceleration of the system is:",
+  "diagram": "assets/physics/test7/question5.png",
+  "options": {
+    "A": "$\frac{1}{4}g$",
+    "B": "$\frac{2}{5}g$",
+    "C": "$\frac{1}{2}g$",
+    "D": "$\frac{3}{5}g$"
   },
+  "correct": "B",
+  "explanation": "To find the acceleration ($a$) of the system, we apply Newton's second law ($F = ma$) to the connected masses.\n\n1. **For the hanging mass ($15\text{kg}$):** The forces are weight downwards and tension ($T$) upwards.\n   $15g - T = 15a$\n\n2. **For the mass on the smooth incline ($10\text{kg}$):** The force pulling it down the plane is the component of its weight, $mg\sin(\theta)$.\n   $T - 10g\sin(30^\circ) = 10a$\n   $T - 10g(0.5) = 10a \rightarrow T - 5g = 10a$\n\n3. **Combining the equations:**\n   $(15g - T) + (T - 5g) = 15a + 10a$\n   $10g = 25a$\n   $a = \frac{10g}{25} = \frac{2}{5}g$\n\nThus, the acceleration of the system is $\frac{2}{5}g$."
+},
   {
     id: 6,
     topic: "Motion Under Gravity",
@@ -3340,18 +3365,19 @@ test7: [
     explanation: "FORMULA: Extension = 0.5 cm = 0.005 m. Strain energy = ½Fe = ½ × 300 × 0.005 = 0.75 J. REMEMBER: always convert cm to m."
   },
   {
-    id: 15,
-    topic: "Pressure",
-    question: "Which of the following is the SI unit of pressure?",
-    options: {
-      A: "N",
-      B: "Pa",
-      C: "J",
-      D: "W"
-    },
-    correct: "B",
-    explanation: "KEY RULE: The SI unit of pressure is the pascal, Pa. FORMULA: 1 Pa = 1 N/m². REMEMBER: pressure means force per unit area."
+  "id": 15,
+  "topic": "Dynamics",
+  "question": "A mass of 2kg on a surface ($\mu = 0.5$) is connected to a second mass of 4kg over a frictionless pulley as shown above. If the acceleration due to gravity is $9.8ms^{-2}$, the masses will:",
+  "diagram": "assets/physics/test7/question15.png",
+  "options": {
+    "A": "Accelerate at $4.9ms^{-2}$",
+    "B": "Remain stationary",
+    "C": "Accelerate at $9.8ms^{-2}$",
+    "D": "Accelerate at $19.6ms^{-2}$"
   },
+  "correct": "A",
+  "explanation": "To find the acceleration ($a$) of the system, we apply Newton's second law ($F = ma$) while accounting for friction on the horizontal surface.\n\n1. **Identify the forces:**\n   - The driving force is the weight of the hanging mass: $W_1 = m_1g = 4 \times 9.8 = 39.2N$.\n   - The opposing force is the friction ($f$) on the 2kg mass: $f = \mu R = \mu (m_2g) = 0.5 \times (2 \times 9.8) = 9.8N$.\n\n2. **Apply Newton's Second Law to the system:**\n   $F_{net} = (m_1 + m_2)a$\n   $W_1 - f = (4 + 2)a$\n   $39.2 - 9.8 = 6a$\n   $29.4 = 6a$\n\n3. **Calculate acceleration:**\n   $a = \frac{29.4}{6} = 4.9ms^{-2}$.\n\nThus, the masses will accelerate at $4.9ms^{-2}$."
+},
   {
     id: 16,
     topic: "Pressure in Liquids",
@@ -3693,18 +3719,19 @@ test8: [
     explanation: "FORMULA: Percentage error = (absolute error/actual value) × 100 = (0.1/50.0) × 100 = 0.2%. REMEMBER: divide the possible error by the measured value before multiplying by 100."
   },
   {
-    id: 2,
-    topic: "Vectors",
-    question: "Two forces of 12 N and 5 N act at right angles to each other. The magnitude of their resultant is",
-    options: {
-      A: "7 N",
-      B: "13 N",
-      C: "17 N",
-      D: "60 N"
-    },
-    correct: "B",
-    explanation: "FORMULA: Resultant R = √(12² + 5²) = √(144 + 25) = √169 = 13 N. KEY RULE: For perpendicular vectors, use Pythagoras. REMEMBER: do not add directly unless the forces act along the same line."
+  "id": 2,
+  "topic": "Measurements and Units",
+  "question": "The length of a piece of glass block was measured by means of a vernier calliper as shown in the fig. The length of a glass block is:",
+  "diagram": "assets/physics/test8/question2.png",
+  "options": {
+    "A": "1.63cm",
+    "B": "1.64cm",
+    "C": "1.65cm",
+    "D": "1.66cm"
   },
+  "correct": "B",
+  "explanation": "To determine the reading of the vernier caliper: 1. **Main Scale Reading (M)**: Identify the mark on the main scale immediately to the left of the vernier scale's zero. Here, it is at 1.6cm, so M = 1.60cm. 2. **Vernier Scale Reading (V)**: Find the graduation on the vernier scale that aligns perfectly with any graduation on the main scale. The 4th mark aligns, which corresponds to 0.04cm (given the least count of 0.01cm). 3. **Total Reading (T)**: Add both readings together: T = M + V = 1.60cm + 0.04cm = 1.64cm."
+},
   {
     id: 3,
     topic: "Relative Motion",
@@ -4201,32 +4228,34 @@ test8: [
   }
 ],
 test9: [
-  {
-    id: 1,
-    topic: "Measurements",
-    question: "The reading on a micrometer screw gauge is obtained from the",
-    options: {
-      A: "pitch scale only",
-      B: "thimble scale only",
-      C: "sum of the main scale and thimble scale readings",
-      D: "difference between the main scale and thimble scale readings"
-    },
-    correct: "C",
-    explanation: "KEY RULE: A micrometer reading is the sum of the sleeve (main scale) reading and the thimble reading. REMEMBER: add the two visible parts carefully and watch the decimal place."
+ {
+  "id": 1,
+  "topic": "Linear Motion",
+  "question": "The diagram above shows a velocity-time graph representing the motion of a car. Find the total distance covered during the acceleration and the retardation periods of the motion.",
+  "diagram": "assets/physics/test9/question1.png",
+  "options": {
+    "A": "75m",
+    "B": "150m",
+    "C": "300m",
+    "D": "375m"
   },
+  "correct": "A",
+  "explanation": "The distance covered is the area under the velocity-time graph. 1. **Acceleration period (Stage I)**: This is the first triangle from $t = 0$ to $t = 10$. Area $S_1 = \\frac{1}{2} \\times \\text{base} \\times \\text{height} = \\frac{1}{2} \\times 10 \\times 10 = 50\\text{m}$. 2. **Retardation period (Stage III)**: This is the second triangle from $t = 40$ to $t = 45$. Area $S_3 = \\frac{1}{2} \\times \\text{base} \\times \\text{height} = \\frac{1}{2} \\times 5 \\times 10 = 25\\text{m}$. 3. **Total distance**: $50\\text{m} + 25\\text{m} = 75\\text{m}$."
+},
   {
-    id: 2,
-    topic: "Units and Dimensions",
-    question: "Which of the following has the same dimension as pressure?",
-    options: {
-      A: "Force × area",
-      B: "Energy per unit volume",
-      C: "Momentum per unit time",
-      D: "Mass per unit area"
-    },
-    correct: "B",
-    explanation: "KEY RULE: Pressure = Force/Area = N/m². Also, energy per unit volume = J/m³ = (N m)/m³ = N/m², which is the same as pressure. REMEMBER: pressure and energy density have the same unit dimension."
+  "id": 27,
+  "topic": "Elasticity",
+  "question": "The diagram below shows the force-extension curve of a piece of wire. The energy stored when the wire is stretched from E to F is:",
+  "diagram": "assets/physics/test9/question2.png",
+  "options": {
+    "A": "$1.5 \\times 10^{-2}J$",
+    "B": "$7.5 \\times 10^{-1}J$",
+    "C": "$7.5 \\times 10^{-3}J$",
+    "D": "$2.5 \\times 10^{-3}J$"
   },
+  "correct": "C",
+  "explanation": "The energy stored during stretching is equal to the area under the force-extension graph. For the interval from E to F, this area forms a trapezium.\n\n1. **Identify Values:** Force at E ($F_1$) = 0.1N, Force at F ($F_2$) = 0.2N, and the change in extension ($\u0394e$) = $0.10m - 0.05m = 0.05m$.\n2. **Formula:** $\\text{Work Done} = \\frac{1}{2}(F_1 + F_2) \\times \\Delta e$\n3. **Calculation:** $\\text{Work Done} = \\frac{1}{2}(0.1 + 0.2) \\times 0.05 = 0.15 \\times 0.05 = 0.0075J$.\n4. **Scientific Notation:** $0.0075J = 7.5 \\times 10^{-3}J$."
+},
   {
     id: 3,
     topic: "Scalars and Vectors",
@@ -4737,18 +4766,19 @@ test10: [
     explanation: "FORMULA: Least count = 1 MSD − 1 VSD = 1 mm − 0.9 mm = 0.1 mm. REMEMBER: least count measures the smallest possible reading."
   },
   {
-    id: 2,
-    topic: "Dimensions",
-    question: "Which of the following has the dimension of force?",
-    options: {
-      A: "MLT⁻¹",
-      B: "ML²T⁻²",
-      C: "MLT⁻²",
-      D: "M⁻¹LT²"
-    },
-    correct: "C",
-    explanation: "KEY RULE: Force = mass × acceleration, so dimension = M × LT⁻² = MLT⁻². REMEMBER: always derive dimensions from known formulas."
+  "id": 2,
+  "topic": "Linear Motion",
+  "question": "A stone thrown vertically upwards returns to the ground. Which of the following figures represents the velocity-time graph?",
+  "diagram": "assets/physics/test10/question2.png",
+  "options": {
+    "A": "Graph A",
+    "B": "Graph B",
+    "C": "Graph C",
+    "D": "Graph D"
   },
+  "correct": "B",
+  "explanation": "When a stone is thrown vertically upwards, its velocity is maximum at the start and decreases uniformly due to gravity (retardation) until it reaches zero at maximum height (time T). On the return journey, it accelerates from rest back to maximum velocity just before hitting the ground (time 2T). Graph B correctly shows this decrease to zero and subsequent increase in magnitude."
+},
   {
     id: 3,
     topic: "Vectors",
@@ -5297,19 +5327,20 @@ test11: [
     correct: "B",
     explanation: "FORMULA: s = average velocity × time = ((20 + 0)/2) × 4 = 40 m. REMEMBER: use average velocity for uniform motion."
   },
-  {
-    id: 5,
-    topic: "Newton's Laws",
-    question: "A force of 12 N acts on a body of mass 4 kg. The acceleration produced is",
-    options: {
-      A: "2 m/s²",
-      B: "3 m/s²",
-      C: "4 m/s²",
-      D: "6 m/s²"
-    },
-    correct: "B",
-    explanation: "FORMULA: a = F/m = 12/4 = 3 m/s². REMEMBER: Newton's Second Law."
+ {
+  "id": 5,
+  "topic": "Linear Motion",
+  "question": "The diagram above shows a velocity-time graph. The statement that is true about this motion is that the car:",
+  "diagram": "assets/physics/test11/question5.png",
+  "options": {
+    "A": "decelerates between points F and H.",
+    "B": "accelerates between points F and G.",
+    "C": "has a constant speed between points E and F",
+    "D": "has no acceleration between point F and G."
   },
+  "correct": "D",
+  "explanation": "In a velocity-time graph: 1. A sloping line upwards (E to F) indicates acceleration. 2. A horizontal line (F to G) indicates constant speed, which means there is no acceleration (acceleration = 0). 3. A sloping line downwards (G to H) indicates deceleration. Therefore, the statement that the car has no acceleration between F and G is the only true option."
+},
   {
     id: 6,
     topic: "Momentum",
@@ -5833,18 +5864,19 @@ test12: [
     explanation: "FORMULA: t = u/g = 40/10 = 4 s. REMEMBER: velocity becomes zero at highest point."
   },
   {
-    id: 6,
-    topic: "Dynamics",
-    question: "A force of 30 N acts on a body of mass 5 kg. The acceleration produced is",
-    options: {
-      A: "5 m/s²",
-      B: "6 m/s²",
-      C: "7 m/s²",
-      D: "150 m/s²"
-    },
-    correct: "B",
-    explanation: "FORMULA: a = F/m = 30/5 = 6 m/s²."
+  "id": 12,
+  "topic": "Newton's Laws of Motion",
+  "question": "In an experiment, a constant force is applied to several masses (m) and the corresponding accelerations (a) are measured. Which of the following graphs correctly represents the experiment?",
+  "diagram": "assets/physics/test12/question6.png",
+  "options": {
+    "A": "III and IV only",
+    "B": "II and IV only",
+    "C": "I and III only",
+    "D": "I and II only"
   },
+  "correct": "A",
+  "explanation": "According to Newton's Second Law, $F = ma$. When force $F$ is constant, acceleration $a$ is inversely proportional to mass $m$ ($a \\propto \\frac{1}{m}$). This relationship is represented in two ways: 1. A graph of $a$ against $m$ will be a hyperbola, showing that as mass increases, acceleration decreases (Graph IV). 2. A graph of $a$ against $\\frac{1}{m}$ will be a straight line passing through the origin, showing that $a$ is directly proportional to the reciprocal of $m$ (Graph III)."
+},
   {
     id: 7,
     topic: "Momentum",
@@ -6223,18 +6255,19 @@ test12: [
     explanation: "rectification."
   },
   {
-    id: 36,
-    topic: "Energy",
-    question: "Energy conversion means",
-    options: {
-      A: "creation",
-      B: "destruction",
-      C: "change of form",
-      D: "loss"
-    },
-    correct: "C",
-    explanation: "conservation law."
+  id: 36,
+  topic: "Current Electricity",
+  question: "In the figure below, a voltage $V$ is applied across the terminals P and Q. The voltage across the $1\\Omega$ resistor is:",
+  diagram: "assets/physics/test12/question36.png",
+  options: {
+    A: "$V/8$",
+    B: "$V/4$",
+    C: "$V/3$",
+    D: "$V/2$"
   },
+  correct: "C",
+  explanation: "First, calculate the effective resistance of the parallel section containing the two $4\\Omega$ resistors: $R_p = \\frac{4 \\times 4}{4 + 4} = 2\\Omega$. The total resistance of the circuit is then $R_T = 1\\Omega + 2\\Omega = 3\\Omega$. Using the voltage divider rule, the voltage across the $1\\Omega$ resistor is $V_1 = \\frac{1}{1 + 2} \\times V = \\frac{V}{3}$. Alternatively, the total current $I = \\frac{V}{3}$, so $V_{1\\Omega} = I \\times 1 = \\frac{V}{3}$. See solution diagram: assets/physics/test20/solution16.png"
+},
   {
     id: 37,
     topic: "AC",
@@ -6368,18 +6401,19 @@ test13: [
     explanation: "FORMULA: v = gt = 10 × 3 = 30 m/s."
   },
   {
-    id: 7,
-    topic: "Newton's Laws",
-    question: "The SI unit of force is",
-    options: {
-      A: "joule",
-      B: "newton",
-      C: "watt",
-      D: "pascal"
-    },
-    correct: "B",
-    explanation: "KEY RULE: Force is measured in newtons (N)."
+  "id": 7,
+  "topic": "Circular Motion",
+  "question": "A ball attached to one end of a string moves anticlockwise around a circle whose centre is O. If the string suddenly breaks when the ball is at point P, along which of the following paths will it move?",
+  "diagram": "assets/physics/test13/question7.png",
+  "options": {
+    "A": "Path A (Radial outwards)",
+    "B": "Path B (Tangential)",
+    "C": "Path C (Inward diagonal)",
+    "D": "Path D (Circular arc)"
   },
+  "correct": "B",
+  "explanation": "When an object moves in a circular path, its instantaneous velocity is always tangential to the circle at any given point. The tension in the string provides the centripetal force required to keep the ball in its circular path. Once the string breaks, this centripetal force is removed. According to Newton's First Law of Motion, the ball will continue to move in a straight line in the direction of its instantaneous velocity, which is at a tangent to the circle at point P."
+},
   {
     id: 8,
     topic: "Momentum",
@@ -6602,18 +6636,18 @@ test13: [
     explanation: "E = F/Q."
   },
   {
-    id: 25,
-    topic: "Current Electricity",
-    question: "Ohm's law states V =",
-    options: {
-      A: "IR",
-      B: "I/R",
-      C: "R/I",
-      D: "VI"
-    },
-    correct: "A",
-    explanation: "V = IR."
+  id: 29,
+  topic: "Waves",
+  question: "Two strings of the same length and under the same tension give notes of frequencies in the ratio 4:1. The masses of the strings are in the corresponding ratio of:",
+  options: {
+    A: "2:1",
+    B: "1:2",
+    C: "1:4",
+    D: "1:16"
   },
+  correct: "D",
+  explanation: "The frequency ($f$) of a stretched string is inversely proportional to the square root of its mass ($M$) when length and tension are constant ($f \propto \frac{1}{\sqrt{M}}$). This can be written as $\frac{f_1}{f_2} = \sqrt{\frac{M_2}{M_1}}$. Given the frequency ratio $\frac{f_1}{f_2} = \frac{4}{1}$, we have $\frac{4}{1} = \sqrt{\frac{M_2}{M_1}}$. Squaring both sides gives $\frac{16}{1} = \frac{M_2}{M_1}$. Inverting the ratio to find $M_1:M_2$, we get $\frac{1}{16} = \frac{M_1}{M_2}$, or $1:16$."
+},
   {
     id: 26,
     topic: "Resistance",
@@ -6667,18 +6701,18 @@ test13: [
     explanation: "Faraday law."
   },
   {
-    id: 30,
-    topic: "Atomic Physics",
-    question: "Atomic number equals",
-    options: {
-      A: "protons",
-      B: "neutrons",
-      C: "mass",
-      D: "electrons only"
-    },
-    correct: "A",
-    explanation: "number of protons."
+  id: 30,
+  topic: "Waves",
+  question: "In a resonance tube experiment, if the fundamental frequency of the vibrating air column is 280Hz, the frequency of the third overtone is:",
+  options: {
+    A: "70Hz",
+    B: "840Hz",
+    C: "1120Hz",
+    D: "1960Hz"
   },
+  correct: "D",
+  explanation: "In a resonance tube (closed pipe), only odd harmonics are present. The fundamental frequency is $f_0$. The first overtone is the 3rd harmonic ($3f_0$), the second overtone is the 5th harmonic ($5f_0$), and the third overtone is the 7th harmonic ($7f_0$). Given $f_0 = 280\\text{Hz}$, the third overtone $f_3 = 7 \\times 280\\text{Hz} = 1960\\text{Hz}$."
+},
   {
     id: 31,
     topic: "Radioactivity",
@@ -6877,18 +6911,19 @@ test14: [
     explanation: "FORMULA: s = ½gt² → 45 = 5t² → t² = 9 → t = 3 s. REMEMBER: For free fall, u = 0."
   },
   {
-    id: 6,
-    topic: "Newton's Laws",
-    question: "A force of 20 N acts on a body of mass 4 kg. The acceleration produced is",
-    options: {
-      A: "2 m/s²",
-      B: "4 m/s²",
-      C: "5 m/s²",
-      D: "8 m/s²"
-    },
-    correct: "C",
-    explanation: "FORMULA: a = F/m = 20/4 = 5 m/s². KEY RULE: Newton's Second Law directly links force, mass and acceleration."
+  "id": 6,
+  "topic": "Simple Harmonic Motion",
+  "question": "Which of the following diagrams correctly represents the relationship between the time (T) of swing of a simple pendulum and its length (L)?",
+  "diagram": "assets/physics/test14/question6.png",
+  "options": {
+    "A": "Graph of L against T",
+    "B": "Graph of T² against L",
+    "C": "Graph of T² against 1/L",
+    "D": "Graph of L against T²"
   },
+  "correct": "B",
+  "explanation": "The period $T$ of a simple pendulum is given by the formula $T = 2\\pi \\sqrt{\\frac{L}{g}}$. Squaring both sides gives $T^2 = \\frac{4\\pi^2}{g} L$. This equation is in the form $y = mx$, which represents a straight line passing through the origin when $T^2$ is plotted against $L$."
+},
   {
     id: 7,
     topic: "Momentum",
@@ -7059,18 +7094,19 @@ test14: [
     explanation: "Boyle's law: PV = constant."
   },
   {
-    id: 20,
-    topic: "Wave Motion",
-    question: "Wave speed =",
-    options: {
-      A: "fλ",
-      B: "f + λ",
-      C: "f/λ",
-      D: "λ/f"
-    },
-    correct: "A",
-    explanation: "FORMULA: v = fλ."
+  "id": 20,
+  "topic": "Current Electricity",
+  "question": "In the diagram below, X and Y are resistance $4\\Omega$ and $6\\Omega$ respectively. If power dissipation in X is $10W$, then what is the power dissipation in Y?",
+  "diagram": "assets/physics/test14/question20.png",
+  "options": {
+    "A": "2.4W",
+    "B": "4.0W",
+    "C": "6.0W",
+    "D": "6.7W"
   },
+  "correct": "D",
+  "explanation": "Since the resistors X and Y are connected in parallel, they share the same potential difference ($V$). For resistor X, power $P = \\frac{V^2}{R}$, so $10 = \\frac{V^2}{4}$, which gives $V^2 = 40$. For resistor Y, the power dissipated is $P_y = \\frac{V^2}{R_y} = \\frac{40}{6} \\approx 6.67W$. Rounding to one decimal place, we get 6.7W."
+},
   {
     id: 21,
     topic: "Sound",
@@ -7137,18 +7173,19 @@ test14: [
     explanation: "FORMULA: E = F/Q."
   },
   {
-    id: 26,
-    topic: "Current Electricity",
-    question: "Ohm's law is",
-    options: {
-      A: "V = IR",
-      B: "I = VR",
-      C: "R = IV",
-      D: "V = I/R"
-    },
-    correct: "A",
-    explanation: "Ohm's law."
+  id: 26,
+  topic: "Current Electricity",
+  question: "In the diagram above, the ratio of the electric power dissipated in the $6\\Omega$ and $3\\Omega$ resistors respectively is:",
+  diagram: "assets/physics/test14/question26.png",
+  options: {
+    A: "2:3",
+    B: "1:2",
+    C: "1:3",
+    D: "2:1"
   },
+  correct: "B",
+  explanation: "In a parallel circuit, the voltage $V$ across each resistor is the same ($12V$). Power can be calculated using $P = \\frac{V^2}{R}$. For the $6\\Omega$ resistor: $P_1 = \\frac{12^2}{6} = 24W$. For the $3\\Omega$ resistor: $P_2 = \\frac{12^2}{3} = 48W$. The ratio of power dissipated in the $6\\Omega$ and $3\\Omega$ resistors is $24 : 48$, which simplifies to $1 : 2$. See solution diagram: assets/physics/test14/solution26.png"
+},
   {
     id: 27,
     topic: "Resistance",
@@ -7202,18 +7239,19 @@ test14: [
     explanation: "Faraday law."
   },
   {
-    id: 31,
-    topic: "Atomic Physics",
-    question: "Atomic number =",
-    options: {
-      A: "protons",
-      B: "neutrons",
-      C: "mass",
-      D: "electrons"
-    },
-    correct: "A",
-    explanation: "Number of protons."
+  "id": 31,
+  "topic": "Vectors",
+  "question": "A tug boat is travelling from Asaba to Onitsha across the River Niger with a resultant velocity of 20 knots. If the river flows at 12 knots, the direction of motion of the boat relative to the direction of water flow is:",
+  "diagram": "assets/physics/test14/question31.png",
+  "options": {
+    "A": "36.87°",
+    "B": "53.13°",
+    "C": "90°",
+    "D": "136.87°"
   },
+  "correct": "B",
+  "explanation": "The direction of motion of the boat relative to the river flow is represented by the angle $\\theta$. Using the trigonometric cosine ratio for the right-angled triangle formed by the velocity vectors: $\\cos \\theta = \\frac{\\text{Adjacent}}{\\text{Hypotenuse}} = \\frac{12}{20} = 0.6$. Therefore, $\\theta = \\cos^{-1}(0.6) = 53.13°$."
+},
   {
     id: 32,
     topic: "Radioactivity",
@@ -7280,31 +7318,32 @@ test14: [
     explanation: "Rectification."
   },
   {
-    id: 37,
-    topic: "Energy",
-    question: "Energy cannot be",
-    options: {
-      A: "converted",
-      B: "created",
-      C: "stored",
-      D: "transferred"
-    },
-    correct: "B",
-    explanation: "Law of conservation."
+  "id": 37,
+  "topic": "Vectors",
+  "question": "An aircraft travelled from Calabar to Kano as follows: It flew first to Ilorin covering a distance of $300km$, $30°$ West of North, and then flew $400km$, $60°$ East of North to Kano. What is the resultant displacement?",
+   "options": {
+    "A": "567km",
+    "B": "410km",
+    "C": "594km",
+    "D": "500km"
   },
+  "correct": "D",
+  "explanation": "To solve for the resultant displacement, we can represent the journey as a vector diagram: \n\n![Solution Diagram](assets/physics/test14/solution37.png)\n\nThe first leg is $300km$ at $30°$ West of North. The second leg is $400km$ at $60°$ East of North. By analyzing the angles relative to the North-South axis, the interior angle at point L (Ilorin) is found to be $90°$ ($30° + 60°$). Since the movement forms a right-angled triangle, we apply Pythagoras' theorem: \n\n$$CK^2 = CL^2 + LK^2$$\n$$CK^2 = 300^2 + 400^2$$\n$$CK^2 = 90,000 + 160,000 = 250,000$$\n$$CK = \\sqrt{250,000} = 500km$$"
+},
   {
-    id: 38,
-    topic: "AC",
-    question: "AC means",
-    options: {
-      A: "constant current",
-      B: "alternating current",
-      C: "average current",
-      D: "active current"
-    },
-    correct: "B",
-    explanation: "Alternating current."
+  "id": 38,
+  "topic": "Vectors",
+  "question": "A stream is flowing at $0.75m/s$ and a boat heading perpendicular for the stream landed at the opposite bank at an angle $30°$. Calculate the velocity of the boat.",
+  "diagram": "assets/physics/test14/question38.png",
+  "options": {
+    "A": "0.65ms⁻¹",
+    "B": "0.86ms⁻¹",
+    "C": "1.00ms⁻¹",
+    "D": "1.50ms⁻¹"
   },
+  "correct": "B",
+  "explanation": "Let $V$ be the resultant velocity of the boat. From the vector diagram, the velocity of the stream ($0.75m/s$) is adjacent to the angle of $30°$ at the landing point. Using the trigonometric cosine ratio: \n\n$$\\cos 30° = \\frac{0.75}{V}$$\n\nRearranging to find $V$:\n\n$$V = \\frac{0.75}{\\cos 30°}$$\n$$V = \\frac{0.75}{0.8660} \\approx 0.86ms^{-1}$$\n\nThus, the velocity of the boat is $0.86ms^{-1}$."
+},
   {
     id: 39,
     topic: "Transformer",
@@ -7410,13 +7449,20 @@ test15: [
       correct: "A",
       explanation: "Q = CV = 8 μF × 50 V = 400 μC."
     },
-    {
-      id: 12, topic: "Dynamics",
-      question: "The property of a body to remain at rest or continue in uniform motion is:",
-      options: { A: "Momentum", B: "Force", C: "Inertia", D: "Impulse" },
-      correct: "C",
-      explanation: "Inertia is the resistance of any physical object to any change in its velocity."
-    },
+   {
+  "id": 12,
+  "topic": "Work, Energy and Power",
+  "question": "A simple pendulum of mass, m moves along an arc of a circle radius R in a vertical plane as shown in the figure above. What is the work done by gravity in a downward swing through the angle θ to 0°?",
+  "diagram": "assets/physics/test15/question12.png",
+  "options": {
+    "A": "mgRsinθ",
+    "B": "mgR(1 - cosθ)",
+    "C": "mgR",
+    "D": "mgR(1 - sinθ)"
+  },
+  "correct": "B",
+  "explanation": "Work done by gravity is equal to the change in potential energy, $W = mgh$. To find the vertical height $h$ through which the pendulum falls: 1. The total length of the string is $R$. 2. At angle $\\theta$, the vertical distance from the support to the bob is $R\\cos\\theta$. 3. The height fallen $h$ is the difference between the total length and this vertical distance: $h = R - R\\cos\\theta = R(1 - \\cos\\theta)$. 4. Substituting $h$ into the work formula gives $W = mgR(1 - \\cos\\theta)$."
+},
     {
       id: 13, topic: "Heat",
       question: "At what temperature do the Celsius and Fahrenheit scales coincide?",
@@ -7537,12 +7583,19 @@ test15: [
       explanation: "R.H. = (Actual Vapour Pressure / S.V.P. at same temp) × 100%."
     },
     {
-      id: 30, topic: "Atomic Physics",
-      question: "The atomic number is the number of ______ in the nucleus.",
-      options: { A: "Neutrons", B: "Electrons", C: "Protons", D: "Nucleons" },
-      correct: "C",
-      explanation: "Atomic number (Z) defines the element and equals the number of protons."
-    },
+  "id": 30,
+  "topic": "Work, Energy and Power",
+  "question": "If a body of mass 5kg is thrown vertically upwards with velocity $u$, at what height will the potential energy equal the kinetic energy?",
+  "diagram": "assets/physics/test20/question16.png",
+  "options": {
+    "A": "$h = \\frac{u^2}{g}$",
+    "B": "$h = \\frac{u^2}{4g}$",
+    "C": "$h = \\frac{2u^2}{g}$",
+    "D": "$h = \\frac{u^2}{2g}$"
+  },
+  "correct": "B",
+  "explanation": "To find the height where potential energy ($P.E.$) equals kinetic energy ($K.E.$), we use the conservation of mechanical energy.\n\n1. **Total Mechanical Energy ($E_T$):** At the point of projection, the total energy is purely kinetic: $E_T = \\frac{1}{2}mu^2$.\n2. **Set $P.E. = K.E.$:** Since $E_T = P.E. + K.E.$ and we want $P.E. = K.E.$, then $E_T = 2(P.E.)$.\n3. **Substitute formulas:**\n   $\\frac{1}{2}mu^2 = 2(mgh)$\n4. **Solve for $h$:**\n   $\\frac{1}{2}u^2 = 2gh$\n   $h = \\frac{u^2}{4g}$.\n\nNote: $h = \\frac{u^2}{2g}$ represents the *maximum* height where all kinetic energy has been converted to potential energy."
+},
     {
       id: 31, topic: "Magnetism",
       question: "The SI unit of magnetic flux density is:",
@@ -7551,12 +7604,19 @@ test15: [
       explanation: "Tesla (T) is the unit for B-field strength; Weber is for flux (Φ)."
     },
     {
-      id: 32, topic: "Work and Power",
-      question: "A machine of power 2 kW operates for 1 minute. The work done is:",
-      options: { A: "2 kJ", B: "120 kJ", C: "60 kJ", D: "200 kJ" },
-      correct: "B",
-      explanation: "Work = Power × time = 2000 W × 60 s = 120,000 J = 120 kJ."
-    },
+  "id": 32,
+  "topic": "Work, Energy and Power",
+  "question": "A ball of mass 0.1kg is thrown vertically upwards with a speed of $10ms^{-1}$ from the top of a tower 10m high. Neglecting air resistance, its total energy just before hitting the ground is: [$g=10ms^{-2}$]",
+  "diagram": "assets/physics/test15/question32.png",
+  "options": {
+    "A": "5J",
+    "B": "10J",
+    "C": "15J",
+    "D": "20J"
+  },
+  "correct": "C",
+  "explanation": "According to the principle of conservation of mechanical energy, the total energy of the ball remains constant throughout its flight (neglecting air resistance). The total energy just before hitting the ground is equal to the total mechanical energy at the point of projection.\n\n1. **Total Energy at projection** = Kinetic Energy ($K.E.$) + Potential Energy ($P.E.$)\n2. **$K.E.$ at projection** = $\\frac{1}{2}mv^2 = \\frac{1}{2}(0.1)(10^2) = 0.5 \\times 100 = 5J$\n3. **$P.E.$ at projection** = $mgh = (0.1)(10)(10) = 10J$\n4. **Total Mechanical Energy** = $5J + 10J = 15J$\n\nAlternatively, as shown in the solution diagram, you can find the maximum height reached ($15m$) and calculate the potential energy at that peak, which will equal the kinetic energy (and thus total energy) just before impact: $P.E._{max} = 0.1 \\times 10 \\times 15 = 15J$."
+},
     {
       id: 33, topic: "Optics",
       question: "The speed of light in a medium is 2.0 × 10⁸ m/s. What is the refractive index? (c = 3.0 × 10⁸ m/s)",
@@ -7673,12 +7733,19 @@ test15: [
       explanation: "Photoelectric emission only occurs if the energy of the incident photon is greater than or equal to the work function (E ≥ Φ)."
     },
     {
-      id: 9, topic: "Mechanics",
-      question: "A body of mass 2 kg moving with a velocity of 5 m/s possesses kinetic energy of:",
-      options: { A: "5 J", B: "10 J", C: "25 J", D: "50 J" },
-      correct: "C",
-      explanation: "K.E. = ½mv² = 0.5 × 2 × 5² = 25 J."
-    },
+  "id": 25,
+  "topic": "Simple Harmonic Motion",
+  "question": "From the diagram above, the bob of the pendulum has the fastest speed at:",
+  "diagram": "assets/physics/test16/question9.png",
+  "options": {
+    "A": "W",
+    "B": "Z",
+    "C": "Y",
+    "D": "X"
+  },
+  "correct": "D",
+  "explanation": "In a simple pendulum, the speed of the bob is maximum at the equilibrium position (the lowest point of the swing). As the bob moves from the extreme positions (W and Z) toward the center (X), potential energy is converted into kinetic energy. At point X, the potential energy is at its minimum and kinetic energy is at its maximum, resulting in the fastest speed. The bob accelerates from Z to X and from W to X, then decelerates as it moves away from X toward the extremes."
+},
     {
       id: 10, topic: "Fluid Mechanics",
       question: "A piece of wood floats in water with 1/4 of its volume above the surface. The relative density of the wood is:",
@@ -7743,12 +7810,19 @@ test15: [
       explanation: "Gamma rays have no mass or charge, allowing them to pass through several centimeters of lead."
     },
     {
-      id: 19, topic: "Thermodynamics",
-      question: "Energy cannot be created or destroyed but can be converted from one form to another. This is:",
-      options: { A: "Newton's Second Law", B: "Law of Conservation of Energy", C: "Lenz's Law", D: "Coulomb's Law" },
-      correct: "B",
-      explanation: "This principle is also known as the First Law of Thermodynamics."
-    },
+  "id": 19,
+  "topic": "Vectors",
+  "question": "A body on the ground is acted on by a force of $10N$ at a point P as shown in the diagram above. What force is needed to stop the body from moving eastward?",
+  "diagram": "assets/physics/test16/question19.png",
+  "options": {
+    "A": "5N in the direction of East",
+    "B": "5N in the direction of West",
+    "C": "5√3N in the direction of West",
+    "D": "10N in the Southwest direction"
+  },
+  "correct": "B",
+  "explanation": "To stop the body from moving eastward, we must apply a force that cancels out the horizontal (eastward) component of the $10N$ force. \n\n1. Calculate the eastward component ($F_x$): \n   $$F_x = 10 \\cos 60^\\circ = 10 \\times 0.5 = 5N$$\n2. The equilibrant force must have the same magnitude but act in the opposite direction. \n\nTherefore, the needed force is $5N$ in the direction of West."
+},
     {
       id: 20, topic: "Nuclear Physics",
       question: "The time taken for half the atoms in a radioactive sample to decay is called:",
@@ -7963,12 +8037,19 @@ test15: [
       explanation: "By induction, positive charges move to the cap and negative charges are repelled down to the leaves, causing them to diverge."
     },
     {
-      id: 10, topic: "Mechanics",
-      question: "The coefficient of static friction is usually ________ the coefficient of kinetic friction.",
-      options: { A: "Less than", B: "Greater than", C: "Equal to", D: "Half of" },
-      correct: "B",
-      explanation: "It takes more force to start an object moving (static) than to keep it moving (kinetic)."
-    },
+  "id": 10,
+  "topic": "Equilibrium of Forces",
+  "question": "The figure shows a see-saw which is exactly in balance. The weights of the people sitting on it are 50kg, Xkg and 15kg as shown. They sit at distances of $1\\frac{1}{2}$m, $1\\frac{1}{2}$m and 2m from the pivot respectively. The value of X is.",
+  "diagram": "assets/physics/test17/question10.png",
+  "options": {
+    "A": "30",
+    "B": "35",
+    "C": "70",
+    "D": "26 $\\frac{1}{4}$",
+      },
+  "correct": "A",
+  "explanation": "According to the principle of moments, for a system in equilibrium, the sum of clockwise moments must equal the sum of anticlockwise moments about the pivot. \n\nAnticlockwise moment = $50 \\times 1.5 = 75$ \nClockwise moments = $(X \\times 1.5) + (15 \\times 2) = 1.5X + 30$ \n\nSetting them equal: \n$1.5X + 30 = 75$ \n$1.5X = 75 - 30$ \n$1.5X = 45$ \n$X = \\frac{45}{1.5} = 30$ \n\nTherefore, the value of X is 30kg."
+},
     {
       id: 11, topic: "Electronics",
       question: "Which component is used to store electric charge in a circuit?",
@@ -8012,12 +8093,19 @@ test15: [
       explanation: "An ideal voltmeter should draw no current from the circuit to ensure an accurate potential difference reading."
     },
     {
-      id: 17, topic: "Mechanics",
-      question: "A force of 20 N is applied to a wrench at a perpendicular distance of 0.5 m from a bolt. The torque is:",
-      options: { A: "40 Nm", B: "10 Nm", C: "20.5 Nm", D: "100 Nm" },
-      correct: "B",
-      explanation: "Torque (Moment) = Force × perpendicular distance = 20 × 0.5 = 10 Nm."
-    },
+  "id": 17,
+  "topic": "Work, Energy and Power",
+  "question": "A box of mass 40kg is being dragged along the floor by a rope inclined at 60° to the horizontal. The frictional force between the box and the floor is 100N and the tension on the rope is 300N. How much work is done in dragging the box through a distance of 4m?",
+  "diagram": "assets/physics/test17/question17.png",
+  "options": {
+    "A": "680 J",
+    "B": "400 J",
+    "C": "200 J",
+    "D": "100 J"
+  },
+  "correct": "C",
+  "explanation": "To calculate the work done, we must find the net force acting in the direction of motion (horizontal).\n\n1. **Horizontal component of tension:** $T_x = T \cos(60^\circ) = 300 \times 0.5 = 150N$.\n2. **Effective forward force:** This is the horizontal tension minus the frictional force. $F = 150N - 100N = 50N$.\n3. **Work Done:** $W = F \times s = 50N \times 4m = 200J$.\n\nTherefore, the work done in dragging the box is 200 J."
+},
     {
       id: 18, topic: "Atomic Physics",
       question: "Isotopes are atoms of the same element with different:",
@@ -8246,12 +8334,19 @@ test15: [
       explanation: "Potential is a scalar. The positive potential from one charge cancels the negative potential from the other at the midpoint."
     },
     {
-      id: 10, topic: "Mechanics",
-      question: "The period of a simple pendulum is 2.0 s. What is the frequency of oscillation?",
-      options: { A: "0.5 Hz", B: "1.0 Hz", C: "2.0 Hz", D: "4.0 Hz" },
-      correct: "A",
-      explanation: "Frequency f = 1/T = 1 / 2.0 = 0.5 Hz."
-    },
+  "id": 10,
+  "topic": "Dynamics",
+  "question": "A body of mass 5kg initially at rest is acted upon by two mutually perpendicular forces 12N and 5N as shown in the fig. If the particle moves in the direction OA, calculate the magnitude of the acceleration.",
+  "diagram": "assets/physics/test18/question10.png",
+  "options": {
+    "A": "0.40 $ms^{-2}$",
+    "B": "1.40 $ms^{-2}$",
+    "C": "0.26 $ms^{-2}$",
+    "D": "2.60 $ms^{-2}$",
+     },
+  "correct": "D",
+  "explanation": "First, calculate the resultant force ($F_R$) using the Pythagorean theorem since the forces are perpendicular: \n\n$F_R = \\sqrt{12^2 + 5^2} = \\sqrt{144 + 25} = \\sqrt{169} = 13N$. \n\nUsing Newton's Second Law ($F = ma$): \n\n$a = \\frac{F_R}{m} = \\frac{13}{5} = 2.6ms^{-2}$."
+},
     {
       id: 11, topic: "Optics",
       question: "The focal length of a concave mirror is 15 cm. If an object is placed 30 cm from the mirror, the image is:",
@@ -8274,12 +8369,20 @@ test15: [
       explanation: "0 Kelvin (Absolute Zero) is the theoretical temperature where molecular motion ceases and gas volume becomes zero."
     },
     {
-      id: 14, topic: "Nuclear Physics",
-      question: "The mass number of an atom is the total number of:",
-      options: { A: "Protons and electrons", B: "Protons and neutrons", C: "Electrons and neutrons", D: "Protons only" },
-      correct: "B",
-      explanation: "Mass number (A) represents the total number of nucleons in the nucleus."
-    },
+  id: 14,
+  topic: "Waves",
+  question: "In a resonance tube experiment, the frequency of the tuning fork is 750Hz and the resonating length of air column is 0.3m as shown. The velocity of the wave is:",
+  diagram: "assets/physics/test18/question14.png",
+  options: {
+    A: "1.85ms⁻¹",
+    B: "225ms⁻¹",
+    C: "300ms⁻¹",
+    D: "$53 \\times 10^{-5}ms^{-1}$",
+    E: "2,500ms⁻¹"
+  },
+  correct: "C",
+  explanation: "The diagram shows the second resonant position (first overtone) for a closed pipe. For the second resonance, the length of the air column $l$ is equal to three-quarters of a wavelength ($l = \\frac{3\\lambda}{4}$). Therefore, $\\lambda = \\frac{4l}{3}$. Using the wave formula $V = f\\lambda$, we substitute for $\\lambda$ to get $V = f \\times \\frac{4l}{3}$. Given $f = 750Hz$ and $l = 0.3m$: $V = \\frac{750 \\times 4 \\times 0.3}{3} = \\frac{900}{3} = 300ms^{-1}$. See solution diagram: assets/physics/test18/solution14.png"
+},
     {
       id: 15, topic: "Waves",
       question: "Which wave property is responsible for the 'bending' of waves around an obstacle?",
@@ -8400,12 +8503,19 @@ test15: [
       explanation: "When electrons drop to lower orbits, they emit light at specific discrete wavelengths."
     },
     {
-      id: 32, topic: "Magnetism",
-      question: "The SI unit of inductance is the:",
-      options: { A: "Henry", B: "Farad", C: "Tesla", D: "Weber" },
-      correct: "A",
-      explanation: "Inductance is measured in Henrys (H)."
-    },
+  id: 32,
+  topic: "Capacitors",
+  question: "The resultant capacitance in the figure above is:",
+  diagram: "assets/physics/test18/question32.png",
+  options: {
+    A: "15.0μF",
+    B: "9.8μF",
+    C: "1.3μF",
+    D: "0.8μF"
+  },
+  correct: "D",
+  explanation: "First, find the equivalent capacitance of the parallel combination ($2\mu F$ and $4\mu F$): $C_p = 2 + 4 = 6\mu F$. Now, the circuit consists of $2\mu F$, $3\mu F$, $6\mu F$, and $4\mu F$ capacitors all in series. The total capacitance $C$ is given by: $\\frac{1}{C} = \\frac{1}{2} + \\frac{1}{3} + \\frac{1}{6} + \\frac{1}{4}$. Finding a common denominator (12): $\\frac{1}{C} = \\frac{6+4+2+3}{12} = \\frac{15}{12}$. Therefore, $C = \\frac{12}{15} = 0.8\mu F$."
+},
     {
       id: 33, topic: "Mechanics",
       question: "An object is in stable equilibrium if, when slightly displaced, its center of gravity:",
@@ -8529,12 +8639,19 @@ test15: [
       explanation: "F = mv²/r = (800 × 20²) / 40 = (800 × 400) / 40 = 8000 N."
     },
     {
-      id: 10, topic: "Atomic Physics",
-      question: "Which of the following is NOT a fundamental particle of an atom?",
-      options: { A: "Proton", B: "Neutron", C: "Alpha particle", D: "Electron" },
-      correct: "C",
-      explanation: "Alpha particles are helium nuclei emitted during radioactive decay, not internal components of a stable atom."
-    },
+  "id": 10,
+  "topic": "Equilibrium of Forces",
+  "question": "What's the value of T in the figure above?",
+  "diagram": "assets/physics/test19/question10.png",
+  "options": {
+    "A": "10.0 N",
+    "B": "11.8 N",
+    "C": "20.0 N",
+    "D": "40.0 N"
+  },
+  "correct": "C",
+  "explanation": "To find the tension $T$, we can use the triangle of forces method as shown in the diagram: \n\n![Solution Diagram](assets/physics/test19/solution10.png)\n\nThe angle the string makes with the vertical is $90^\circ - 30^\circ = 60^\circ$. When these forces are arranged in a triangle, they form an equilateral triangle where all interior angles are $60^\circ$. Using the Sine rule:\n\n$$\\frac{20}{\\sin 60^\circ} = \\frac{T}{\\sin 60^\circ}$$\n\n$$T = \\frac{20 \\times \\sin 60^\circ}{\\sin 60^\circ} = 20N$$\n\nAlternatively, resolving vertically for equilibrium: $2T \\sin 30^\circ = 20$. Since $\\sin 30^\circ = 0.5$, we have $2T(0.5) = 20$, which gives $T = 20N$."
+},
     {
       id: 11, topic: "Optics",
       question: "A person standing 2m in front of a plane mirror moves 1m further away. What is the new distance between the person and the image?",
@@ -8557,12 +8674,19 @@ test15: [
       explanation: "At the maximum displacement (amplitude), the particle momentarily stops before changing direction."
     },
     {
-      id: 14, topic: "Current Electricity",
-      question: "Three 2Ω resistors are connected in parallel. Their effective resistance is:",
-      options: { A: "6 Ω", B: "0.67 Ω", C: "1.5 Ω", D: "2 Ω" },
-      correct: "B",
-      explanation: "1/R = 1/2 + 1/2 + 1/2 = 3/2. R = 2/3 ≈ 0.67 Ω."
-    },
+  "id": 14,
+  "topic": "Current Electricity",
+  "question": "The total resistance measured at PQ in the diagram above is:",
+  "diagram": "assets/physics/test19/question14.png",
+  "options": {
+    "A": "$18.0\\Omega$",
+    "B": "$11.0\\Omega$",
+    "C": "$4.0\\Omega$",
+    "D": "$2.0\\Omega$"
+  },
+  "correct": "C",
+  "explanation": "To find the total resistance at PQ, we simplify the circuit in stages:\n\n1. **Series Stage**: The three $2\\Omega$ resistors on the right are in series. Their total resistance is $R_1 = 2 + 2 + 2 = 6\\Omega$. The circuit is redrawn as follows:\n\nassets/physics/test19/solution14_1.png\n\n2. **Parallel Stage**: The $3\\Omega$ and $6\\Omega$ resistors are now in parallel. Their combined resistance is $R_2 = \\frac{R_a \\times R_b}{R_a + R_b} = \\frac{3 \\times 6}{3 + 6} = \\frac{18}{9} = 2\\Omega$. The circuit is redrawn once again as follows:\n\nassets/physics/test19/solution14_2.png\n\n3. **Final Series Stage**: The three remaining resistors ($1\\Omega$, $1\\Omega$, and $2\\Omega$) are in series. The equivalent resistance is $R = 1 + 1 + 2 = 4\\Omega$.\n\nTherefore, the total resistance measured at PQ is $4\\Omega$."
+},
     {
       id: 15, topic: "Heat",
       question: "The SI unit of specific latent heat is:",
@@ -8592,12 +8716,19 @@ test15: [
       explanation: "Proposed by de Broglie, matter (like electrons) exhibits both corpuscular and wave-like properties."
     },
     {
-      id: 19, topic: "Mechanics",
-      question: "The rate of change of momentum is proportional to the applied:",
-      options: { A: "Velocity", B: "Impulse", C: "Force", D: "Acceleration" },
-      correct: "C",
-      explanation: "This is Newton's Second Law of Motion: F = Δp/Δt."
-    },
+  "id": 21,
+  "topic": "Equilibrium of Forces",
+  "question": "A uniform metre rule QR is balanced on a knife edge which is 55cm from R. When a mass of 10g is hung at P as shown in Fig. 2, the mass of the metre rule is:",
+  "diagram": "assets/physics/test19/question19.png",
+  "options": {
+    "A": "550g",
+    "B": "350g",
+    "C": "70g",
+    "D": "35g"
+  },
+  "correct": "C",
+  "explanation": "Since the metre rule is uniform, its mass ($m$) acts at the geometric center, which is the 50cm mark. \n\n1. The rule is 100cm long. If the knife edge is 55cm from R (the right end), its position from Q (the left end) is $100 - 55 = 45\\text{cm}$ mark. \n2. The 10g mass is hung at P, which is 10cm from Q (the 10cm mark). \n3. Taking moments about the pivot (45cm mark): \n   * Anticlockwise moment (from 10g mass): $10 \\times (45 - 10) = 10 \\times 35 = 350\\text{gcm}$. \n   * Clockwise moment (from rule's mass $m$): $m \\times (50 - 45) = m \\times 5 = 5m\\text{gcm}$. \n\nSetting clockwise moment = anticlockwise moment: \n$5m = 350$ \n$m = \\frac{350}{5} = 70\\text{g}$. \n\n![diagram](assets/physics/test19/solution19.png)"
+},
     {
       id: 20, topic: "Elasticity",
       question: "The maximum stress a material can withstand without permanent deformation is the:",
@@ -8749,19 +8880,33 @@ test15: [
 
   test20: [
     {
-      id: 1, topic: "Measurement",
-      question: "Which of the following instruments is most suitable for measuring the thickness of a human hair?",
-      options: { A: "Vernier calliper", B: "Micrometer screw gauge", C: "Metre rule", D: "Measuring tape" },
-      correct: "B",
-      explanation: "A micrometer screw gauge has a higher precision (0.01 mm) than a vernier calliper (0.1 mm), making it ideal for very small diameters."
-    },
-    {
-      id: 2, topic: "Kinematics",
-      question: "The area under a velocity-time graph represents:",
-      options: { A: "Acceleration", B: "Momentum", C: "Distance covered", D: "Average speed" },
-      correct: "C",
-      explanation: "In a v-t graph, the product of velocity and time (area) equals the displacement or distance traveled."
-    },
+  "id": 1,
+  "topic": "Friction",
+  "question": "Calculate the magnitude of the force required to just move a 20kg object along a horizontal surface if the coefficient of friction is 0.2. ($g=10ms^{-2}$)",
+  "diagram": "assets/physics/test20/question1.png",
+  "options": {
+    "A": "400.0N",
+    "B": "40.0N",
+    "C": "4.0N",
+    "D": "0.4N"
+  },
+  "correct": "B",
+  "explanation": "To 'just move' the object, the applied force must be equal to the maximum static frictional force. \n\n1. First, calculate the normal reaction ($R$), which on a horizontal surface is equal to the weight ($W$) of the object: \n   $R = mg = 20 \\times 10 = 200N$. \n2. Use the formula for frictional force ($F$): \n   $F = \\mu R$ \n   $F = 0.2 \\times 200 = 40N$. \n\nTherefore, a force of 40.0N is required."
+},
+  {
+  "id": 2,
+  "topic": "Equilibrium of Forces",
+  "question": "A mirror of weight $75N$ is hung by a cord from a hook on the wall. If the cord makes an angle of $30°$ with the horizontal, what is the tension of the cord?",
+  "diagram": "assets/physics/test20/question2.png",
+  "options": {
+    "A": "150N",
+    "B": "100N",
+    "C": "1500N",
+    "D": "250N"
+  },
+  "correct": "A",
+  "explanation": "To find the tension $T$ in the cord, we resolve the forces acting on the mirror vertically. The vertical component of the tension $T$ that supports the weight of the mirror is $T \\sin 30°$. For the system to be in equilibrium, the upward vertical forces must equal the downward vertical forces:\n\n$$T \\sin 30° = 75$$\n\nSince $\\sin 30° = 0.5$:\n\n$$0.5T = 75$$\n$$T = \\frac{75}{0.5}$$\n$$T = 150N$$"
+},
     {
       id: 3, topic: "Projectiles",
       question: "A ball is thrown horizontally from a tower. Neglecting air resistance, the horizontal component of its velocity:",
@@ -8798,12 +8943,20 @@ test15: [
       explanation: "E = ½ke² = 0.5 × 200 × (0.05)² = 100 × 0.0025 = 0.25 J."
     },
     {
-      id: 8, topic: "Heat",
-      question: "What is the equivalent of 313 K on the Celsius scale?",
-      options: { A: "20°C", B: "40°C", C: "60°C", D: "80°C" },
-      correct: "B",
-      explanation: "°C = K − 273 = 313 − 273 = 40°C."
-    },
+  id: 8,
+  topic: "Capacitors",
+  question: "What is the resultant capacity circuit above?",
+  diagram: "assets/physics/test20/question5.png",
+  options: {
+    A: "1.5μF",
+    B: "18.0μF",
+    C: "6.0μF",
+    D: "6.8μF",
+    E: "8.83μF"
+  },
+  correct: "A",
+  explanation: "First, find the equivalent capacitance of the $1\mu F$ and $5\mu F$ capacitors connected in parallel: $C_p = 1 + 5 = 6\mu F$. This combination is then in series with the two $4\mu F$ capacitors. The total capacitance $C$ is calculated as: $\\frac{1}{C} = \\frac{1}{6} + \\frac{1}{4} + \\frac{1}{4} = \\frac{4 + 6 + 6}{24} = \\frac{16}{24}$. Therefore, $C = \\frac{24}{16} = 1.5\mu F$."
+},
     {
       id: 9, topic: "Gas Laws",
       question: "The volume of a gas at 27°C is 200cm³. What is its volume at 127°C if pressure is constant?",
@@ -8854,12 +9007,19 @@ test15: [
       explanation: "Coulomb's Law (F ∝ 1/r²). If r becomes 1/3, F becomes 1/(1/3)² = 9 times larger."
     },
     {
-      id: 16, topic: "Current Electricity",
-      question: "Calculate the total resistance when three 3Ω resistors are connected in parallel.",
-      options: { A: "9 Ω", B: "1 Ω", C: "0.33 Ω", D: "6 Ω" },
-      correct: "B",
-      explanation: "For identical resistors in parallel, R_total = R/n = 3/3 = 1 Ω."
-    },
+  "id": 16,
+  "topic": "Current Electricity",
+  "question": "The sum of the currents $I_1$ and $I_2$ in the circuit figure below is:",
+  "diagram": "assets/physics/test20/question16.png",
+  "options": {
+    "A": "1.2A",
+    "B": "0.6A",
+    "C": "0.8A",
+    "D": "2.0A"
+  },
+  "correct": "D",
+  "explanation": "In the given parallel circuit, the voltage across each branch is $12V$. For the first branch with current $I_2$ and resistance $10\\Omega$: $I_2 = \\frac{V}{R} = \\frac{12}{10} = 1.2A$. For the second branch with current $I_1$ and two resistors ($5\\Omega$ and $10\\Omega$) in series: $R_{total} = 5 + 10 = 15\\Omega$, so $I_1 = \\frac{12}{15} = 0.8A$. The sum of the currents is $I_1 + I_2 = 1.2A + 0.8A = 2.0A$."
+},
     {
       id: 17, topic: "Current Electricity",
       question: "Which of the following is used to measure the E.M.F. of a cell accurately?",
@@ -8987,12 +9147,19 @@ test15: [
       explanation: "At terminal velocity, the net force is zero; the downward weight is balanced by the upward buoyancy and friction."
     },
     {
-      id: 35, topic: "Waves",
-      question: "The speed of light in vacuum is 3.0 × 10⁸ m/s. Its frequency is 6.0 × 10¹⁴ Hz. Its wavelength is:",
-      options: { A: "5.0 × 10⁻⁷ m", B: "2.0 × 10⁶ m", C: "0.5 × 10⁻⁶ m", D: "Both A and C" },
-      correct: "D",
-      explanation: "λ = v/f = (3 × 10⁸) / (6 × 10¹⁴) = 0.5 × 10⁻⁶ m = 5.0 × 10⁻⁷ m."
+    id: 35,
+    topic: "Electrolysis",
+    question: "A charge of one coulomb liberates $0.0033g$ of copper in an electrolytic process. How long will it take a current of $2A$ to liberate $1.98g$ of copper in such a process?",
+    options: {
+      A: "5 minutes",
+      B: "30 minutes",
+      C: "50 minutes",
+      D: "60 minutes",
+      E: "120 minutes"
     },
+    correct: "A",
+    explanation: "The electrochemical equivalent ($Z$) is given as $0.0033 \\text{ g/C}$ (mass per unit charge). Using Faraday's first law of electrolysis, $M = ZIt$, where $M$ is the mass, $I$ is the current, and $t$ is the time in seconds. Rearranging for time: $t = \\frac{M}{ZI}$. Given $M = 1.98g$, $Z = 0.0033gC^{-1}$, and $I = 2A$, we get $t = \\frac{1.98}{0.0033 \\times 2} = \\frac{1.98}{0.0066} = 300\\text{s}$. To convert to minutes: $\\frac{300}{60} = 5\\text{ minutes}$."
+  },
     {
       id: 36, topic: "Nuclear Physics",
       question: "In a nuclear reactor, control rods are made of:",
